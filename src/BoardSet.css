@@ -1,3 +1,13 @@
+.boardSet {
+  display: flex;
+  justify-content: center;
+}
+
+.players.right {
+  align-self: flex-end
+}
+
+
 /*
 The MIT License (MIT)
 
@@ -57,4 +67,64 @@ table.ban td.lastfrom {
 
 table.ban td.movable {
   background-color: #AAAAFF;
+}
+
+div.mochi {
+  height: 180px;
+  width: 120px;
+}
+
+div.mochi div.mochimain {
+  width: 100%;
+  height: 156px;
+  margin-bottom: 0;
+  margin-top: auto;
+  background-color: #eee;
+}
+
+div.mochi div.mochimain span.mochigoma {
+  position: relative;
+  display: inline-block;
+}
+
+div.mochi div.mochimain span.mochigoma {
+  display: none;
+  position: relative;
+}
+
+div.mochi div.mochimain span.mochigoma.fu {
+  display: inline-block;
+  width: 120px;
+}
+
+div.mochi div.mochimain span.mochigoma.fu-else {
+  display: inline-block;
+  width: 60px;
+}
+
+div.players {
+  height: 100%;
+  width: 120px;
+}
+
+div.players div.mochi div.tebanname {
+  text-align: center;
+  background-color: silver;
+  margin-bottom: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+div.players div.mochi.teban {
+  background-color: #ddd;
+}
+
+div.players div.mochi.teban div.tebanname {
+  text-align: center;
+  background-color: blue;
+  color: white;
+}
+
+div.players div.mochi.teban div.tebanname a {
+  color: white;
 }

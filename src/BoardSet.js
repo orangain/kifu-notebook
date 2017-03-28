@@ -4,7 +4,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
 import JKFPlayer from "json-kifu-format";
-import { Board } from 'kifu-for-js';
+import { Board, Hand } from 'kifu-for-js';
 
 class BoardSet extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class BoardSet extends Component {
 
     this.imageDirectoryPath = "./images";
     this.state = {
-      player: new JKFPlayer({ moves: [{}] }),
+      player: new JKFPlayer({ header: {}, moves: [{}] }),
       reversed: false,
     };
   }
@@ -30,13 +30,26 @@ class BoardSet extends Component {
   render() {
     const player = this.state.player;
     const reversed = this.state.reversed;
+    const playerState = player.getState();
+    const players = [
+      player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
+      player.kifu.header["後手"] || player.kifu.header["上手"] || "後手",
+    ];
 
     return (
-      <Board board={player.getState().board}
-        lastMove={player.getMove()}
-        ImageDirectoryPath={this.imageDirectoryPath}
-        onInputMove={e => { this.onInputMove(e) }}
-        reversed={reversed} />
+      <div className="boardSet">
+        <div className="players left">
+          <Hand color={reversed ? 0 : 1} data={playerState.hands[reversed ? 0 : 1]} playerName={players[reversed ? 0 : 1]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+        </div>
+        <Board board={playerState.board}
+          lastMove={player.getMove()}
+          ImageDirectoryPath={this.imageDirectoryPath}
+          onInputMove={e => { this.onInputMove(e) }}
+          reversed={reversed} />
+        <div className="players right">
+          <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+        </div>
+      </div>
     )
   }
 }
