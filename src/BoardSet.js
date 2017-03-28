@@ -6,6 +6,9 @@ import './BoardSet.css';
 import JKFPlayer from "json-kifu-format";
 import { Board, Hand } from 'kifu-for-js';
 
+import { jkfToKifuTree } from './tree';
+import KifuTree from './tree/KifuTree';
+
 class BoardSet extends Component {
   constructor() {
     super();
@@ -22,6 +25,7 @@ class BoardSet extends Component {
         console.log(jkf);
         this.setState({
           player: new JKFPlayer(jkf),
+          kifuTree: jkfToKifuTree(jkf),
         });
       });
     });
@@ -47,17 +51,28 @@ class BoardSet extends Component {
     ];
 
     return (
-      <div className="boardSet">
-        <div className="players left">
-          <Hand color={reversed ? 0 : 1} data={playerState.hands[reversed ? 0 : 1]} playerName={players[reversed ? 0 : 1]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+      <div>
+        <div className="boardSet">
+          <div className="players left">
+            <Hand color={reversed ? 0 : 1} data={playerState.hands[reversed ? 0 : 1]} playerName={players[reversed ? 0 : 1]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+          </div>
+          <Board board={playerState.board}
+            lastMove={player.getMove()}
+            ImageDirectoryPath={this.imageDirectoryPath}
+            onInputMove={e => { this.onInputMove(e) }}
+            reversed={reversed} />
+          <div className="players right">
+            <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+          </div>
         </div>
-        <Board board={playerState.board}
-          lastMove={player.getMove()}
-          ImageDirectoryPath={this.imageDirectoryPath}
-          onInputMove={e => { this.onInputMove(e) }}
-          reversed={reversed} />
-        <div className="players right">
-          <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+        <div>
+          <KifuTree kifuTree={this.state.kifuTree} onClick={e => {
+            if (e.target.dataset.path) {
+              this.gotoPath(JSON.parse(e.target.dataset.path));
+            } else if (e.target.classList.contains('up') || e.target.classList.contains('down') || e.target.classList.contains('delete')) {
+              this.updateJKFFromKifuTree();
+            }
+          }} />
         </div>
       </div>
     )

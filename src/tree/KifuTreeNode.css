@@ -1,0 +1,29 @@
+.kifu-tree-node .readable-kifu {
+  cursor: pointer;
+}
+
+.kifu-tree-node .current {
+  background-color: orange;
+}
+
+.kifu-tree-node .controls {
+  display: none;
+  margin-left: 12px;
+}
+
+.kifu-tree-node:hover > .controls {
+  display: inline-block;
+}
+
+.kifu-tree-node .controls > span {
+  display: inline-block;
+  cursor: pointer;
+  background: #ccc;
+  color: white;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden;
+}
