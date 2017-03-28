@@ -16,6 +16,16 @@ class BoardSet extends Component {
       reversed: false,
     };
   }
+  componentDidMount() {
+    fetch('./joseki.jkf').then(response => {
+      response.json().then(jkf => {
+        console.log(jkf);
+        this.setState({
+          player: new JKFPlayer(jkf),
+        });
+      });
+    });
+  }
   onInputMove(move) {
     try {
       if (!this.state.player.inputMove(move)) {
