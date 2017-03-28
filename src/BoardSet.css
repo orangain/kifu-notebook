@@ -1,0 +1,60 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2014 na2hiro (https://github.com/na2hiro)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+table.ban {
+  border-collapse: collapse;
+}
+
+table.ban th {
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+table.ban td {
+  border: 1px #000000 solid;
+  background-color: #FDD775;
+  padding: 0px;
+}
+
+table.ban td, table.ban td img, div.mochimain span.mochigoma img, div.mochi div.mochimain span.mochigoma {
+  padding: 0;
+  border-spacing: 0;
+  width: 32px;
+  height: 36px;
+  vertical-align: middle;
+}
+
+table.ban td.lastto {
+  background-color: #FF9900;
+}
+
+table.ban td.lastfrom {
+  background-color: #FFCC00;
+}
+
+table.ban td.movable {
+  background-color: #AAAAFF;
+}
