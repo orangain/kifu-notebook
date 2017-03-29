@@ -3,8 +3,13 @@
   justify-content: center;
 }
 
+.board {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .players.right {
-  align-self: flex-end
+  align-self: flex-end;
 }
 
 
