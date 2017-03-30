@@ -60,13 +60,32 @@ export function kifuTreeToJKF(kifuTree, baseJKF) {
   return newJKF;
 };
 
+export const LOAD_JKF = 'LOAD_JKF';
 export const GOTO_PATH = 'GOTO_PATH';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
 
+const initialState = {
+  player: new JKFPlayer({ header: {}, moves: [{}] }),
+  reversed: false,
+  currentPath: '[]',
+};
+
 export function kifuTree(state, action) {
+  if (!state) {
+    return initialState;
+  }
+
   switch (action.type) {
+    case LOAD_JKF: {
+      const jkf = action.jkf;
+
+      const newPlayer = new JKFPlayer(jkf);
+      const tree = jkfToKifuTree(jkf);
+
+      return Object.assign({}, state, initialState, { kifuTree: tree, player: newPlayer });
+    }
     case GOTO_PATH: {
       const tree = state.kifuTree;
       const pathArray = JSON.parse(action.path);

@@ -6,28 +6,20 @@ import './BoardSet.css';
 import JKFPlayer from "json-kifu-format";
 import { Board, Hand } from 'kifu-for-js';
 
-import { jkfToKifuTree, kifuTree, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
+import { kifuTree, LOAD_JKF, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
   constructor() {
     super();
-
     this.imageDirectoryPath = "./images";
-    this.state = {
-      player: new JKFPlayer({ header: {}, moves: [{}] }),
-      reversed: false,
-      currentPath: '[]',
-    };
+    this.state = kifuTree();
   }
   componentDidMount() {
     fetch('./joseki.jkf').then(response => {
       response.json().then(jkf => {
         console.log(jkf);
-        this.setState({
-          player: new JKFPlayer(jkf),
-          kifuTree: jkfToKifuTree(jkf),
-        });
+        this.executeAction({ type: LOAD_JKF, jkf: jkf });
       });
     });
   }
@@ -41,6 +33,9 @@ class BoardSet extends Component {
       // ignore
     }
     this.setState(this.state);
+  }
+  loadJKF(jkf) {
+    this.executeAction({ type: LOAD_JKF, jkf: jkf });
   }
   gotoPath(path) {
     this.executeAction({ type: GOTO_PATH, path: path });
