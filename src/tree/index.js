@@ -1,56 +1,37 @@
 import JKFPlayer from "json-kifu-format";
 
-export function jkfToKifuTree(jkf) {
-  const moveFormatsToForks = (moveFormats) => {
-    let forks = [];
-    if (moveFormats.length >= 2) {
-      forks.push(moveFormats.slice(1));
-    }
+function jkfToKifuTree(jkf) {
+  const kifuTree = createKifuTreeNode(0, jkf.moves);
+  return kifuTree;
+}
 
-    if (moveFormats[1] && moveFormats[1].forks) {
-      forks = forks.concat(moveFormats[1].forks);
-    }
-    return forks;
+function createKifuTreeNode(tesuu, moveFormats) {
+  const moveFormat = moveFormats[0];
+  //console.log(tesuu, moveFormats);
+  return {
+    tesuu: tesuu,
+    comment: moveFormat.comments ? moveFormat.comments.join('\n') : undefined,
+    move: moveFormat.move,
+    time: moveFormat.time,
+    special: moveFormat.special,
+    readableKifu: tesuu === 0 ? '開始局面' : JKFPlayer.moveToReadableKifu(moveFormat),
+    children: moveFormatsToForks(moveFormats).map((moveFormatsOfFork, i) => createKifuTreeNode(tesuu + 1, moveFormatsOfFork)),
   };
+}
 
-  const createKifuTreeNode = (tesuu, moveFormats, path) => {
-    const moveFormat = moveFormats[0];
-    //console.log(tesuu, moveFormats);
-    return {
-      tesuu: tesuu,
-      comment: moveFormat.comments ? moveFormat.comments.join('\n') : undefined,
-      move: moveFormat.move,
-      time: moveFormat.time,
-      special: moveFormat.special,
-      readableKifu: tesuu === 0 ? '開始局面' : JKFPlayer.moveToReadableKifu(moveFormat),
-      children: moveFormatsToForks(moveFormats).map((moveFormatsOfFork, i) => createKifuTreeNode(tesuu + 1, moveFormatsOfFork, path.concat([i]))),
-    };
-  };
+function moveFormatsToForks(moveFormats) {
+  let forks = [];
+  if (moveFormats.length >= 2) {
+    forks.push(moveFormats.slice(1));
+  }
 
-  return createKifuTreeNode(0, jkf.moves, []);
-};
+  if (moveFormats[1] && moveFormats[1].forks) {
+    forks = forks.concat(moveFormats[1].forks);
+  }
+  return forks;
+}
 
-export function kifuTreeToJKF(kifuTree, baseJKF) {
-  const nodesToMoveFormats = (nodes) => {
-    const primaryNode = nodes[0];
-
-    if (!primaryNode) {
-      return [];
-    }
-
-    // key order is important for readability
-    const primaryMoveFormat = {
-      comments: primaryNode.comment ? primaryNode.comment.split('\n') : undefined,
-      move: primaryNode.move,
-      time: primaryNode.time,
-      special: primaryNode.special,
-      forks: nodes.length >= 2 ? nodes.slice(1).map(childNode => nodesToMoveFormats([childNode]))
-        : undefined,
-    };
-
-    return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children));
-  };
-
+function kifuTreeToJKF(kifuTree, baseJKF) {
   // key order is important for readability
   const newJKF = {
     header: baseJKF.header,
@@ -58,9 +39,30 @@ export function kifuTreeToJKF(kifuTree, baseJKF) {
     moves: [baseJKF.moves[0]].concat(nodesToMoveFormats(kifuTree.children)),
   };
   return newJKF;
-};
+}
+
+function nodesToMoveFormats(nodes) {
+  const primaryNode = nodes[0];
+
+  if (!primaryNode) {
+    return [];
+  }
+
+  // key order is important for readability
+  const primaryMoveFormat = {
+    comments: primaryNode.comment ? primaryNode.comment.split('\n') : undefined,
+    move: primaryNode.move,
+    time: primaryNode.time,
+    special: primaryNode.special,
+    forks: nodes.length >= 2 ? nodes.slice(1).map(childNode => nodesToMoveFormats([childNode]))
+      : undefined,
+  };
+
+  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children));
+}
 
 export const LOAD_JKF = 'LOAD_JKF';
+export const MOVE_PIECE = 'MOVE_PIECE';
 export const GOTO_PATH = 'GOTO_PATH';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
@@ -69,7 +71,7 @@ export const REMOVE_FORK = 'REMOVE_FORK';
 const initialState = {
   player: new JKFPlayer({ header: {}, moves: [{}] }),
   reversed: false,
-  currentPath: '[]',
+  currentPath: JSON.stringify([]),
 };
 
 export function kifuTree(state, action) {
@@ -82,9 +84,27 @@ export function kifuTree(state, action) {
       const jkf = action.jkf;
 
       const newPlayer = new JKFPlayer(jkf);
-      const tree = jkfToKifuTree(jkf);
+      const tree = jkfToKifuTree(newPlayer.kifu);
 
       return Object.assign({}, state, initialState, { kifuTree: tree, player: newPlayer });
+    }
+    case MOVE_PIECE: {
+      const player = state.player;
+      const move = action.move;
+
+      try {
+        if (!player.inputMove(move)) {
+          move.promote = confirm("成りますか？");
+          player.inputMove(move);
+        }
+      } catch (e) {
+        // ignore
+      }
+
+      const tree = jkfToKifuTree(player.kifu);
+      const currentPathArray = findCurrentPathArray(tree, player);
+
+      return Object.assign({}, state, { kifuTree: tree, player: player, currentPath: JSON.stringify(currentPathArray) });
     }
     case GOTO_PATH: {
       const tree = state.kifuTree;

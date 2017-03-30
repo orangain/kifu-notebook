@@ -3,10 +3,9 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
-import JKFPlayer from "json-kifu-format";
 import { Board, Hand } from 'kifu-for-js';
 
-import { kifuTree, LOAD_JKF, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
+import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
@@ -24,15 +23,7 @@ class BoardSet extends Component {
     });
   }
   onInputMove(move) {
-    try {
-      if (!this.state.player.inputMove(move)) {
-        move.promote = confirm("成りますか？");
-        this.state.player.inputMove(move);
-      }
-    } catch (e) {
-      // ignore
-    }
-    this.setState(this.state);
+    this.executeAction({ type: MOVE_PIECE, move: move });
   }
   loadJKF(jkf) {
     this.executeAction({ type: LOAD_JKF, jkf: jkf });
