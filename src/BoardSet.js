@@ -6,7 +6,7 @@ import './BoardSet.css';
 import JKFPlayer from "json-kifu-format";
 import { Board, Hand } from 'kifu-for-js';
 
-import { jkfToKifuTree } from './tree';
+import { jkfToKifuTree, kifuTree, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
@@ -17,6 +17,7 @@ class BoardSet extends Component {
     this.state = {
       player: new JKFPlayer({ header: {}, moves: [{}] }),
       reversed: false,
+      currentPath: '[]',
     };
   }
   componentDidMount() {
@@ -40,6 +41,24 @@ class BoardSet extends Component {
       // ignore
     }
     this.setState(this.state);
+  }
+  gotoPath(path) {
+    this.executeAction({ type: GOTO_PATH, path: path });
+  }
+  moveUpFork(path) {
+    this.executeAction({ type: MOVE_UP_FORK, path: path });
+  }
+  moveDownFork(path) {
+    this.executeAction({ type: MOVE_DOWN_FORK, path: path });
+  }
+  removeFork(path) {
+    this.executeAction({ type: REMOVE_FORK, path: path });
+  }
+  executeAction(action) {
+    const newState = kifuTree(this.state, action);
+    if (newState !== this.state) {
+      this.setState(newState);
+    }
   }
   render() {
     const player = this.state.player;
@@ -68,11 +87,19 @@ class BoardSet extends Component {
           </div>
         </div>
         <div>
-          <KifuTree kifuTree={this.state.kifuTree} onClick={e => {
-            if (e.target.dataset.path) {
-              this.gotoPath(JSON.parse(e.target.dataset.path));
-            } else if (e.target.classList.contains('up') || e.target.classList.contains('down') || e.target.classList.contains('delete')) {
-              this.updateJKFFromKifuTree();
+          <KifuTree kifuTree={this.state.kifuTree} currentPath={this.state.currentPath} onClick={e => {
+            const path = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
+            if (!path) {
+              return; // do nothing
+            }
+            if (e.target.classList.contains('readable-kifu')) {
+              this.gotoPath(path);
+            } else if (e.target.classList.contains('up')) {
+              this.moveUpFork(path);
+            } else if (e.target.classList.contains('down')) {
+              this.moveDownFork(path);
+            } else if (e.target.classList.contains('remove')) {
+              this.removeFork(path);
             }
           }} />
         </div>
