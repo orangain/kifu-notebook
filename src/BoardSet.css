@@ -11,6 +11,10 @@
   align-self: flex-end;
 }
 
+.comment {
+  width: 300px;
+}
+
 
 /*
 The MIT License (MIT)

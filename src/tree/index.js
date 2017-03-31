@@ -32,11 +32,14 @@ function moveFormatsToForks(moveFormats) {
 }
 
 function kifuTreeToJKF(kifuTree, baseJKF) {
+  const firstMove = Object.assign({}, baseJKF.moves[0]);
+  firstMove.comments = kifuTree.comment ? kifuTree.comment.split('\n') : undefined;
+
   // key order is important for readability
   const newJKF = {
     header: baseJKF.header,
     initial: baseJKF.initial,
-    moves: [baseJKF.moves[0]].concat(nodesToMoveFormats(kifuTree.children)),
+    moves: [firstMove].concat(nodesToMoveFormats(kifuTree.children)),
   };
   return newJKF;
 }
@@ -64,6 +67,7 @@ function nodesToMoveFormats(nodes) {
 export const LOAD_JKF = 'LOAD_JKF';
 export const MOVE_PIECE = 'MOVE_PIECE';
 export const GOTO_PATH = 'GOTO_PATH';
+export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
@@ -115,6 +119,19 @@ export function kifuTree(state, action) {
 
       const currentPathArray = findCurrentPathArray(tree, newPlayer);
       return Object.assign({}, state, { player: newPlayer, currentPath: JSON.stringify(currentPathArray) });
+    }
+    case CHANGE_COMMENTS: {
+      const player = state.player;
+      const tree = state.kifuTree;
+      const pathArray = findCurrentPathArray(tree, player);
+      const value = action.value;
+
+      const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArray);
+      lastNode.comment = value;
+      const newPlayer = new JKFPlayer(kifuTreeToJKF(clonedTree, player.kifu));
+      gotoPath(newPlayer, pathArray);
+
+      return Object.assign({}, state, { kifuTree: clonedTree, player: newPlayer });
     }
     case MOVE_UP_FORK: {
       const player = state.player;

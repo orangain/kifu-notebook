@@ -5,7 +5,7 @@ import './BoardSet.css';
 
 import { Board, Hand } from 'kifu-for-js';
 
-import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
+import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
@@ -24,6 +24,9 @@ class BoardSet extends Component {
   }
   onInputMove(move) {
     this.executeAction({ type: MOVE_PIECE, move: move });
+  }
+  onChangeComments(value) {
+    this.executeAction({ type: CHANGE_COMMENTS, value: value });
   }
   loadJKF(jkf) {
     this.executeAction({ type: LOAD_JKF, jkf: jkf });
@@ -70,6 +73,9 @@ class BoardSet extends Component {
           </div>
           <div className="players right">
             <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
+          </div>
+          <div>
+            <textarea rows="10" className="comment" onChange={e => { this.onChangeComments(e.target.value); }} value={this.state.player.getComments().join("\n")}></textarea>
           </div>
         </div>
         <div>
