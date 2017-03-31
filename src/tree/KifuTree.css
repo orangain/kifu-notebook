@@ -16,3 +16,47 @@
 .kifu-tree li {
   min-width: 100px;
 }
+
+.kifu-tree li:first-child:last-child {
+  background: none;
+  padding-top: 0;
+}
+
+.kifu-tree li:first-child:last-child:before {
+  content: none;
+}
+
+.kifu-tree li:first-child {
+  background: url("line-start.png") no-repeat 30px 0;
+  position: relative;
+}
+
+.kifu-tree li:first-child:before {
+  content: "";
+  position: absolute;
+  left: 35px;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background: url("line.png") repeat-x;
+}
+
+.kifu-tree li:last-child {
+  background: url("line-end.png") no-repeat 30px 0;
+  position: relative;
+}
+
+.kifu-tree li:last-child:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 30px;
+  top: 0;
+  height: 5px;
+  background: url("line.png") repeat-x;
+}
+
+.kifu-tree li {
+  background: url("line-middle.png") no-repeat 30px 0, url("line.png") repeat-x;
+  padding-top: 5px;
+}

@@ -1,3 +1,7 @@
+.kifu-tree-node {
+  position: static;
+}
+
 .kifu-tree-node .readable-kifu {
   cursor: pointer;
 }
@@ -13,6 +17,8 @@
   background: #f4f4f4;
   padding: 6px;
   line-height: 12px;
+  width: 78px;
+  z-index: 10;
 }
 
 .kifu-tree-node:hover > .controls {
