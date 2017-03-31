@@ -16,8 +16,8 @@ export default class KifuTreeNode extends React.Component {
           <span className={"readable-kifu" + (path === this.props.currentPath ? " current" : "")}
             title={kifuTreeNode.comment}>{kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
           <span className="controls">
-            <span className="up">↑</span>
-            <span className="down">↓</span>
+            <span className="up">←</span>
+            <span className="down">→</span>
             <span className="remove">×</span>
           </span>
         </div>

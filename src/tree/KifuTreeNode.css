@@ -9,6 +9,10 @@
 .kifu-tree-node .controls {
   display: none;
   margin-left: 12px;
+  position: absolute;
+  background: #f4f4f4;
+  padding: 6px;
+  line-height: 12px;
 }
 
 .kifu-tree-node:hover > .controls {
@@ -26,4 +30,8 @@
   font-size: 12px;
   text-align: center;
   overflow: hidden;
+}
+
+.kifu-tree-node .controls > span:first-child {
+  margin-left: 0;
 }
