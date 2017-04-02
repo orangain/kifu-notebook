@@ -3,7 +3,11 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
-import { Board, Hand } from 'kifu-for-js';
+import { Board, Hand, Piece } from 'kifu-for-js';
+
+Piece.DecoratedComponent.prototype.getPieceImage = (kind, color) => {
+  return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
+};
 
 import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
 import KifuTree from './tree/KifuTree';
