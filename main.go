@@ -11,9 +11,13 @@ import (
 )
 
 func main() {
-	host := "localhost"
-	port := 8888
-	addr := fmt.Sprintf("%s:%d", host, port)
+	opts, err := ParseOpts()
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+
+	addr := fmt.Sprintf("%s:%d", opts.host, opts.port)
 	url := fmt.Sprintf("http://%s/", addr)
 
 	http.Handle("/", http.FileServer(http.Dir("./build")))
@@ -26,7 +30,9 @@ func main() {
 	}
 
 	log.Println("Kifu Notebook is running at:", url)
-	open(url)
+	if !opts.noBrowser {
+		open(url)
+	}
 
 	if err := http.Serve(l, nil); err != nil {
 		log.Fatal(err)
