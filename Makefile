@@ -1,3 +1,5 @@
+SRCS    := $(shell find . -type f -name '*.go')
+
 .PHONY: all get-build-deps clean npm-build
 
 all: get-build-deps clean kifu-notebook
@@ -14,5 +16,5 @@ npm-build:
 bindata.go: npm-build
 	go generate
 
-kifu-notebook: bindata.go
+kifu-notebook: $(SRCS)
 	go build -o kifu-notebook
