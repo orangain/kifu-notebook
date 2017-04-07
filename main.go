@@ -10,6 +10,8 @@ import (
 	"runtime"
 )
 
+//go:generate go-assets-builder --strip-prefix="/build" -o bindata.go build
+
 func main() {
 	opts, err := ParseOpts()
 	if err != nil {
@@ -20,7 +22,7 @@ func main() {
 	addr := fmt.Sprintf("%s:%d", opts.host, opts.port)
 	url := fmt.Sprintf("http://%s/", addr)
 
-	http.Handle("/", http.FileServer(http.Dir("./build")))
+	http.Handle("/", http.FileServer(Assets))
 
 	// See: http://stackoverflow.com/questions/32738188/go-how-can-i-start-the-browser-after-the-server-started-listening
 	l, err := net.Listen("tcp", addr)
