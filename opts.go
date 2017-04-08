@@ -25,14 +25,11 @@ func ParseOpts() (result Opts, err error) {
 	flag.Parse()
 
 	opts.path = flag.Arg(0)
-	if opts.path == "" {
-		opts.path = "joseki.jkf"
-	}
 
-	if help {
+	if help || opts.path == "" {
 		return opts, errors.New(
 			`Usage:
-    kifu-notebook [options] [JKF_FILE]
+    kifu-notebook [options] JKF_FILE
 
 Options:
     -h, --help
