@@ -32,8 +32,12 @@ func (s *Server) HandleJKF(w http.ResponseWriter, r *http.Request) {
 func (s *Server) handleGetJKF(w http.ResponseWriter, r *http.Request) {
 	dat, err := ioutil.ReadFile(s.path)
 	if err != nil {
-		log.Print(err)
-		http.NotFound(w, r)
+		if os.IsNotExist(err) {
+			w.Write([]byte(`{"header": {}, "moves": [{}]}`))
+		} else {
+			log.Print(err)
+			http.NotFound(w, r)
+		}
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")

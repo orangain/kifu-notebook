@@ -22,8 +22,13 @@ func main() {
 	addr := fmt.Sprintf("%s:%d", opts.host, opts.port)
 	url := fmt.Sprintf("http://%s/", addr)
 
+	if !exists(opts.path) {
+		log.Printf("Notebook file '%s' not found. It will be created when you save later.", opts.path)
+	} else {
+		log.Printf("Notebook file '%s' found.", opts.path)
+	}
+
 	server := NewServer(opts.path)
-	log.Print(server.path)
 	http.HandleFunc("/jkf", server.HandleJKF)
 	http.Handle("/", http.FileServer(Assets))
 
@@ -61,4 +66,9 @@ func open(url string) error {
 	}
 	args = append(args, url)
 	return exec.Command(cmd, args...).Start()
+}
+
+func exists(filepath string) bool {
+	_, err := os.Stat(filepath)
+	return err == nil
 }
