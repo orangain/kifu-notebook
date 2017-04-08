@@ -79,7 +79,7 @@ class BoardSet extends Component {
             <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
           </div>
           <div>
-            <textarea rows="10" className="comment" onChange={e => { this.onChangeComments(e.target.value); }} value={this.state.player.getComments().join("\n")}></textarea>
+            <textarea rows="10" className="comment" placeholder="ここに現在の手についてコメントを書けます。" onChange={e => { this.onChangeComments(e.target.value); }} value={this.state.player.getComments().join("\n")}></textarea>
           </div>
         </div>
         <div>
