@@ -43,7 +43,6 @@ Options:
         Port to listen on (default: 8888)
     --no-browser
         Don't open browser`)
-	} else {
-		return opts, nil
 	}
+	return opts, nil
 }
