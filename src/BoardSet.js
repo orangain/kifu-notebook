@@ -26,6 +26,12 @@ class BoardSet extends Component {
       });
     });
   }
+  save() {
+    const body = JSON.stringify(this.state.player.kifu, null, '  ');
+    fetch('/jkf', { method: 'PUT', body: body }).then(() => {
+      alert('Saved');
+    });
+  }
   onInputMove(move) {
     this.executeAction({ type: MOVE_PIECE, move: move });
   }
