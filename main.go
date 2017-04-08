@@ -22,6 +22,9 @@ func main() {
 	addr := fmt.Sprintf("%s:%d", opts.host, opts.port)
 	url := fmt.Sprintf("http://%s/", addr)
 
+	server := NewServer(opts.path)
+	log.Print(server.path)
+	http.HandleFunc("/jkf", server.HandleJKF)
 	http.Handle("/", http.FileServer(Assets))
 
 	// See: http://stackoverflow.com/questions/32738188/go-how-can-i-start-the-browser-after-the-server-started-listening
