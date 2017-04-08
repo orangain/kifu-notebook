@@ -19,7 +19,7 @@ class BoardSet extends Component {
     this.state = kifuTree();
   }
   componentDidMount() {
-    fetch('./joseki.jkf').then(response => {
+    fetch('/jkf').then(response => {
       response.json().then(jkf => {
         console.log(jkf);
         this.executeAction({ type: LOAD_JKF, jkf: jkf });
