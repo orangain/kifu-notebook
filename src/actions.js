@@ -16,11 +16,7 @@ const initialState = {
   currentPath: JSON.stringify([]),
 };
 
-export function kifuTree(state, action) {
-  if (!state) {
-    return initialState;
-  }
-
+export function kifuTree(state = initialState, action) {
   switch (action.type) {
     case LOAD_JKF: {
       const jkf = action.jkf;

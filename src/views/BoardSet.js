@@ -16,7 +16,7 @@ class BoardSet extends Component {
   constructor() {
     super();
     this.imageDirectoryPath = "./images";
-    this.state = kifuTree();
+    this.state = kifuTree(undefined, {});
   }
   componentDidMount() {
     fetch('/jkf').then(response => {
@@ -54,10 +54,7 @@ class BoardSet extends Component {
     this.dispatch({ type: REMOVE_FORK, path: path });
   }
   dispatch(action) {
-    const newState = kifuTree(this.state, action);
-    if (newState !== this.state) {
-      this.setState(newState);
-    }
+    this.setState(prevState => kifuTree(prevState, action));
   }
   render() {
     const player = this.state.player;
