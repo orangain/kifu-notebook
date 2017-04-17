@@ -10,56 +10,16 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
-import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from '../actions';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
   constructor() {
     super();
     this.imageDirectoryPath = "./images";
-    this.state = kifuTree(undefined, {});
-  }
-  componentDidMount() {
-    fetch('/jkf').then(response => {
-      response.json().then(jkf => {
-        console.log(jkf);
-        this.loadJKF(jkf);
-      });
-    });
-  }
-  save() {
-    const body = JSON.stringify(this.state.player.kifu, null, '  ');
-    fetch('/jkf', { method: 'PUT', body: body }).then(() => {
-      alert('Saved');
-    });
-  }
-  onInputMove(move) {
-    this.dispatch({ type: MOVE_PIECE, move: move });
-  }
-  onChangeComments(value) {
-    this.dispatch({ type: CHANGE_COMMENTS, value: value });
-  }
-  loadJKF(jkf) {
-    this.dispatch({ type: LOAD_JKF, jkf: jkf });
-  }
-  gotoPath(path) {
-    this.dispatch({ type: GOTO_PATH, path: path });
-  }
-  moveUpFork(path) {
-    this.dispatch({ type: MOVE_UP_FORK, path: path });
-  }
-  moveDownFork(path) {
-    this.dispatch({ type: MOVE_DOWN_FORK, path: path });
-  }
-  removeFork(path) {
-    this.dispatch({ type: REMOVE_FORK, path: path });
-  }
-  dispatch(action) {
-    this.setState(prevState => kifuTree(prevState, action));
   }
   render() {
-    const player = this.state.player;
-    const reversed = this.state.reversed;
+    const player = this.props.player;
+    const reversed = this.props.reversed;
     const playerState = player.getState();
     const players = [
       player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
@@ -76,30 +36,30 @@ class BoardSet extends Component {
             <Board board={playerState.board}
               lastMove={player.getMove()}
               ImageDirectoryPath={this.imageDirectoryPath}
-              onInputMove={e => { this.onInputMove(e) }}
+              onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
           <div className="players right">
             <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} ImageDirectoryPath={this.imageDirectoryPath} onInputMove={e => { this.onInputMove(e) }} reversed={reversed} />
           </div>
           <div>
-            <textarea rows="10" className="comment" placeholder="ここに現在の手についてコメントを書けます。" onChange={e => { this.onChangeComments(e.target.value); }} value={this.state.player.getComments().join("\n")}></textarea>
+            <textarea rows="10" className="comment" placeholder="ここに現在の手についてコメントを書けます。" onChange={e => { this.props.onChangeComments(e.target.value); }} value={player.getComments().join("\n")}></textarea>
           </div>
         </div>
         <div>
-          <KifuTree kifuTree={this.state.kifuTree} currentPath={this.state.currentPath} onClick={e => {
+          <KifuTree kifuTree={this.props.kifuTree} currentPath={this.props.currentPath} onClick={e => {
             const path = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
             if (!path) {
               return; // do nothing
             }
             if (e.target.classList.contains('readable-kifu')) {
-              this.gotoPath(path);
+              this.props.onClickPath(path);
             } else if (e.target.classList.contains('up')) {
-              this.moveUpFork(path);
+              this.props.onClickMoveUpFork(path);
             } else if (e.target.classList.contains('down')) {
-              this.moveDownFork(path);
+              this.props.onClickMoveDownFork(path);
             } else if (e.target.classList.contains('remove')) {
-              this.removeFork(path);
+              this.props.onClickRemoveFork(path);
             }
           }} />
         </div>
