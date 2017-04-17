@@ -3,9 +3,10 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
-import { Board, Hand, Piece } from 'kifu-for-js';
+import { Board, Hand, Piece, PieceHand } from 'kifu-for-js';
 
-Piece.DecoratedComponent.prototype.getPieceImage = (kind, color) => {
+// Use svg images
+Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.prototype.getPieceImage = (kind, color) => {
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
