@@ -9,7 +9,7 @@ Piece.DecoratedComponent.prototype.getPieceImage = (kind, color) => {
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
-import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './tree';
+import { kifuTree, LOAD_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from '../actions';
 import KifuTree from './tree/KifuTree';
 
 class BoardSet extends Component {
