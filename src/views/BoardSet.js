@@ -22,7 +22,7 @@ class BoardSet extends Component {
     fetch('/jkf').then(response => {
       response.json().then(jkf => {
         console.log(jkf);
-        this.dispatch({ type: LOAD_JKF, jkf: jkf });
+        this.loadJKF(jkf);
       });
     });
   }
