@@ -22,7 +22,7 @@ class BoardSet extends Component {
     fetch('/jkf').then(response => {
       response.json().then(jkf => {
         console.log(jkf);
-        this.executeAction({ type: LOAD_JKF, jkf: jkf });
+        this.dispatch({ type: LOAD_JKF, jkf: jkf });
       });
     });
   }
@@ -33,27 +33,27 @@ class BoardSet extends Component {
     });
   }
   onInputMove(move) {
-    this.executeAction({ type: MOVE_PIECE, move: move });
+    this.dispatch({ type: MOVE_PIECE, move: move });
   }
   onChangeComments(value) {
-    this.executeAction({ type: CHANGE_COMMENTS, value: value });
+    this.dispatch({ type: CHANGE_COMMENTS, value: value });
   }
   loadJKF(jkf) {
-    this.executeAction({ type: LOAD_JKF, jkf: jkf });
+    this.dispatch({ type: LOAD_JKF, jkf: jkf });
   }
   gotoPath(path) {
-    this.executeAction({ type: GOTO_PATH, path: path });
+    this.dispatch({ type: GOTO_PATH, path: path });
   }
   moveUpFork(path) {
-    this.executeAction({ type: MOVE_UP_FORK, path: path });
+    this.dispatch({ type: MOVE_UP_FORK, path: path });
   }
   moveDownFork(path) {
-    this.executeAction({ type: MOVE_DOWN_FORK, path: path });
+    this.dispatch({ type: MOVE_DOWN_FORK, path: path });
   }
   removeFork(path) {
-    this.executeAction({ type: REMOVE_FORK, path: path });
+    this.dispatch({ type: REMOVE_FORK, path: path });
   }
-  executeAction(action) {
+  dispatch(action) {
     const newState = kifuTree(this.state, action);
     if (newState !== this.state) {
       this.setState(newState);
