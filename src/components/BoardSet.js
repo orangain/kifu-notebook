@@ -12,8 +12,7 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
 
 class BoardSet extends Component {
   render() {
-    const player = this.props.player;
-    const reversed = this.props.reversed;
+    const { player, reversed } = this.props;
     const playerState = player.getState();
     const players = [
       player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",

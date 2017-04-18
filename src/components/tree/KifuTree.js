@@ -22,16 +22,14 @@ export default class KifuTree extends React.Component {
     }
   }
   render() {
-    if (!this.props.kifuTree) {
-      return (<div>Waiting tree</div>);
-    }
+    const { kifuTree, currentPath } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNode
-          kifuTreeNode={this.props.kifuTree}
+          kifuTreeNode={kifuTree}
           pathArray={[]}
-          currentPath={this.props.currentPath} />
+          currentPath={currentPath} />
       </ul>
     );
   }

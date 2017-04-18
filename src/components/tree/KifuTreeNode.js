@@ -4,17 +4,18 @@ import './KifuTreeNode.css';
 
 export default class KifuTreeNode extends React.Component {
   render() {
-    const kifuTreeNode = this.props.kifuTreeNode;
-    const pathArray = this.props.pathArray;
-    const path = JSON.stringify(pathArray);
+    const { kifuTreeNode, pathArray, currentPath } = this.props;
+
     const hasComment = kifuTreeNode.comment;
+    const path = JSON.stringify(pathArray);
+    const isCurrent = path === currentPath
     const isBad = hasComment && kifuTreeNode.comment.startsWith('bad:');
     const isControllable = pathArray.length > 0;
 
     return (
       <li className={isBad ? "bad" : ""}>
         <div className="kifu-tree-node" data-path={path}>
-          <span className={"readable-kifu" + (path === this.props.currentPath ? " current" : "")}
+          <span className={"readable-kifu" + (isCurrent ? " current" : "")}
             title={kifuTreeNode.comment}>{kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
           {isControllable ? <span className="controls">
             <span className="up">←</span>
@@ -28,10 +29,7 @@ export default class KifuTreeNode extends React.Component {
               key={childNode.readableKifu}
               kifuTreeNode={childNode}
               pathArray={pathArray.concat([i])}
-              currentPath={this.props.currentPath}
-              onClickUp={e => this.moveUpFork(e, i)}
-              onClickDown={e => this.moveDownFork(e, i)}
-              onClickRemove={e => this.removeFork(e, i)} />
+              currentPath={currentPath} />
           )}
         </ul>
       </li>);

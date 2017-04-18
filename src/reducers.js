@@ -42,51 +42,47 @@ export default function kifuTree(state = initialState, action) {
       return Object.assign({}, state, { currentPathArray: action.pathArray });
     }
     case CHANGE_COMMENTS: {
-      const pathArray = state.currentPathArray;
-      const tree = state.kifuTree;
+      const { kifuTree, currentPathArray } = state;
       const value = action.value;
 
-      const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArray);
+      const { clonedTree, lastNode } = cloneTreeUntil(kifuTree, currentPathArray);
       lastNode.comment = value;
 
       return Object.assign({}, state, { kifuTree: clonedTree });
     }
     case MOVE_UP_FORK: {
-      const tree = state.kifuTree;
-      const currentPathArray = state.currentPathArray;
+      const { kifuTree, currentPathArray } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = moveUpFork(tree, pathArray);
-      if (clonedTree === tree) {
+      const clonedTree = moveUpFork(kifuTree, pathArray);
+      if (clonedTree === kifuTree) {
         return state;
       }
-      const currentStringPathArray = getStringPathArray(tree, currentPathArray);
+      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
 
       return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
     }
     case MOVE_DOWN_FORK: {
-      const tree = state.kifuTree;
-      const currentPathArray = state.currentPathArray;
+      const { kifuTree, currentPathArray } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = moveDownFork(tree, pathArray);
-      if (clonedTree === tree) {
+      const clonedTree = moveDownFork(kifuTree, pathArray);
+      if (clonedTree === kifuTree) {
         return state;
       }
-      const currentStringPathArray = getStringPathArray(tree, currentPathArray);
+      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
 
       return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
     }
     case REMOVE_FORK: {
-      const tree = state.kifuTree;
-      const currentPathArray = state.currentPathArray;
+      const { kifuTree, currentPathArray } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = removeFork(tree, pathArray);
+      const clonedTree = removeFork(kifuTree, pathArray);
 
-      const currentStringPathArray = getStringPathArray(tree, currentPathArray);
+      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
 
       return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
