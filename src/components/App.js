@@ -5,6 +5,9 @@ import BoardSetContainer from '../containers/BoardSetContainer';
 import KifuTreeContainer from '../containers/KifuTreeContainer';
 
 class App extends Component {
+  componentWillMount() {
+    this.props.onLoad();
+  }
   render() {
     return (
       <div className="App">

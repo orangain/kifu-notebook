@@ -7,6 +7,7 @@ const initialState = {
   kifuTree: jkfToKifuTree({ header: {}, moves: [{}] }),
   reversed: false,
   currentPathArray: [],
+  fetching: false,
 };
 
 export default function kifuTree(state = initialState, action) {
@@ -18,7 +19,7 @@ export default function kifuTree(state = initialState, action) {
       const jkf = action.jkf;
       const tree = jkfToKifuTree(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: tree, baseJKF: jkf });
+      return Object.assign({}, state, initialState, { kifuTree: tree, baseJKF: jkf, fetching: false });
     }
     case MOVE_PIECE: {
       const player = buildJKFPlayerFromState(state);

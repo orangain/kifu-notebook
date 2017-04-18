@@ -39,22 +39,7 @@ export function readJKF(jkf) {
   return { type: READ_JKF, jkf: jkf };
 }
 
-export function fetchJKFIfNeeded() {
-  return (dispatch, getState) => {
-    if (shouldFetchJKF(getState())) {
-      return dispatch(fetchJKF());
-    }
-  };
-}
-
-function shouldFetchJKF(state) {
-  if (state.fetching) {
-    return false;
-  }
-  return true;
-}
-
-function fetchJKF() {
+export function fetchJKF() {
   return dispatch => {
     dispatch(requestJKF());
     return fetch('/jkf')
