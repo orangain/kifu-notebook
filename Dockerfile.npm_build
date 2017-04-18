@@ -1,0 +1,8 @@
+FROM node:7.9.0
+
+WORKDIR /app
+
+ADD package.json ./
+RUN npm install
+
+ADD . ./

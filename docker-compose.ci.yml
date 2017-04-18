@@ -1,0 +1,17 @@
+version: '2'
+services:
+  npm_build:
+    build:
+      context: .
+      dockerfile: "Dockerfile.npm_build"
+    command: npm run build
+    volumes:
+      - ./build:/app/build
+  go_build:
+    build:
+      context: .
+      dockerfile: "Dockerfile.go_build"
+    command: make package
+    volumes:
+      - .:/usr/src/kifu-notebook
+    working_dir: /usr/src/kifu-notebook
