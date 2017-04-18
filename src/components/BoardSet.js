@@ -24,19 +24,35 @@ class BoardSet extends Component {
       <div>
         <div className="boardSet">
           <div className="players left">
-            <Hand color={reversed ? 0 : 1} data={playerState.hands[reversed ? 0 : 1]} playerName={players[reversed ? 0 : 1]} onInputMove={e => { this.props.onInputMove(e) }} reversed={reversed} />
+            <Hand
+              color={reversed ? 0 : 1}
+              data={playerState.hands[reversed ? 0 : 1]}
+              playerName={players[reversed ? 0 : 1]}
+              onInputMove={e => { this.props.onInputMove(e) }}
+              reversed={reversed} />
           </div>
           <div className="board">
-            <Board board={playerState.board}
+            <Board
+              board={playerState.board}
               lastMove={player.getMove()}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
           <div className="players right">
-            <Hand color={reversed ? 1 : 0} data={playerState.hands[reversed ? 1 : 0]} playerName={players[reversed ? 1 : 0]} onInputMove={e => { this.props.onInputMove(e) }} reversed={reversed} />
+            <Hand
+              color={reversed ? 1 : 0}
+              data={playerState.hands[reversed ? 1 : 0]}
+              playerName={players[reversed ? 1 : 0]}
+              onInputMove={e => { this.props.onInputMove(e) }}
+              reversed={reversed} />
           </div>
           <div>
-            <textarea rows="10" className="comment" placeholder="ここに現在の手についてコメントを書けます。" onChange={e => { this.props.onChangeComments(e.target.value); }} value={player.getComments().join("\n")}></textarea>
+            <textarea
+              rows="10"
+              className="comment"
+              placeholder="ここに現在の手についてコメントを書けます。"
+              onChange={e => { this.props.onChangeComments(e.target.value); }}
+              value={player.getComments().join("\n")}></textarea>
           </div>
         </div>
       </div>

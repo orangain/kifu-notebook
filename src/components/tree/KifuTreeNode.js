@@ -24,8 +24,15 @@ export default class KifuTreeNode extends React.Component {
         </div>
         <ul>
           {kifuTreeNode.children.map((childNode, i) =>
-            <KifuTreeNode key={childNode.readableKifu} kifuTreeNode={childNode} pathArray={pathArray.concat([i])} currentPath={this.props.currentPath}
-              onClickUp={e => this.moveUpFork(e, i)} onClickDown={e => this.moveDownFork(e, i)} onClickRemove={e => this.removeFork(e, i)} />)}
+            <KifuTreeNode
+              key={childNode.readableKifu}
+              kifuTreeNode={childNode}
+              pathArray={pathArray.concat([i])}
+              currentPath={this.props.currentPath}
+              onClickUp={e => this.moveUpFork(e, i)}
+              onClickDown={e => this.moveDownFork(e, i)}
+              onClickRemove={e => this.removeFork(e, i)} />
+          )}
         </ul>
       </li>);
   }
