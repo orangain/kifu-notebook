@@ -5,7 +5,7 @@ import { inputMove, changeComments } from '../actions';
 import BoardSet from '../components/BoardSet';
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   const player = buildJKFPlayerFromState(state);
 
   return {
