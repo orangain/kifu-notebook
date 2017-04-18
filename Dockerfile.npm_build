@@ -3,6 +3,6 @@ FROM node:7.9.0
 WORKDIR /app
 
 ADD package.json ./
-RUN npm install
+RUN npm install --quiet
 
 ADD . ./
