@@ -20,9 +20,12 @@
   height: 40px;
 }
 
-.App-header .global-controls .message {
+.App-header .global-controls > * {
   display: inline-block;
-  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.App-header .global-controls .message {
   color: gray;
   font-size: 80%;
 }

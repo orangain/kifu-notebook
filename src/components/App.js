@@ -15,6 +15,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <div className="global-controls">
             <span className="message">{this.props.message}</span>
+            <label><input type="checkbox" checked={this.props.isAutoSaveEnabled} onChange={e => this.props.onChangeAutoSave(e.target.checked)} />AutoSave</label>
             <button onClick={e => this.props.onClickSave()} >Save</button>
           </div>
           <h2>Kifu Notebook</h2>

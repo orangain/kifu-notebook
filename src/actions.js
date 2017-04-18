@@ -3,6 +3,7 @@ export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
 export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
 export const RECEIVE_PUT_JKF = 'RECEIVE_PUT_JKF';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+export const CHANGE_AUTO_SAVE = 'CHANGE_AUTO_SAVE';
 
 export const MOVE_PIECE = 'MOVE_PIECE';
 export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
@@ -52,6 +53,11 @@ export function receivePutJKF() {
 
 export function clearMessage() {
   return { type: CLEAR_MESSAGE };
+}
+
+export function changeAutoSave(enabled) {
+  //console.log(enabled);
+  return { type: CHANGE_AUTO_SAVE, enabled: enabled };
 }
 
 export function inputMove(move) {
