@@ -48,10 +48,10 @@ export function fetchJKFIfNeeded() {
 }
 
 function shouldFetchJKF(state) {
-  if (!state.kifuTree) {
-    return true;
+  if (state.fetching) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 function fetchJKF() {
