@@ -1,20 +1,25 @@
 .kifu-tree {
-  width: 10000px;
   overflow: scroll;
+  margin: 0;
+  padding: 10px 40px 10px;
+  list-style: none;
+  background: #f8f8f8;
 }
 
 .kifu-tree .bad {
   color: darkgray;
 }
 
-.kifu-tree, .kifu-tree ul {
+.kifu-tree ul {
   padding-left: 0;
-  display: flex;
   list-style: none;
 }
 
 .kifu-tree li {
   min-width: 100px;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 .kifu-tree li:first-child:last-child {

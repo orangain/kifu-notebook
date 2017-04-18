@@ -22,8 +22,8 @@ class App extends Component {
         </div>
         <div className="App-body">
           <BoardSetContainer />
-          <KifuTreeContainer />
         </div>
+        <KifuTreeContainer />
       </div>
     );
   }
