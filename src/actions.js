@@ -22,6 +22,8 @@ export function fetchJKF() {
   };
 }
 
+let clearMessageTimeout;
+
 export function storeJKF(jkf) {
   return (dispatch, getState) => {
     dispatch(requestPutJKF());
@@ -30,7 +32,13 @@ export function storeJKF(jkf) {
     fetch('/jkf', { method: 'PUT', body: body })
       .then(() => {
         dispatch(receivePutJKF());
-        setTimeout(() => dispatch(clearMessage()), 5000);
+        if (clearMessageTimeout) {
+          clearTimeout(clearMessageTimeout);
+        }
+        clearMessageTimeout = setTimeout(() => {
+          clearMessageTimeout = undefined;
+          dispatch(clearMessage());
+        }, 5000);
       });
   };
 }
