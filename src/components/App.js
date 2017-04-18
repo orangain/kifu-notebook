@@ -14,6 +14,7 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <div className="global-controls">
+            <span className="message">{this.props.message}</span>
             <button onClick={e => this.props.onClickSave()} >Save</button>
           </div>
           <h2>Kifu Notebook</h2>

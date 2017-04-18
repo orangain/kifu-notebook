@@ -5,6 +5,7 @@ import App from '../components/App';
 
 const mapStateToProps = (state) => {
   return {
+    message: state.message,
   }
 };
 

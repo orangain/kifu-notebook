@@ -1,11 +1,58 @@
-export const REQUEST_JKF = 'REQUEST_JKF';
-export const READ_JKF = 'READ_JKF';
+export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
+export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
+export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
+export const RECEIVE_PUT_JKF = 'RECEIVE_PUT_JKF';
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+
 export const MOVE_PIECE = 'MOVE_PIECE';
-export const GOTO_PATH = 'GOTO_PATH';
 export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
+
+export const GOTO_PATH = 'GOTO_PATH';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
+
+export function fetchJKF() {
+  return dispatch => {
+    dispatch(requestGetJKF());
+    return fetch('/jkf')
+      .then(response => response.json())
+      .then(json => dispatch(receiveGetJKF(json)));
+  };
+}
+
+export function storeJKF(jkf) {
+  return (dispatch, getState) => {
+    dispatch(requestPutJKF());
+    const state = getState();
+    const body = JSON.stringify(state.jkf, null, '  ');
+    fetch('/jkf', { method: 'PUT', body: body })
+      .then(() => {
+        dispatch(receivePutJKF());
+        setTimeout(() => dispatch(clearMessage()), 5000);
+      });
+  };
+}
+
+export function requestGetJKF() {
+  return { type: REQUEST_GET_JKF };
+}
+
+export function receiveGetJKF(jkf) {
+  return { type: RECEIVE_GET_JKF, jkf: jkf };
+}
+
+export function requestPutJKF() {
+  return { type: REQUEST_PUT_JKF };
+}
+
+export function receivePutJKF() {
+  return { type: RECEIVE_PUT_JKF };
+}
+
+export function clearMessage() {
+  return { type: CLEAR_MESSAGE };
+}
 
 export function inputMove(move) {
   return { type: MOVE_PIECE, move: move };
@@ -29,31 +76,4 @@ export function moveDownFork(pathArray) {
 
 export function removeFork(pathArray) {
   return { type: REMOVE_FORK, pathArray: pathArray };
-}
-
-export function requestJKF() {
-  return { type: REQUEST_JKF };
-}
-
-export function readJKF(jkf) {
-  return { type: READ_JKF, jkf: jkf };
-}
-
-export function fetchJKF() {
-  return dispatch => {
-    dispatch(requestJKF());
-    return fetch('/jkf')
-      .then(response => response.json())
-      .then(json => dispatch(readJKF(json)));
-  };
-}
-
-export function storeJKF(jkf) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const body = JSON.stringify(state.player.kifu, null, '  ');
-    fetch('/jkf', { method: 'PUT', body: body }).then(() => {
-      alert('Saved!');
-    });
-  };
 }

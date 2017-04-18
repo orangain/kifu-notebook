@@ -1,4 +1,4 @@
-import { REQUEST_JKF, READ_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
+import { REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, CLEAR_MESSAGE, MOVE_PIECE, CHANGE_COMMENTS, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
 import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
@@ -13,14 +13,23 @@ const initialState = {
 
 export default function kifuTree(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_JKF: {
+    case REQUEST_GET_JKF: {
       return Object.assign({}, state, { fetching: true });
     }
-    case READ_JKF: {
+    case RECEIVE_GET_JKF: {
       const jkf = action.jkf;
       const tree = jkfToKifuTree(jkf);
 
       return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, fetching: false });
+    }
+    case REQUEST_PUT_JKF: {
+      return Object.assign({}, state, { message: "Saving..." });
+    }
+    case RECEIVE_PUT_JKF: {
+      return Object.assign({}, state, { message: "Saved" });
+    }
+    case CLEAR_MESSAGE: {
+      return Object.assign({}, state, { message: "" });
     }
     case MOVE_PIECE: {
       const player = buildJKFPlayerFromState(state);
