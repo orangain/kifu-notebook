@@ -2,7 +2,7 @@ SRCS    := $(shell find . -type f -name '*.go')
 
 .PHONY: all get-build-deps clean npm-build gox package release
 
-all: get-build-deps clean kifu-notebook
+all: get-build-deps clean npm-build kifu-notebook
 
 get-build-deps:
 	go get github.com/jessevdk/go-assets-builder

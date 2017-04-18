@@ -16,6 +16,8 @@ Open JKF_FILE as a notebook.
 $ kifu-notebook JKF_FILE
 ```
 
+Example JKF file is available in `examples/joseki.jkf`.
+
 Full usage:
 
 ```
@@ -37,7 +39,7 @@ Options:
 
 ### Requirements
 
-* Node.js
+* Node.js 6.9+
 
 ### Install dependencies
 
@@ -59,11 +61,11 @@ Then start webpack dev server.
 $ npm start
 ```
 
-## Development of Command
+## Development of CLI
 
 ### Requirements
 
-* Go
+* Go 1.7+
 * Make
 
 ### Build
@@ -72,11 +74,35 @@ $ npm start
 $ make
 ```
 
-### Deploy
+You will see an executable `kifu-notebook`.
+
+## Release
+
+### Requirements
+
+* Docker
+* Docker Compose
+
+### Install dependencies
+
+```
+go get -u github.com/tcnksm/ghr
+```
+
+### Build with Docker
 
 ```
 $ docker-compose -f docker-compose.ci.yml build
 $ docker-compose -f docker-compose.ci.yml run --rm npm_build
 $ docker-compose -f docker-compose.ci.yml run --rm go_build
+```
+
+You will see zip archives in `dist/master` directory.
+
+### Make Release
+
+Environment variable `GITHUB_TOKEN` is required. See: https://github.com/tcnksm/ghr
+
+```
 $ make release
 ```
