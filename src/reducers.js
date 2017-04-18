@@ -97,6 +97,9 @@ export default function kifuTree(state = initialState, action) {
 };
 
 function moveUpFork(tree, pathArray) {
+  if (pathArray.length === 0) {
+    return tree; // do nothing
+  }
   const lastNum = pathArray[pathArray.length - 1];
   const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
   if (lastNum === 0) {
@@ -116,6 +119,9 @@ function moveUpFork(tree, pathArray) {
 }
 
 function moveDownFork(tree, pathArray) {
+  if (pathArray.length === 0) {
+    return tree; // do nothing
+  }
   const lastNum = pathArray[pathArray.length - 1];
   const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
   if (lastNum === findNodeByPath(tree, pathArrayOfParent).children.length - 1) {
@@ -135,6 +141,9 @@ function moveDownFork(tree, pathArray) {
 }
 
 function removeFork(tree, pathArray) {
+  if (pathArray.length === 0) {
+    return tree; // do nothing
+  }
   const lastNum = pathArray[pathArray.length - 1];
   const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
 

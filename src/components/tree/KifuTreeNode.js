@@ -9,17 +9,18 @@ export default class KifuTreeNode extends React.Component {
     const path = JSON.stringify(pathArray);
     const hasComment = kifuTreeNode.comment;
     const isBad = hasComment && kifuTreeNode.comment.startsWith('bad:');
+    const isControllable = pathArray.length > 0;
 
     return (
       <li className={isBad ? "bad" : ""}>
         <div className="kifu-tree-node" data-path={path}>
           <span className={"readable-kifu" + (path === this.props.currentPath ? " current" : "")}
             title={kifuTreeNode.comment}>{kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
-          <span className="controls">
+          {isControllable ? <span className="controls">
             <span className="up">←</span>
             <span className="down">→</span>
             <span className="remove">×</span>
-          </span>
+          </span> : null}
         </div>
         <ul>
           {kifuTreeNode.children.map((childNode, i) =>
