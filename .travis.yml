@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+language: go
+
+install:
+  - go get -u github.com/tcnksm/ghr
+
+script:
+  - docker-compose -f docker-compose.ci.yml build
+  - docker-compose -f docker-compose.ci.yml run --rm npm_build
+  - docker-compose -f docker-compose.ci.yml run --rm go_build
+  - make release
