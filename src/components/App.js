@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import BoardSetContainer from '../containers/BoardSetContainer';
+import KifuTreeContainer from '../containers/KifuTreeContainer';
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
           <h2>Kifu Notebook</h2>
         </div>
         <div className="App-body">
-          <BoardSetContainer ref="wrappedBoardset" />
+          <BoardSetContainer />
+          <KifuTreeContainer />
         </div>
       </div>
     );

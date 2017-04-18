@@ -10,8 +10,6 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
-import KifuTree from './tree/KifuTree';
-
 class BoardSet extends Component {
   constructor() {
     super();
@@ -45,23 +43,6 @@ class BoardSet extends Component {
           <div>
             <textarea rows="10" className="comment" placeholder="ここに現在の手についてコメントを書けます。" onChange={e => { this.props.onChangeComments(e.target.value); }} value={player.getComments().join("\n")}></textarea>
           </div>
-        </div>
-        <div>
-          <KifuTree kifuTree={this.props.kifuTree} currentPath={this.props.currentPath} onClick={e => {
-            const path = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
-            if (!path) {
-              return; // do nothing
-            }
-            if (e.target.classList.contains('readable-kifu')) {
-              this.props.onClickPath(path);
-            } else if (e.target.classList.contains('up')) {
-              this.props.onClickMoveUpFork(path);
-            } else if (e.target.classList.contains('down')) {
-              this.props.onClickMoveDownFork(path);
-            } else if (e.target.classList.contains('remove')) {
-              this.props.onClickRemoveFork(path);
-            }
-          }} />
         </div>
       </div>
     )
