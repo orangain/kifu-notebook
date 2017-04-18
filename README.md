@@ -1,4 +1,4 @@
-# Kifu Notebook
+# Kifu Notebook [![Build Status](https://travis-ci.org/orangain/kifu-notebook.svg?branch=master)](https://travis-ci.org/orangain/kifu-notebook)
 
 The Kifu Notebook is a web-based app to take a note of Kifu in Shogi.
 
