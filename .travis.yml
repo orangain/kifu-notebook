@@ -12,4 +12,4 @@ script:
   - docker-compose -f docker-compose.ci.yml build
   - docker-compose -f docker-compose.ci.yml run --rm npm_build
   - docker-compose -f docker-compose.ci.yml run --rm go_build
-  - make release
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then make release; fi
