@@ -9,14 +9,16 @@ export default class KifuTree extends React.Component {
     if (!path) {
       return; // do nothing
     }
+    const pathArray = JSON.parse(path);
+
     if (e.target.classList.contains('readable-kifu')) {
-      this.props.onClickPath(path);
+      this.props.onClickPath(pathArray);
     } else if (e.target.classList.contains('up')) {
-      this.props.onClickMoveUpFork(path);
+      this.props.onClickMoveUpFork(pathArray);
     } else if (e.target.classList.contains('down')) {
-      this.props.onClickMoveDownFork(path);
+      this.props.onClickMoveDownFork(pathArray);
     } else if (e.target.classList.contains('remove')) {
-      this.props.onClickRemoveFork(path);
+      this.props.onClickRemoveFork(pathArray);
     }
   }
   render() {

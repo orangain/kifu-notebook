@@ -4,9 +4,11 @@ import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
 import KifuTree from '../components/tree/KifuTree';
 
 const mapStateToProps = (state) => {
+  const currentPath = JSON.stringify(state.currentPathArray);
+
   return {
     kifuTree: state.kifuTree,
-    currentPath: state.currentPath,
+    currentPath: currentPath,
   }
 };
 
