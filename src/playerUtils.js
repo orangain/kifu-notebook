@@ -1,10 +1,8 @@
 import JKFPlayer from "json-kifu-format";
 
-import { kifuTreeToJKF } from './treeUtils';
-
 export function buildJKFPlayerFromState(state) {
-  const { kifuTree, baseJKF, currentPathArray } = state;
-  const player = new JKFPlayer(kifuTreeToJKF(kifuTree, baseJKF));
+  const { jkf, currentPathArray } = state;
+  const player = new JKFPlayer(jkf);
   gotoPath(player, currentPathArray);
 
   return player;

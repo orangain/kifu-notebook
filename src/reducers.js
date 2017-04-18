@@ -1,10 +1,11 @@
 import { REQUEST_JKF, READ_JKF, MOVE_PIECE, GOTO_PATH, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
-import { jkfToKifuTree } from "./treeUtils";
+import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
+const initialJKF = { header: {}, moves: [{}] };
 const initialState = {
-  baseJKF: { header: {}, moves: [{}] },
-  kifuTree: jkfToKifuTree({ header: {}, moves: [{}] }),
+  jkf: initialJKF,
+  kifuTree: jkfToKifuTree(initialJKF),
   reversed: false,
   currentPathArray: [],
   fetching: false,
@@ -19,7 +20,7 @@ export default function kifuTree(state = initialState, action) {
       const jkf = action.jkf;
       const tree = jkfToKifuTree(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: tree, baseJKF: jkf, fetching: false });
+      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, fetching: false });
     }
     case MOVE_PIECE: {
       const player = buildJKFPlayerFromState(state);
@@ -34,25 +35,27 @@ export default function kifuTree(state = initialState, action) {
         // ignore
       }
 
-      const tree = jkfToKifuTree(player.kifu);
-      const currentPathArray = findCurrentPathArray(tree, player);
+      const jkf = player.kifu;
+      const kifuTree = jkfToKifuTree(jkf);
+      const currentPathArray = findCurrentPathArray(kifuTree, player);
 
-      return Object.assign({}, state, { kifuTree: tree, currentPathArray: currentPathArray });
+      return Object.assign({}, state, { kifuTree: kifuTree, currentPathArray: currentPathArray, jkf: jkf });
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPathArray: action.pathArray });
     }
     case CHANGE_COMMENTS: {
-      const { kifuTree, currentPathArray } = state;
+      const { kifuTree, currentPathArray, jkf } = state;
       const value = action.value;
 
       const { clonedTree, lastNode } = cloneTreeUntil(kifuTree, currentPathArray);
       lastNode.comment = value;
+      const newJKF = kifuTreeToJKF(clonedTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree });
+      return Object.assign({}, state, { kifuTree: clonedTree, jkf: newJKF });
     }
     case MOVE_UP_FORK: {
-      const { kifuTree, currentPathArray } = state;
+      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
       const clonedTree = moveUpFork(kifuTree, pathArray);
@@ -61,11 +64,12 @@ export default function kifuTree(state = initialState, action) {
       }
       const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
+      const newJKF = kifuTreeToJKF(clonedTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
+      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF });
     }
     case MOVE_DOWN_FORK: {
-      const { kifuTree, currentPathArray } = state;
+      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
       const clonedTree = moveDownFork(kifuTree, pathArray);
@@ -74,19 +78,21 @@ export default function kifuTree(state = initialState, action) {
       }
       const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
+      const newJKF = kifuTreeToJKF(clonedTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
+      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF });
     }
     case REMOVE_FORK: {
-      const { kifuTree, currentPathArray } = state;
+      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
       const clonedTree = removeFork(kifuTree, pathArray);
 
       const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
       const newPathArray = getPathArray(clonedTree, currentStringPathArray);
+      const newJKF = kifuTreeToJKF(clonedTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray });
+      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF });
     }
     default:
       return state;
