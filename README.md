@@ -2,7 +2,7 @@
 
 The Kifu Notebook is a web-based app to take a note of Kifu in Shogi.
 
-![Screenshot of Kifu Notebook](https://raw.githubusercontent.com/orangain/kifu-notebook/master/doc/screenshot.png)
+![Screenshot of Kifu Notebook](https://raw.githubusercontent.com/orangain/kifu-notebook/master/docs/screenshot.png)
 
 ## Installation
 
