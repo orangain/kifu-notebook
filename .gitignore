@@ -18,5 +18,5 @@ yarn-error.log*
 
 
 # Go binary
-kifu-notebook
-bindata.go
+/kifu-notebook
+/cmd/kifu-notebook/bindata.go

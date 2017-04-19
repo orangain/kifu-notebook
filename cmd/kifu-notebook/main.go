@@ -10,8 +10,6 @@ import (
 	"runtime"
 )
 
-//go:generate go-assets-builder --strip-prefix="/build/app" -o bindata.go build/app
-
 func main() {
 	opts, err := ParseOpts()
 	if err != nil {
