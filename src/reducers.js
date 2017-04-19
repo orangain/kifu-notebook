@@ -1,4 +1,4 @@
-import { REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
+import { REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
 import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
@@ -29,6 +29,9 @@ export default function kifuTree(state = initialState, action) {
     }
     case RECEIVE_PUT_JKF: {
       return Object.assign({}, state, { message: "Saved" });
+    }
+    case FAIL_PUT_JKF: {
+      return Object.assign({}, state, { message: "Failed" });
     }
     case CLEAR_MESSAGE: {
       return Object.assign({}, state, { message: "" });

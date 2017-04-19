@@ -2,6 +2,7 @@ export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
 export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
 export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
 export const RECEIVE_PUT_JKF = 'RECEIVE_PUT_JKF';
+export const FAIL_PUT_JKF = 'FAIL_PUT_JKF';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 export const CHANGE_AUTO_SAVE = 'CHANGE_AUTO_SAVE';
 
@@ -25,20 +26,37 @@ export function fetchJKF() {
 let clearMessageTimeout;
 
 export function storeJKF(jkf) {
+
   return (dispatch, getState) => {
+    function clearMessageLater() {
+      if (clearMessageTimeout) {
+        clearTimeout(clearMessageTimeout);
+      }
+      clearMessageTimeout = setTimeout(() => {
+        clearMessageTimeout = undefined;
+        dispatch(clearMessage());
+      }, 5000);
+    }
+
     dispatch(requestPutJKF());
     const state = getState();
     const body = JSON.stringify(state.jkf, null, '  ');
     fetch('/jkf', { method: 'PUT', body: body })
-      .then(() => {
-        dispatch(receivePutJKF());
-        if (clearMessageTimeout) {
-          clearTimeout(clearMessageTimeout);
+      .then((response) => {
+        if (response.ok) {
+          dispatch(receivePutJKF());
+        } else {
+          console.error(response);
+          console.log(body);  // to preserve data
+          dispatch(failPutJKF(response));
         }
-        clearMessageTimeout = setTimeout(() => {
-          clearMessageTimeout = undefined;
-          dispatch(clearMessage());
-        }, 5000);
+        clearMessageLater();
+      })
+      .catch((e) => {
+        dispatch(failPutJKF(e));
+        console.error(e);
+        console.log(body);  // to preserve data
+        clearMessageLater();
       });
   };
 }
@@ -57,6 +75,10 @@ export function requestPutJKF() {
 
 export function receivePutJKF() {
   return { type: RECEIVE_PUT_JKF };
+}
+
+export function failPutJKF(e) {
+  return { type: FAIL_PUT_JKF, error: e };
 }
 
 export function clearMessage() {
