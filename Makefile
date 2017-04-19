@@ -26,7 +26,7 @@ gox: bindata.go $(SRCS)
 	gox $(GOX_OPTS) -output "build/cli/${VERSION_NAME}/{{.Dir}}_${VERSION_NAME}_{{.OS}}_{{.Arch}}/{{.Dir}}"
 
 package: gox
-	./package.sh build/cli/${VERSION_NAME} build/archives/${VERSION_NAME}
+	./scripts/package.sh build/cli/${VERSION_NAME} build/archives/${VERSION_NAME}
 
 release:
 	ghr -u orangain --prerelease --replace pre-release build/archives/${VERSION_NAME}
