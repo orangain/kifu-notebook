@@ -1,3 +1,7 @@
+branches:
+  except:
+    - pre-release
+
 sudo: required
 
 services:
