@@ -20,7 +20,3 @@ yarn-error.log*
 # Go binary
 kifu-notebook
 bindata.go
-
-# build
-/out
-/dist

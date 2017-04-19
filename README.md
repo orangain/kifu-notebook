@@ -99,7 +99,7 @@ $ docker-compose -f docker-compose.ci.yml run --rm npm_build
 $ docker-compose -f docker-compose.ci.yml run --rm go_build
 ```
 
-You will see zip archives in `dist/master` directory.
+You will see zip archives in `build/archives/master` directory.
 
 ### Make Release
 

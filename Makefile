@@ -23,10 +23,10 @@ GOX_OPTS=-osarch "linux/amd64 linux/386 linux/arm darwin/amd64 darwin/386 window
 VERSION_NAME=master
 
 gox: bindata.go $(SRCS)
-	gox $(GOX_OPTS) -output "out/${VERSION_NAME}/{{.Dir}}_${VERSION_NAME}_{{.OS}}_{{.Arch}}/{{.Dir}}"
+	gox $(GOX_OPTS) -output "build/cli/${VERSION_NAME}/{{.Dir}}_${VERSION_NAME}_{{.OS}}_{{.Arch}}/{{.Dir}}"
 
 package: gox
-	./package.sh out/${VERSION_NAME} dist/${VERSION_NAME}
+	./package.sh build/cli/${VERSION_NAME} build/archives/${VERSION_NAME}
 
 release:
-	ghr -u orangain --prerelease --replace pre-release dist/${VERSION_NAME}
+	ghr -u orangain --prerelease --replace pre-release build/archives/${VERSION_NAME}
