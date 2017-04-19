@@ -49,7 +49,7 @@ export default function kifuTree(state = initialState, action) {
           player.inputMove(move);
         }
       } catch (e) {
-        // ignore
+        alert(e);
       }
 
       const newJKF = player.kifu;
