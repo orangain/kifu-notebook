@@ -29,4 +29,4 @@ package: gox
 	./scripts/package.sh build/cli/${VERSION_NAME} build/archives/${VERSION_NAME}
 
 release:
-	ghr -u orangain --prerelease --replace pre-release build/archives/${VERSION_NAME}
+	ghr -u orangain --prerelease --delete --replace pre-release build/archives/${VERSION_NAME}
