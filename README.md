@@ -2,6 +2,8 @@
 
 The Kifu Notebook is a web-based app to take a note of Kifu in Shogi.
 
+![Screenshot of Kifu Notebook](https://raw.githubusercontent.com/orangain/kifu-notebook/master/doc/screenshot.png)
+
 ## Installation
 
 Download the latest zip archive for your architecture from [Releases](https://github.com/orangain/kifu-notebook/releases), then unzip it.
