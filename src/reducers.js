@@ -2,7 +2,7 @@ import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
-  GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
+  GOTO_PATH, GO_BACK, GO_FORWARD, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
 import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
@@ -76,6 +76,23 @@ export default function kifuTree(state = initialState, action) {
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPathArray: action.pathArray });
+    }
+    case GO_BACK: {
+      const { currentPathArray } = state;
+      if (currentPathArray.length === 0) {
+        return state;
+      }
+      const newPathArray = currentPathArray.slice(0, -1);
+      return Object.assign({}, state, { currentPathArray: newPathArray });
+    }
+    case GO_FORWARD: {
+      const { kifuTree, currentPathArray } = state;
+      const currentNode = findNodeByPath(kifuTree, currentPathArray);
+      if (currentNode.children.length === 0) {
+        return state;
+      }
+      const newPathArray = [...currentPathArray, 0];
+      return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case CHANGE_COMMENTS: {
       const { kifuTree, currentPathArray, jkf } = state;

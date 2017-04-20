@@ -32,6 +32,10 @@ class BoardSet extends Component {
             <div>
               <label><input type="checkbox" checked={reversed} onChange={e => this.props.onChangeReversed(e.target.checked)} />盤面反転</label>
             </div>
+            <div className="buttons">
+              <button onClick={e => this.props.onClickBack()} title="Back">&larr;</button>
+              <button onClick={e => this.props.onClickForward()} title="Forward">&rarr;</button>
+            </div>
           </div>
           <div className="board">
             <Board

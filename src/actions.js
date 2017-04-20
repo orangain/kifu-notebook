@@ -13,6 +13,8 @@ export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
 export const CHANGE_REVERSED = 'CHANGE_REVERSED';
 
 export const GOTO_PATH = 'GOTO_PATH';
+export const GO_BACK = 'GO_BACK';
+export const GO_FORWARD = 'GO_FORWARD';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
@@ -100,8 +102,17 @@ export function changeComments(value) {
 export function changeReversed(value) {
   return { type: CHANGE_REVERSED, value: value };
 }
+
 export function gotoPath(pathArray) {
   return { type: GOTO_PATH, pathArray: pathArray };
+}
+
+export function goBack() {
+  return { type: GO_BACK };
+}
+
+export function goForward() {
+  return { type: GO_FORWARD };
 }
 
 export function moveUpFork(pathArray) {
