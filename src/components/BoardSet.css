@@ -15,6 +15,11 @@
   width: 300px;
 }
 
+.buttons button {
+  width: 60px;
+  font-size: 120%;
+}
+
 
 /*
 The MIT License (MIT)
