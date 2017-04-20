@@ -1,3 +1,5 @@
+import { debounce } from './utils';
+
 export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
 export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
 export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
@@ -24,21 +26,11 @@ export function fetchJKF() {
   };
 }
 
-let clearMessageTimeout;
+const clearMessageDebounce = debounce(5000);
 
 export function storeJKF(jkf) {
 
   return (dispatch, getState) => {
-    function clearMessageLater() {
-      if (clearMessageTimeout) {
-        clearTimeout(clearMessageTimeout);
-      }
-      clearMessageTimeout = setTimeout(() => {
-        clearMessageTimeout = undefined;
-        dispatch(clearMessage());
-      }, 5000);
-    }
-
     dispatch(requestPutJKF());
     const state = getState();
     const body = JSON.stringify(state.jkf, null, '  ');
@@ -51,13 +43,17 @@ export function storeJKF(jkf) {
           console.log(body);  // to preserve data
           dispatch(failPutJKF(response));
         }
-        clearMessageLater();
+        clearMessageDebounce().then(() => {
+          dispatch(clearMessage());
+        });
       })
       .catch((e) => {
         dispatch(failPutJKF(e));
         console.error(e);
         console.log(body);  // to preserve data
-        clearMessageLater();
+        clearMessageDebounce().then(() => {
+          dispatch(clearMessage());
+        });
       });
   };
 }
