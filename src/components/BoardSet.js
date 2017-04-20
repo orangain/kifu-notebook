@@ -29,6 +29,9 @@ class BoardSet extends Component {
               playerName={players[reversed ? 0 : 1]}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
+            <div>
+              <label><input type="checkbox" checked={reversed} onChange={e => this.props.onChangeReversed(e.target.checked)} />盤面反転</label>
+            </div>
           </div>
           <div className="board">
             <Board

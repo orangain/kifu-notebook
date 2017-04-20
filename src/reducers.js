@@ -1,4 +1,9 @@
-import { REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK } from './actions';
+import {
+  REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
+  FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
+  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
+  GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
+} from './actions';
 import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
@@ -81,6 +86,10 @@ export default function kifuTree(state = initialState, action) {
       const newJKF = kifuTreeToJKF(clonedTree, jkf);
 
       return Object.assign({}, state, { kifuTree: clonedTree, jkf: newJKF, needSave: true });
+    }
+    case CHANGE_REVERSED: {
+      const value = action.value;
+      return Object.assign({}, state, { reversed: value });
     }
     case MOVE_UP_FORK: {
       const { kifuTree, currentPathArray, jkf } = state;
