@@ -8,6 +8,7 @@ export const CHANGE_AUTO_SAVE = 'CHANGE_AUTO_SAVE';
 
 export const MOVE_PIECE = 'MOVE_PIECE';
 export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
+export const CHANGE_REVERSED = 'CHANGE_REVERSED';
 
 export const GOTO_PATH = 'GOTO_PATH';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
@@ -98,6 +99,9 @@ export function changeComments(value) {
   return { type: CHANGE_COMMENTS, value: value };
 }
 
+export function changeReversed(value) {
+  return { type: CHANGE_REVERSED, value: value };
+}
 export function gotoPath(pathArray) {
   return { type: GOTO_PATH, pathArray: pathArray };
 }

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { buildJKFPlayerFromState } from "../playerUtils";
-import { inputMove, changeComments } from '../actions';
+import { inputMove, changeComments, changeReversed } from '../actions';
 import BoardSet from '../components/BoardSet';
 
 const mapStateToProps = (state) => {
@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   onInputMove: inputMove,
   onChangeComments: changeComments,
+  onChangeReversed: changeReversed,
 };
 
 const BoardSetContainer = connect(
