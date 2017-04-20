@@ -3065,7 +3065,1359 @@
                     },
                     "color": 0,
                     "piece": "KI"
-                  }
+                  },
+                  "forks": [
+                    [
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 8,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 7
+                          },
+                          "color": 0,
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 8,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 7
+                          },
+                          "promote": true,
+                          "color": 1,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 7
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "UM",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "角換わり棒銀"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 7
+                          },
+                          "color": 0,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        },
+                        "forks": [
+                          [
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 7,
+                                  "y": 2
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 7,
+                                  "y": 3
+                                },
+                                "color": 1,
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 1,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "piece": "KA",
+                                "color": 1,
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 5,
+                                  "y": 4
+                                }
+                              },
+                              "forks": [
+                                [
+                                  {
+                                    "comments": [
+                                      "bad: 先手が有利になる"
+                                    ],
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 5
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 5
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 3
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "color": 0,
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 1
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 2
+                                      },
+                                      "color": 1,
+                                      "piece": "OU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 7
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 6
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 7,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 6,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 6
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 5
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 3
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 1
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 3
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "KY"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "GI",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 1,
+                                        "y": 2
+                                      }
+                                    }
+                                  }
+                                ]
+                              ]
+                            },
+                            {
+                              "move": {
+                                "piece": "KA",
+                                "color": 0,
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 3,
+                                  "y": 8
+                                }
+                              },
+                              "forks": [
+                                [
+                                  {
+                                    "comments": [
+                                      "bad: 先手が不利になる"
+                                    ],
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 5
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 1,
+                                        "y": 5
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 7
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 8
+                                      },
+                                      "color": 0,
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "capture": "GI",
+                                      "piece": "GI"
+                                    }
+                                  }
+                                ]
+                              ]
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 3
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 4
+                                },
+                                "color": 1,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 5
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 3
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 1,
+                                  "y": 5
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 0,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 3
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "GI",
+                                "piece": "GI"
+                              },
+                              "forks": [
+                                [
+                                  {
+                                    "comments": [
+                                      "bad: 後手が不利になる"
+                                    ],
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 7
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 7
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "KA"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "capture": "GI",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 7
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 5,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "capture": "KA",
+                                      "piece": "KA"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 5,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "KA",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "capture": "GI",
+                                      "piece": "HI"
+                                    }
+                                  }
+                                ]
+                              ]
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 8
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 0,
+                                "same": true,
+                                "capture": "GI",
+                                "piece": "HI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 2
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 3,
+                                  "y": 3
+                                },
+                                "color": 1,
+                                "piece": "KI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "HI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "piece": "GI",
+                                "color": 1,
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                }
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 5
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 8
+                                },
+                                "color": 0,
+                                "piece": "HI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 8,
+                                  "y": 2
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 2
+                                },
+                                "color": 1,
+                                "piece": "HI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 7,
+                                  "y": 7
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 6,
+                                  "y": 6
+                                },
+                                "color": 0,
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 5
+                                },
+                                "color": 1,
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 6,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 5,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "GI"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 5,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 7,
+                                  "y": 6
+                                },
+                                "color": 1,
+                                "capture": "FU",
+                                "piece": "KA"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 7
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 6
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 7,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 3,
+                                  "y": 2
+                                },
+                                "color": 1,
+                                "piece": "KA"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 5
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "piece": "GI",
+                                "color": 0,
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 4
+                                },
+                                "relative": "H"
+                              }
+                            }
+                          ]
+                        ]
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "GI"
+                        },
+                        "forks": [
+                          [
+                            {
+                              "comments": [
+                                "bad: 先手は攻めが続かない"
+                              ],
+                              "move": {
+                                "from": {
+                                  "x": 1,
+                                  "y": 9
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 1,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "KY"
+                              }
+                            },
+                            {
+                              "move": {
+                                "piece": "FU",
+                                "color": 1,
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 1,
+                                  "y": 3
+                                }
+                              }
+                            }
+                          ]
+                        ]
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "KY"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KY",
+                          "piece": "KY"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 1,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 3
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 2
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "GI",
+                          "color": 1,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 2
+                          },
+                          "relative": "H"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KY",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 9
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "歩の成り捨て"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 1
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 1
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "TO",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "KY"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "NY",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 1,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 1,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "KE",
+                          "piece": "KY"
+                        }
+                      }
+                    ]
+                  ]
                 },
                 {
                   "move": {
@@ -3428,6 +4780,2721 @@
                     },
                     "color": 1,
                     "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 9
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 7,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "comments": [
+                    "先後同型の腰掛け銀"
+                  ],
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 8
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 7
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 2
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手から仕掛けにくい"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "OU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 9
+                          },
+                          "color": 0,
+                          "piece": "OU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 1
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 1
+                          },
+                          "color": 1,
+                          "piece": "OU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 1,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 4
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 5,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "KI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 9
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 5,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "KI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 1
+                    },
+                    "color": 1,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 9
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 5,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 5,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 1
+                    },
+                    "color": 1,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 8
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 7,
+                      "y": 9
+                    },
+                    "color": 0,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 1,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 1,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "comments": [
+                    "端歩は手詰まりを防ぐために必ず受ける"
+                  ],
+                  "move": {
+                    "from": {
+                      "x": 1,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 1,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 9,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 9,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 9,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 9,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 7,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 9
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 7
+                    },
+                    "color": 0,
+                    "piece": "KE"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 7,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "piece": "KE"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "comments": [
+                    "相腰掛け銀先後同型"
+                  ],
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 後手からの仕掛けがあるので不利になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 9
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 8,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "OU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        },
+                        "forks": [
+                          [
+                            {
+                              "comments": [
+                                "bad: 木村定跡で先手必勝"
+                              ],
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 1
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 2
+                                },
+                                "color": 1,
+                                "piece": "OU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 4,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 5
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 6
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 3,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "comments": [
+                                "先手が有利になる"
+                              ],
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 3,
+                                  "y": 5
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "FU"
+                              },
+                              "forks": [
+                                [
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 7,
+                                        "y": 6
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 7,
+                                        "y": 5
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 7,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 7,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 5
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 3
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "color": 0,
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "comments": [
+                                      "後手は玉の守りが薄くなる"
+                                    ],
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 2
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 6,
+                                        "y": 3
+                                      },
+                                      "color": 1,
+                                      "piece": "KI"
+                                    },
+                                    "forks": [
+                                      [
+                                        {
+                                          "comments": [
+                                            "桂頭を守る"
+                                          ],
+                                          "move": {
+                                            "piece": "KA",
+                                            "color": 1,
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 6,
+                                              "y": 3
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 1,
+                                              "y": 6
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 5
+                                            },
+                                            "color": 0,
+                                            "piece": "FU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 1,
+                                              "y": 4
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 5
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "FU",
+                                            "piece": "FU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "piece": "FU",
+                                            "color": 0,
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 3
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 1,
+                                              "y": 1
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "FU",
+                                            "piece": "KY"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 7
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 5
+                                            },
+                                            "color": 0,
+                                            "piece": "KE"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 1,
+                                              "y": 3
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 4
+                                            },
+                                            "color": 1,
+                                            "piece": "KY"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 5
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 4
+                                            },
+                                            "color": 0,
+                                            "capture": "FU",
+                                            "piece": "FU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 3
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 4
+                                            },
+                                            "color": 1,
+                                            "piece": "FU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 5
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 3
+                                            },
+                                            "promote": true,
+                                            "color": 0,
+                                            "piece": "KE"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 1
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "NK",
+                                            "piece": "KE"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 8
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 4
+                                            },
+                                            "color": 0,
+                                            "capture": "FU",
+                                            "piece": "HI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 2
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "piece": "KI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "piece": "KA",
+                                            "color": 0,
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 1,
+                                              "y": 1
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 2
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 2
+                                            },
+                                            "color": 1,
+                                            "piece": "OU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 4
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 3
+                                            },
+                                            "promote": true,
+                                            "color": 0,
+                                            "capture": "KE",
+                                            "piece": "FU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 4,
+                                              "y": 4
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 3,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "TO",
+                                            "piece": "GI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "piece": "KE",
+                                            "color": 0,
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 4
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 3
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 4
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "KE",
+                                            "piece": "GI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 2,
+                                              "y": 4
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 3
+                                            },
+                                            "promote": true,
+                                            "color": 0,
+                                            "capture": "KI",
+                                            "piece": "HI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 3,
+                                              "y": 2
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 2,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "same": true,
+                                            "capture": "RY",
+                                            "piece": "OU"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 1,
+                                              "y": 1
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 4
+                                            },
+                                            "promote": true,
+                                            "color": 0,
+                                            "capture": "GI",
+                                            "piece": "KA"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 5,
+                                              "y": 2
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 3
+                                            },
+                                            "color": 1,
+                                            "piece": "KI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 5,
+                                              "y": 6
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 5
+                                            },
+                                            "color": 0,
+                                            "capture": "FU",
+                                            "piece": "GI"
+                                          }
+                                        },
+                                        {
+                                          "move": {
+                                            "from": {
+                                              "x": 4,
+                                              "y": 3
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 4
+                                            },
+                                            "color": 1,
+                                            "capture": "UM",
+                                            "piece": "KI"
+                                          }
+                                        },
+                                        {
+                                          "comments": [
+                                            "先手優勢"
+                                          ],
+                                          "move": {
+                                            "from": {
+                                              "x": 4,
+                                              "y": 5
+                                            },
+                                            "to": {
+                                              "dropEffect": "move",
+                                              "x": 4,
+                                              "y": 4
+                                            },
+                                            "color": 0,
+                                            "same": true,
+                                            "capture": "KI",
+                                            "piece": "GI"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 7,
+                                        "y": 4
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 6,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 7,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "FU",
+                                      "piece": "KI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "KA",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 1
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 7,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 8,
+                                        "y": 4
+                                      },
+                                      "color": 1,
+                                      "piece": "KI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 6
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 0,
+                                      "capture": "FU",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "GI",
+                                      "relative": "R"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 7
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "KE"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 4,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "KE",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "GI",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 3
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 2
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 3
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "KI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 3
+                                      },
+                                      "promote": true,
+                                      "color": 0,
+                                      "capture": "FU",
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 2
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 1
+                                      },
+                                      "color": 1,
+                                      "piece": "OU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 3
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 3
+                                      },
+                                      "color": 0,
+                                      "capture": "KI",
+                                      "piece": "RY"
+                                    }
+                                  }
+                                ]
+                              ]
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 7
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 5
+                                },
+                                "color": 0,
+                                "capture": "FU",
+                                "piece": "KE"
+                              }
+                            },
+                            {
+                              "comments": [
+                                "bad: 玉銀両取りの十字飛車になる"
+                              ],
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 3
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 4,
+                                  "y": 4
+                                },
+                                "color": 1,
+                                "piece": "GI"
+                              },
+                              "forks": [
+                                [
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "KE",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 6
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 0,
+                                      "same": true,
+                                      "capture": "GI",
+                                      "piece": "GI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "KA",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 7
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 2,
+                                        "y": 9
+                                      },
+                                      "color": 0,
+                                      "piece": "HI"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 7
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 6
+                                      },
+                                      "promote": true,
+                                      "color": 1,
+                                      "piece": "KA"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "GI",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 5,
+                                        "y": 6
+                                      },
+                                      "relative": "H"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 1,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 4
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "piece": "FU",
+                                      "color": 0,
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 4
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 4,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 5
+                                      },
+                                      "color": 1,
+                                      "capture": "GI",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 3,
+                                        "y": 4
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "promote": true,
+                                      "color": 0,
+                                      "capture": "GI",
+                                      "piece": "FU"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 2,
+                                        "y": 1
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 3,
+                                        "y": 3
+                                      },
+                                      "color": 1,
+                                      "same": true,
+                                      "capture": "TO",
+                                      "piece": "KE"
+                                    }
+                                  },
+                                  {
+                                    "move": {
+                                      "from": {
+                                        "x": 5,
+                                        "y": 8
+                                      },
+                                      "to": {
+                                        "dropEffect": "move",
+                                        "x": 4,
+                                        "y": 7
+                                      },
+                                      "color": 0,
+                                      "piece": "KI"
+                                    }
+                                  }
+                                ]
+                              ]
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 5
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 0,
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 3
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 1,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "FU"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 2,
+                                  "y": 8
+                                },
+                                "to": {
+                                  "dropEffect": "move",
+                                  "x": 2,
+                                  "y": 4
+                                },
+                                "color": 0,
+                                "same": true,
+                                "capture": "FU",
+                                "piece": "HI"
+                              }
+                            }
+                          ]
+                        ]
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "木村定跡の反対の展開で後手有利"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "FU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手の攻めが続かない"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "capture": "KE",
+                          "piece": "GI",
+                          "relative": "R"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 5
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 1,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 6
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 6
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "GI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 7,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "KA",
+                    "color": 0,
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 6
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "KA",
+                    "color": 1,
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 4
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "capture": "FU",
+                    "piece": "KE"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 6
+                    },
+                    "color": 1,
+                    "capture": "KA",
+                    "piece": "KA"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手が優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "KE",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 6
+                          },
+                          "color": 1,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "GI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 7
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 6,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "same": true,
+                    "capture": "KA",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 5
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 4
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 3
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "FU",
+                    "color": 0,
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 2
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 1
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "OU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 8
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 1,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 3
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "NK",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "GI",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "HI",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 6,
+                            "y": 4
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 5
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 4
+                    },
+                    "color": 0,
+                    "capture": "FU",
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "KA",
+                    "color": 1,
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 6
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 8
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 2,
+                      "y": 9
+                    },
+                    "color": 0,
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "capture": "KE",
+                    "piece": "GI",
+                    "relative": "C"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "capture": "KE",
+                          "piece": "GI",
+                          "relative": "R"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 2,
+                            "y": 6
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 2
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "KI",
+                          "relative": "R"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 7
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 6
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 3,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 5,
+                            "y": 5
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 5
+                          },
+                          "to": {
+                            "dropEffect": "move",
+                            "x": 7,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "KE",
+                          "piece": "KA"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 8
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 7
+                    },
+                    "color": 0,
+                    "piece": "KI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 3,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 6
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "capture": "GI",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 4
+                    },
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 4,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "GI",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "KA",
+                    "color": 0,
+                    "to": {
+                      "dropEffect": "move",
+                      "x": 5,
+                      "y": 5
+                    }
                   }
                 }
               ]
