@@ -3,6 +3,10 @@ import React from "react";
 import './KifuTreeNode.css';
 
 export default class KifuTreeNode extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.currentPath !== this.props.currentPath
+      || nextProps.kifuTreeNode !== this.props.kifuTreeNode;
+  }
   render() {
     const { kifuTreeNode, pathArray, currentPath } = this.props;
 
