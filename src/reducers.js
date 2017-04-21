@@ -58,6 +58,7 @@ export default function kifuTree(state = initialState, action) {
         }
       } catch (e) {
         alert(e);
+        return state;
       }
 
       const newJKF = player.kifu;
