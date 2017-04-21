@@ -20,6 +20,11 @@
   font-size: 120%;
 }
 
+div.mochi div.mochimain span.mochigoma div[draggable="true"] {
+  /* Do not render background when dragged */
+  background: transparent;
+}
+
 
 /*
 The MIT License (MIT)
