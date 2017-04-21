@@ -4,8 +4,14 @@ import './KifuTreeNode.css';
 
 export default class KifuTreeNode extends React.Component {
   shouldComponentUpdate(nextProps) {
+    /*if (this.props.pathArray.length <= 1) {
+      console.log(this.props.pathArray);
+      console.log(this.props.kifuTreeNode, this.props.pathArray, this.props.currentPath);
+      console.log(nextProps.kifuTreeNode, nextProps.pathArray, nextProps.currentPath);
+    }*/
     return nextProps.currentPath !== this.props.currentPath
-      || nextProps.kifuTreeNode !== this.props.kifuTreeNode;
+      || nextProps.kifuTreeNode !== this.props.kifuTreeNode
+      || JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray);
   }
   render() {
     const { kifuTreeNode, pathArray, currentPath } = this.props;
