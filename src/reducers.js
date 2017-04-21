@@ -50,6 +50,9 @@ export default function kifuTree(state = initialState, action) {
       const { jkf, kifuTree } = state;
       const move = action.move;
       move.to = { x: move.to.x, y: move.to.y }; // In some environment, move.to contains dropEffect attribute. Get rid of it.
+      if (move.from && move.from.x === move.to.x && move.from.y === move.to.y) {
+        return state; // drop to the same place. do nothing
+      }
       const originalJKFString = JSON.stringify(jkf);
 
       try {
