@@ -53,6 +53,9 @@ class BoardSet extends Component {
               reversed={reversed} />
           </div>
           <div>
+            <div>
+              {(player.tesuu === 0 ? null : player.tesuu + "手目")} {player.getReadableKifu()}
+            </div>
             <textarea
               rows="10"
               className="comment"
