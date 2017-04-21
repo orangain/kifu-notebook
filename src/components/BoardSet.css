@@ -20,6 +20,10 @@
   font-size: 120%;
 }
 
+div.mochi div.mochimain span.mochigoma div {
+  display: inline-block;
+}
+
 
 /*
 The MIT License (MIT)
