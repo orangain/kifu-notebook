@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.ForkList li:hover {
+  background-color: #f0f0f0;
+}
+
 .ForkList li.bad, .ForkList li.bad .comment {
   color: darkgray;
 }

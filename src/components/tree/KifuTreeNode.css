@@ -1,12 +1,18 @@
 .kifu-tree-node {
   position: static;
+  line-height: 1.5;
 }
 
 .kifu-tree-node .readable-kifu {
   cursor: pointer;
+  display: inline-block;
 }
 
-.kifu-tree-node .current {
+.kifu-tree-node:hover .readable-kifu {
+  background: #e0e0e0;
+}
+
+.kifu-tree-node .readable-kifu.current {
   background-color: orange;
 }
 
