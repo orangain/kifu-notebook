@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga'
-import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, call, select, takeLatest } from 'redux-saga/effects';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF,
@@ -54,7 +54,7 @@ export function* clearMessageLater() {
 }
 
 function* watchInputMove() {
-  yield takeEvery(
+  yield takeLatest(
     [MOVE_PIECE, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK],
     scrollToCurrentNode);
 }
