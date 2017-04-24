@@ -10,6 +10,8 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
+import ForkList from './ForkList';
+
 class BoardSet extends Component {
   render() {
     const { player, reversed } = this.props;
@@ -31,10 +33,6 @@ class BoardSet extends Component {
               reversed={reversed} />
             <div>
               <label><input type="checkbox" checked={reversed} onChange={e => this.props.onChangeReversed(e.target.checked)} />盤面反転</label>
-            </div>
-            <div className="buttons">
-              <button onClick={e => this.props.onClickBack()} title="Back">&larr;</button>
-              <button onClick={e => this.props.onClickForward()} title="Forward">&rarr;</button>
             </div>
           </div>
           <div className="board">
@@ -62,6 +60,11 @@ class BoardSet extends Component {
               placeholder="ここに現在の手についてコメントを書けます。"
               onChange={e => { this.props.onChangeComments(e.target.value); }}
               value={player.getComments().join("\n")}></textarea>
+            <div className="buttons">
+              <button onClick={e => this.props.onClickBack()} title="Back">&larr;</button>
+              <button onClick={e => this.props.onClickForward()} title="Forward">&rarr;</button>
+            </div>
+            <ForkList currentNode={this.props.currentNode} onClickForward={this.props.onClickForward} />
           </div>
         </div>
       </div>

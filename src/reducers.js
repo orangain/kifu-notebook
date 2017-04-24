@@ -4,7 +4,7 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED, SCROLL_TO_CENTER,
   GOTO_PATH, GO_BACK, GO_FORWARD, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
+import { jkfToKifuTree, kifuTreeToJKF, findNodeByPath } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
 const initialJKF = { header: {}, moves: [{}] };
@@ -100,11 +100,12 @@ export default function kifuTree(state = initialState, action) {
     }
     case GO_FORWARD: {
       const { kifuTree, currentPathArray } = state;
+      const childIndex = action.childIndex;
       const currentNode = findNodeByPath(kifuTree, currentPathArray);
       if (currentNode.children.length === 0) {
         return state;
       }
-      const newPathArray = [...currentPathArray, 0];
+      const newPathArray = [...currentPathArray, childIndex];
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case CHANGE_COMMENTS: {
@@ -264,15 +265,6 @@ function findCurrentPathArray(tree, player, stopIfMissing = false) {
     currentNode = nextNode;
   }
   return pathArray;
-}
-
-function findNodeByPath(tree, pathArray) {
-  let currentNode = tree;
-  pathArray.forEach(num => {
-    currentNode = currentNode.children[num];
-  });
-
-  return currentNode;
 }
 
 function getStringPathArray(tree, pathArray) {

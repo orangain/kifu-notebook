@@ -71,8 +71,8 @@ export function goBack() {
   return { type: GO_BACK };
 }
 
-export function goForward() {
-  return { type: GO_FORWARD };
+export function goForward(childIndex = 0) {
+  return { type: GO_FORWARD, childIndex: childIndex };
 }
 
 export function moveUpFork(pathArray) {

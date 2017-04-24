@@ -1,0 +1,25 @@
+.ForkList {
+  margin-top: 10px;
+}
+
+.ForkList ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.ForkList li {
+  cursor: pointer;
+}
+
+.ForkList li:hover {
+  background-color: #f0f0f0;
+}
+
+.ForkList li.bad, .ForkList li.bad .comment {
+  color: darkgray;
+}
+
+.ForkList li .comment {
+  color: #666;
+  font-size: 80%;
+}
