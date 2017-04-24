@@ -13,7 +13,7 @@ const initialState = {
   kifuTree: jkfToKifuTree(initialJKF),
   reversed: false,
   currentPathArray: [],
-  fetching: false,
+  message: "",
   autoSaveEnabled: false,
   needSave: false,
   booleanCounterOfNeedScroll: false,
@@ -22,13 +22,13 @@ const initialState = {
 export default function kifuTree(state = initialState, action) {
   switch (action.type) {
     case REQUEST_GET_JKF: {
-      return Object.assign({}, state, { fetching: true });
+      return Object.assign({}, state, { message: "Fetching..." });
     }
     case RECEIVE_GET_JKF: {
       const jkf = action.jkf;
       const tree = jkfToKifuTree(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, fetching: false });
+      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, message: "Fetched" });
     }
     case REQUEST_PUT_JKF: {
       return Object.assign({}, state, { message: "Saving...", needSave: false });

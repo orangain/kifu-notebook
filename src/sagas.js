@@ -2,8 +2,8 @@ import { delay } from 'redux-saga'
 import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import {
-  REQUEST_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, GO_BACK, GO_FORWARD,
+  REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF,
+  CHANGE_AUTO_SAVE, MOVE_PIECE, GO_BACK, GO_FORWARD,
   CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
   receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage, scrollToCenter
 } from './actions';
@@ -57,7 +57,7 @@ export function* storeJKF() {
 }
 
 export function* watchMessage() {
-  yield takeLatest([RECEIVE_PUT_JKF, FAIL_PUT_JKF], clearMessageLater);
+  yield takeLatest([RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF], clearMessageLater);
 }
 
 export function* clearMessageLater() {
