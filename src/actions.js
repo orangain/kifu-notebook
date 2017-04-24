@@ -14,6 +14,7 @@ export const SCROLL_TO_CENTER = 'SCROLL_TO_CENTER';
 export const GOTO_PATH = 'GOTO_PATH';
 export const GO_BACK = 'GO_BACK';
 export const GO_FORWARD = 'GO_FORWARD';
+export const GO_BACK_FORK = 'GO_BACK_FORK';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
@@ -73,6 +74,10 @@ export function goBack() {
 
 export function goForward(childIndex = 0) {
   return { type: GO_FORWARD, childIndex: childIndex };
+}
+
+export function goBackFork() {
+  return { type: GO_BACK_FORK };
 }
 
 export function moveUpFork(pathArray) {

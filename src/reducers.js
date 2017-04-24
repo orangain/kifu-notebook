@@ -2,9 +2,9 @@ import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED, SCROLL_TO_CENTER,
-  GOTO_PATH, GO_BACK, GO_FORWARD, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
+  GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { jkfToKifuTree, kifuTreeToJKF, findNodeByPath } from "./treeUtils";
+import { jkfToKifuTree, kifuTreeToJKF, findNodeByPath, getNodesOnPath, getStringPathArray } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
 const initialJKF = { header: {}, moves: [{}] };
@@ -106,6 +106,19 @@ export default function kifuTree(state = initialState, action) {
         return state;
       }
       const newPathArray = [...currentPathArray, childIndex];
+      return Object.assign({}, state, { currentPathArray: newPathArray });
+    }
+    case GO_BACK_FORK: {
+      const { kifuTree, currentPathArray } = state;
+      const nodes = getNodesOnPath(kifuTree, currentPathArray);
+      let newPathArray = [];
+      for (let i = nodes.length - 2; i >= 0; i--) {
+        const node = nodes[i];
+        if (node.children.length >= 2) {
+          newPathArray = currentPathArray.slice(0, i + 1);
+          break;
+        }
+      }
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case CHANGE_COMMENTS: {
@@ -265,18 +278,6 @@ function findCurrentPathArray(tree, player, stopIfMissing = false) {
     currentNode = nextNode;
   }
   return pathArray;
-}
-
-function getStringPathArray(tree, pathArray) {
-  const stringPathArray = [];
-  let currentNode = tree;
-  for (let index of pathArray) {
-    const nextNode = currentNode.children[index];
-    stringPathArray.push(nextNode.readableKifu);
-    currentNode = nextNode;
-  }
-
-  return stringPathArray;
 }
 
 function getPathArray(tree, stringPathArray) {

@@ -61,8 +61,9 @@ class BoardSet extends Component {
               onChange={e => { this.props.onChangeComments(e.target.value); }}
               value={player.getComments().join("\n")}></textarea>
             <div className="buttons">
-              <button onClick={e => this.props.onClickBack()} title="Back">&larr;</button>
-              <button onClick={e => this.props.onClickForward()} title="Forward">&rarr;</button>
+              <button onClick={e => this.props.onClickBackFork()} title="1つ前の分岐に戻る">&laquo;</button>
+              <button onClick={e => this.props.onClickBack()} title="1手戻る">&lt;</button>
+              <button onClick={e => this.props.onClickForward()} title="1手進む">&gt;</button>
             </div>
             <ForkList currentNode={this.props.currentNode} onClickForward={this.props.onClickForward} />
           </div>

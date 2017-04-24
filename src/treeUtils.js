@@ -64,11 +64,25 @@ function nodesToMoveFormats(nodes) {
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children));
 }
 
-export function findNodeByPath(tree, pathArray) {
+export function getNodesOnPath(tree, pathArray) {
+  const nodes = [];
   let currentNode = tree;
   pathArray.forEach(num => {
     currentNode = currentNode.children[num];
+    nodes.push(currentNode);
   });
 
-  return currentNode;
+  return nodes;
+}
+
+export function getStringPathArray(tree, pathArray) {
+  return getNodesOnPath(tree, pathArray).map(node => node.readableKifu);
+}
+
+export function findNodeByPath(tree, pathArray) {
+  if (pathArray.length === 0) {
+    return tree;
+  }
+  const nodes = getNodesOnPath(tree, pathArray);
+  return nodes[nodes.length - 1];
 }
