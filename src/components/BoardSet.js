@@ -10,6 +10,8 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
+import ForkList from './ForkList';
+
 class BoardSet extends Component {
   render() {
     const { player, reversed } = this.props;
@@ -62,6 +64,7 @@ class BoardSet extends Component {
               <button onClick={e => this.props.onClickBack()} title="Back">&larr;</button>
               <button onClick={e => this.props.onClickForward()} title="Forward">&rarr;</button>
             </div>
+            <ForkList currentNode={this.props.currentNode} onClickForward={this.props.onClickForward} />
           </div>
         </div>
       </div>

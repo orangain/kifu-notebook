@@ -63,3 +63,12 @@ function nodesToMoveFormats(nodes) {
 
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children));
 }
+
+export function findNodeByPath(tree, pathArray) {
+  let currentNode = tree;
+  pathArray.forEach(num => {
+    currentNode = currentNode.children[num];
+  });
+
+  return currentNode;
+}
