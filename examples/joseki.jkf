@@ -7148,9 +7148,152 @@
               ],
               [
                 {
+                  "comments": [
+                    "原始中飛車"
+                  ],
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 7
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 1
+                    },
+                    "to": {
+                      "x": 6,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 9
+                    },
+                    "to": {
+                      "x": 6,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 1
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "OU"
+                  }
+                },
+                {
                   "move": {
                     "from": {
                       "x": 6,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 7
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 4
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 7,
+                      "y": 7
+                    },
+                    "color": 0,
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
                       "y": 7
                     },
                     "to": {
@@ -7158,7 +7301,1626 @@
                       "y": 6
                     },
                     "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 4
+                    },
+                    "color": 1,
                     "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 9
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 1
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 1
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "KI",
+                    "relative": "R"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 6
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 4
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 5
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 6
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "piece": "GI",
+                    "relative": "R"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "FU",
+                    "color": 0,
+                    "to": {
+                      "x": 5,
+                      "y": 4
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "color": 0,
+                    "same": true,
+                    "capture": "GI",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "GI",
+                    "piece": "FU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "GI",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "x": 7,
+                            "y": 1
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 1
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 1,
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "KA",
+                          "piece": "UM"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 1
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "UM",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "先手優勢"
+                        ],
+                        "move": {
+                          "piece": "GI",
+                          "color": 0,
+                          "to": {
+                            "x": 6,
+                            "y": 1
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "piece": "GI",
+                    "color": 0,
+                    "to": {
+                      "x": 5,
+                      "y": 3
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "piece": "KI"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手勝勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 1
+                          },
+                          "color": 1,
+                          "piece": "KI",
+                          "relative": "D"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 2
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "GI",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 1
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "NG",
+                          "piece": "KI",
+                          "relative": "R"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "先手勝勢"
+                        ],
+                        "move": {
+                          "piece": "GI",
+                          "color": 0,
+                          "to": {
+                            "x": 5,
+                            "y": 2
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "promote": true,
+                    "color": 0,
+                    "capture": "GI",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 1
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "NG",
+                    "piece": "KI",
+                    "relative": "U"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "GI",
+                    "color": 0,
+                    "to": {
+                      "x": 5,
+                      "y": 3
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "FU",
+                    "color": 1,
+                    "to": {
+                      "x": 5,
+                      "y": 2
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "promote": true,
+                    "color": 0,
+                    "capture": "KI",
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "NG",
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 7
+                    },
+                    "to": {
+                      "x": 4,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "GI",
+                    "color": 1,
+                    "to": {
+                      "x": 3,
+                      "y": 3
+                    }
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手勝勢になる"
+                        ],
+                        "move": {
+                          "piece": "GI",
+                          "color": 1,
+                          "to": {
+                            "x": 6,
+                            "y": 5
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "capture": "FU",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "GI",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "HI",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "先手勝勢"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "KA",
+                          "piece": "KA"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 2,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "OU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "GI",
+                    "color": 1,
+                    "to": {
+                      "x": 6,
+                      "y": 5
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 3,
+                      "y": 9
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "GI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 6,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 5,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "capture": "FU",
+                    "piece": "GI"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 後手が駒得になるものの、先手が勝勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 6
+                          },
+                          "color": 1,
+                          "capture": "FU",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 9
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "promote": true,
+                          "color": 1,
+                          "capture": "KA",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 9
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "NG",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "GI",
+                          "color": 1,
+                          "to": {
+                            "x": 6,
+                            "y": 9
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 9
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 9
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 8
+                          },
+                          "promote": true,
+                          "color": 1,
+                          "capture": "KI",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 6,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 6,
+                            "y": 8
+                          },
+                          "color": 1,
+                          "piece": "NG"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KI",
+                          "color": 0,
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "KI",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "TO",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 6,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "KI",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 1
+                          },
+                          "color": 1,
+                          "piece": "OU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "GI",
+                          "color": 0,
+                          "to": {
+                            "x": 5,
+                            "y": 2
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 5,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 8
+                    },
+                    "color": 0,
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 4,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "OU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手が勝勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 6,
+                            "y": 5
+                          },
+                          "color": 1,
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 6
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "UM",
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "先手が勝勢"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 2
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "HI",
+                          "piece": "HI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 7
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 7
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "FU",
+                    "color": 1,
+                    "to": {
+                      "x": 8,
+                      "y": 5
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "to": {
+                      "x": 7,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 7,
+                      "y": 4
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 9
+                    },
+                    "color": 0,
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 1,
+                    "piece": "FU"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手が優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 1
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KI",
+                          "color": 0,
+                          "to": {
+                            "x": 7,
+                            "y": 5
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 7,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 9,
+                            "y": 4
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "先手優勢"
+                        ],
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
+                            "x": 7,
+                            "y": 4
+                          }
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "piece": "FU",
+                    "color": 0,
+                    "to": {
+                      "x": 8,
+                      "y": 3
+                    }
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手の攻めが続かない"
+                        ],
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
+                            "x": 8,
+                            "y": 4
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "GI",
+                          "color": 1,
+                          "to": {
+                            "x": 8,
+                            "y": 7
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 5,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 7,
+                            "y": 6
+                          },
+                          "promote": true,
+                          "color": 1,
+                          "capture": "FU",
+                          "piece": "GI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 3
+                    },
+                    "color": 1,
+                    "same": true,
+                    "capture": "FU",
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "KI",
+                    "color": 0,
+                    "to": {
+                      "x": 8,
+                      "y": 4
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 2
+                    },
+                    "color": 1,
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 8
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 0,
+                    "capture": "FU",
+                    "piece": "HI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 2,
+                      "y": 2
+                    },
+                    "to": {
+                      "x": 3,
+                      "y": 1
+                    },
+                    "color": 1,
+                    "piece": "KA"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 7,
+                      "y": 6
+                    },
+                    "to": {
+                      "x": 7,
+                      "y": 5
+                    },
+                    "color": 0,
+                    "piece": "FU"
+                  }
+                },
+                {
+                  "move": {
+                    "piece": "GI",
+                    "color": 1,
+                    "to": {
+                      "x": 9,
+                      "y": 5
+                    }
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 4
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 3
+                    },
+                    "color": 0,
+                    "piece": "KI"
+                  }
+                },
+                {
+                  "move": {
+                    "from": {
+                      "x": 9,
+                      "y": 5
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 6
+                    },
+                    "color": 1,
+                    "capture": "HI",
+                    "piece": "GI"
+                  },
+                  "forks": [
+                    [
+                      {
+                        "comments": [
+                          "bad: 先手が優勢になる"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 6,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "comments": [
+                          "次に☗８二歩の確実な攻めで先手優勢"
+                        ],
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "comments": [
+                    "先手がやや有利"
+                  ],
+                  "move": {
+                    "from": {
+                      "x": 8,
+                      "y": 3
+                    },
+                    "to": {
+                      "x": 8,
+                      "y": 2
+                    },
+                    "color": 0,
+                    "capture": "HI",
+                    "piece": "KI"
                   }
                 }
               ]
