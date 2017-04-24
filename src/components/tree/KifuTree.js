@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import KifuTreeNode from "./KifuTreeNode.js"
 
 import './KifuTree.css';
@@ -19,6 +20,19 @@ export default class KifuTree extends React.Component {
       this.props.onClickMoveDownFork(pathArray);
     } else if (e.target.classList.contains('remove')) {
       this.props.onClickRemoveFork(pathArray);
+    }
+  }
+  componentDidUpdate(prevProps) {
+    const needScroll = this.props.booleanCounterOfNeedScroll !== prevProps.booleanCounterOfNeedScroll;
+    //console.log('componentDidUpdate', needScroll);
+    if (needScroll) {
+      const domNode = ReactDOM.findDOMNode(this);
+      const currentElementDOMNode = domNode.querySelector('span.current');
+
+      const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
+      const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
+      const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
+      domNode.scrollLeft = scrollLeft;
     }
   }
   render() {
