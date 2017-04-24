@@ -5,15 +5,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import AppContainer from './containers/AppContainer';
-import { autoSave } from './middlewares';
 import reducer from './reducers';
 import rootSaga from './sagas'
 import './index.css';
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [thunk, autoSave, sagaMiddleware];
+const middlewares = [thunk, sagaMiddleware];
 const store = createStore(reducer, applyMiddleware(...middlewares));
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga, store.dispatch);
 
 ReactDOM.render(
   <Provider store={store}>

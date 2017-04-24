@@ -32,7 +32,7 @@ export function fetchJKF() {
 const clearMessageDebounce = debounce(5000);
 const storeJKFDebounce = debounce(500);
 
-export function storeJKF(jkf) {
+export function storeJKF() {
   return (dispatch, getState) => {
     storeJKFDebounce().then(() => {
       dispatch(requestPutJKF());
