@@ -17910,7 +17910,7 @@
                       },
                       {
                         "comments": [
-                          "後手がやや優勢"
+                          "先手は香得だが、後手がやや優勢"
                         ],
                         "move": {
                           "from": {
@@ -18076,9 +18076,6 @@
                         }
                       },
                       {
-                        "comments": [
-                          "bad: 後手が有利になる"
-                        ],
                         "move": {
                           "from": {
                             "x": 3,
@@ -18086,7 +18083,7 @@
                           },
                           "to": {
                             "x": 3,
-                            "y": 8
+                            "y": 9
                           },
                           "color": 0,
                           "piece": "HI"
@@ -18094,6 +18091,9 @@
                         "forks": [
                           [
                             {
+                              "comments": [
+                                "bad: 後手が有利になる"
+                              ],
                               "move": {
                                 "from": {
                                   "x": 3,
@@ -18101,7 +18101,7 @@
                                 },
                                 "to": {
                                   "x": 3,
-                                  "y": 9
+                                  "y": 8
                                 },
                                 "color": 0,
                                 "piece": "HI"
@@ -18110,46 +18110,20 @@
                             {
                               "move": {
                                 "from": {
-                                  "x": 3,
-                                  "y": 3
-                                },
-                                "to": {
-                                  "x": 3,
-                                  "y": 2
-                                },
-                                "color": 1,
-                                "piece": "HI"
-                              }
-                            },
-                            {
-                              "move": {
-                                "piece": "FU",
-                                "color": 0,
-                                "to": {
                                   "x": 2,
-                                  "y": 3
-                                }
-                              }
-                            },
-                            {
-                              "move": {
-                                "from": {
-                                  "x": 3,
                                   "y": 4
                                 },
                                 "to": {
                                   "x": 2,
-                                  "y": 3
+                                  "y": 5
                                 },
                                 "color": 1,
-                                "same": true,
-                                "capture": "FU",
-                                "piece": "GI"
+                                "piece": "FU"
                               }
                             },
                             {
                               "move": {
-                                "piece": "FU",
+                                "piece": "KA",
                                 "color": 0,
                                 "to": {
                                   "x": 2,
@@ -18160,32 +18134,15 @@
                             {
                               "move": {
                                 "from": {
-                                  "x": 3,
-                                  "y": 2
+                                  "x": 2,
+                                  "y": 5
                                 },
                                 "to": {
                                   "x": 2,
-                                  "y": 2
+                                  "y": 6
                                 },
                                 "color": 1,
-                                "same": true,
-                                "capture": "FU",
-                                "piece": "HI"
-                              }
-                            },
-                            {
-                              "move": {
-                                "from": {
-                                  "x": 3,
-                                  "y": 9
-                                },
-                                "to": {
-                                  "x": 3,
-                                  "y": 5
-                                },
-                                "color": 0,
-                                "capture": "FU",
-                                "piece": "HI"
+                                "piece": "FU"
                               }
                             },
                             {
@@ -18196,87 +18153,19 @@
                                 },
                                 "to": {
                                   "x": 3,
-                                  "y": 2
-                                },
-                                "color": 1,
-                                "piece": "HI"
-                              }
-                            },
-                            {
-                              "move": {
-                                "from": {
-                                  "x": 3,
-                                  "y": 5
-                                },
-                                "to": {
-                                  "x": 3,
-                                  "y": 2
+                                  "y": 3
                                 },
                                 "promote": true,
                                 "color": 0,
-                                "same": true,
                                 "capture": "HI",
-                                "piece": "HI"
-                              }
-                            },
-                            {
-                              "move": {
-                                "from": {
-                                  "x": 2,
-                                  "y": 3
-                                },
-                                "to": {
-                                  "x": 3,
-                                  "y": 2
-                                },
-                                "color": 1,
-                                "same": true,
-                                "capture": "RY",
-                                "piece": "GI"
-                              }
-                            },
-                            {
-                              "move": {
-                                "piece": "KA",
-                                "color": 0,
-                                "to": {
-                                  "x": 2,
-                                  "y": 2
-                                }
-                              }
-                            },
-                            {
-                              "move": {
-                                "piece": "KA",
-                                "color": 1,
-                                "to": {
-                                  "x": 3,
-                                  "y": 3
-                                }
-                              }
-                            },
-                            {
-                              "move": {
-                                "from": {
-                                  "x": 2,
-                                  "y": 2
-                                },
-                                "to": {
-                                  "x": 3,
-                                  "y": 3
-                                },
-                                "promote": true,
-                                "color": 0,
-                                "same": true,
-                                "capture": "KA",
                                 "piece": "KA"
                               }
                             },
                             {
                               "move": {
                                 "from": {
-                                  "x": 3,
-                                  "y": 2
+                                  "x": 2,
+                                  "y": 1
                                 },
                                 "to": {
                                   "x": 3,
@@ -18285,19 +18174,33 @@
                                 "color": 1,
                                 "same": true,
                                 "capture": "UM",
-                                "piece": "GI"
+                                "piece": "KE"
+                              }
+                            },
+                            {
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 8
+                                },
+                                "to": {
+                                  "x": 2,
+                                  "y": 8
+                                },
+                                "color": 0,
+                                "piece": "HI"
                               }
                             },
                             {
                               "comments": [
-                                "先手のペース"
+                                "後手の攻めが続いて有利"
                               ],
                               "move": {
-                                "piece": "HI",
-                                "color": 0,
+                                "piece": "KA",
+                                "color": 1,
                                 "to": {
-                                  "x": 3,
-                                  "y": 1
+                                  "x": 6,
+                                  "y": 4
                                 }
                               }
                             }
@@ -18307,15 +18210,129 @@
                       {
                         "move": {
                           "from": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
                             "x": 2,
+                            "y": 3
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
                             "y": 4
                           },
                           "to": {
                             "x": 2,
-                            "y": 5
+                            "y": 3
                           },
                           "color": 1,
-                          "piece": "FU"
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "GI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "FU",
+                          "color": 0,
+                          "to": {
+                            "x": 2,
+                            "y": 2
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "FU",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 9
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 5
+                          },
+                          "color": 0,
+                          "capture": "FU",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "same": true,
+                          "capture": "HI",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 3
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "RY",
+                          "piece": "GI"
                         }
                       },
                       {
@@ -18330,16 +18347,12 @@
                       },
                       {
                         "move": {
-                          "from": {
-                            "x": 2,
-                            "y": 5
-                          },
-                          "to": {
-                            "x": 2,
-                            "y": 6
-                          },
+                          "piece": "KA",
                           "color": 1,
-                          "piece": "FU"
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          }
                         }
                       },
                       {
@@ -18354,15 +18367,16 @@
                           },
                           "promote": true,
                           "color": 0,
-                          "capture": "HI",
+                          "same": true,
+                          "capture": "KA",
                           "piece": "KA"
                         }
                       },
                       {
                         "move": {
                           "from": {
-                            "x": 2,
-                            "y": 1
+                            "x": 3,
+                            "y": 2
                           },
                           "to": {
                             "x": 3,
@@ -18371,30 +18385,19 @@
                           "color": 1,
                           "same": true,
                           "capture": "UM",
-                          "piece": "KE"
+                          "piece": "GI"
                         }
                       },
                       {
+                        "comments": [
+                          "先手のペース"
+                        ],
                         "move": {
-                          "from": {
-                            "x": 3,
-                            "y": 8
-                          },
-                          "to": {
-                            "x": 2,
-                            "y": 8
-                          },
+                          "piece": "HI",
                           "color": 0,
-                          "piece": "HI"
-                        }
-                      },
-                      {
-                        "move": {
-                          "piece": "KA",
-                          "color": 1,
                           "to": {
-                            "x": 6,
-                            "y": 4
+                            "x": 3,
+                            "y": 1
                           }
                         }
                       }
@@ -21035,7 +21038,7 @@
               [
                 {
                   "comments": [
-                    "対振り飛車の斜め棒銀。先手は６八金上を省略した手順のほうが有利なので、あまり良くない。"
+                    "対振り飛車の斜め棒銀。先手は☗６八金上を省略して☖１二香に上げさせない手順のほうが有利なので、良くない。"
                   ],
                   "move": {
                     "from": {
@@ -21415,6 +21418,238 @@
                             }
                           ]
                         ]
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "UM",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 0,
+                          "to": {
+                            "x": 8,
+                            "y": 8
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 6
+                          },
+                          "color": 1,
+                          "capture": "GI",
+                          "piece": "FU"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 8,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "promote": true,
+                          "color": 0,
+                          "capture": "HI",
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 1
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "same": true,
+                          "capture": "UM",
+                          "piece": "KE"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 8
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 4
+                          },
+                          "color": 0,
+                          "capture": "GI",
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 5,
+                            "y": 2
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 3
+                          },
+                          "color": 1,
+                          "piece": "KI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 4
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 6
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        },
+                        "forks": [
+                          [
+                            {
+                              "comments": [
+                                "bad: 両取りがある。☗３七飛☗３九飛☗３五飛でも同様"
+                              ],
+                              "move": {
+                                "from": {
+                                  "x": 3,
+                                  "y": 4
+                                },
+                                "to": {
+                                  "x": 3,
+                                  "y": 8
+                                },
+                                "color": 0,
+                                "piece": "HI"
+                              }
+                            },
+                            {
+                              "comments": [
+                                "飛車金両取りで後手有利。"
+                              ],
+                              "move": {
+                                "piece": "GI",
+                                "color": 1,
+                                "to": {
+                                  "x": 4,
+                                  "y": 9
+                                }
+                              }
+                            }
+                          ]
+                        ]
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 1,
+                          "to": {
+                            "x": 4,
+                            "y": 4
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "GI",
+                          "color": 0,
+                          "to": {
+                            "x": 7,
+                            "y": 7
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "KA",
+                          "color": 1,
+                          "to": {
+                            "x": 2,
+                            "y": 7
+                          }
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 3,
+                            "y": 6
+                          },
+                          "to": {
+                            "x": 3,
+                            "y": 7
+                          },
+                          "color": 0,
+                          "piece": "HI"
+                        }
+                      },
+                      {
+                        "move": {
+                          "from": {
+                            "x": 2,
+                            "y": 7
+                          },
+                          "to": {
+                            "x": 4,
+                            "y": 5
+                          },
+                          "promote": true,
+                          "color": 1,
+                          "piece": "KA"
+                        }
+                      },
+                      {
+                        "move": {
+                          "piece": "HI",
+                          "color": 0,
+                          "to": {
+                            "x": 4,
+                            "y": 1
+                          }
+                        }
+                      },
+                      {
+                        "comments": [
+                          "後手有利"
+                        ],
+                        "move": {
+                          "piece": "GI",
+                          "color": 1,
+                          "to": {
+                            "x": 5,
+                            "y": 2
+                          }
+                        }
                       }
                     ]
                   ]
@@ -21461,6 +21696,9 @@
                   "forks": [
                     [
                       {
+                        "comments": [
+                          "bad: 先手が優勢になる"
+                        ],
                         "move": {
                           "from": {
                             "x": 4,
