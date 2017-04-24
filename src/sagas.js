@@ -10,29 +10,17 @@ import {
 import { getAutoSaveNeeded, getJKF } from './selectors';
 import Api from './api';
 
-export function* watchInputMove() {
-  yield takeEvery([MOVE_PIECE, GO_BACK, GO_FORWARD], scrollToCurrentNode);
+export default function* rootSaga() {
+  yield [
+    watchFetchJKF(),
+    watchStoreJKF(),
+    watchMessage(),
+    watchInputMove(),
+    watchNeedSave(),
+  ];
 }
 
-export function* scrollToCurrentNode() {
-  yield put(scrollToCenter());
-}
-
-export function* watchNeedSave() {
-  yield takeLatest(
-    [CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
-    autoSaveIfNeeded);
-}
-
-export function* autoSaveIfNeeded() {
-  const isAutoSaveNeeded = yield select(getAutoSaveNeeded);
-  if (isAutoSaveNeeded) {
-    yield call(delay, 500);
-    yield put(requestPutJKF());
-  }
-}
-
-export function* watchFetchJKF() {
+function* watchFetchJKF() {
   yield takeLatest(REQUEST_GET_JKF, fetchJKF);
 }
 
@@ -42,7 +30,7 @@ export function* fetchJKF() {
   yield put(receiveGetJKF(jkf));
 }
 
-export function* watchStoreJKF() {
+function* watchStoreJKF() {
   yield takeLatest(REQUEST_PUT_JKF, storeJKF);
 }
 
@@ -56,7 +44,7 @@ export function* storeJKF() {
   }
 }
 
-export function* watchMessage() {
+function* watchMessage() {
   yield takeLatest([RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF], clearMessageLater);
 }
 
@@ -65,12 +53,24 @@ export function* clearMessageLater() {
   yield put(clearMessage());
 }
 
-export default function* rootSaga() {
-  yield [
-    watchFetchJKF(),
-    watchStoreJKF(),
-    watchMessage(),
-    watchInputMove(),
-    watchNeedSave(),
-  ];
+function* watchInputMove() {
+  yield takeEvery([MOVE_PIECE, GO_BACK, GO_FORWARD], scrollToCurrentNode);
+}
+
+export function* scrollToCurrentNode() {
+  yield put(scrollToCenter());
+}
+
+function* watchNeedSave() {
+  yield takeLatest(
+    [CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
+    autoSaveIfNeeded);
+}
+
+export function* autoSaveIfNeeded() {
+  const isAutoSaveNeeded = yield select(getAutoSaveNeeded);
+  if (isAutoSaveNeeded) {
+    yield call(delay, 500);
+    yield put(requestPutJKF());
+  }
 }
