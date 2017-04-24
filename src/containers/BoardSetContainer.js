@@ -2,7 +2,10 @@ import { connect } from 'react-redux';
 
 import { buildJKFPlayerFromState } from "../playerUtils";
 import { findNodeByPath } from "../treeUtils";
-import { inputMove, changeComments, changeReversed, goBack, goForward, goBackFork } from '../actions';
+import {
+  inputMove, changeComments, changeReversed,
+  goBack, goForward, goBackFork, goForwardFork
+} from '../actions';
 import BoardSet from '../components/BoardSet';
 
 const mapStateToProps = (state) => {
@@ -24,6 +27,7 @@ const mapDispatchToProps = {
   onClickBack: goBack,
   onClickForward: goForward,
   onClickBackFork: goBackFork,
+  onClickForwardFork: goForwardFork,
 };
 
 const BoardSetContainer = connect(
