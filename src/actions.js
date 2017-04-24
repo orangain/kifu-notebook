@@ -59,6 +59,10 @@ export function changeReversed(value) {
   return { type: CHANGE_REVERSED, value: value };
 }
 
+export function scrollToCenter() {
+  return { type: SCROLL_TO_CENTER };
+}
+
 export function gotoPath(pathArray) {
   return { type: GOTO_PATH, pathArray: pathArray };
 }
