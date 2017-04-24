@@ -6,20 +6,24 @@ export default class Api {
   static storeJKF(jkf) {
     const body = JSON.stringify(jkf, null, '  ');
 
+    function preserveFailedData(e) {
+      console.error(e);
+      window.sessionStorage.setItem('lastFailedJKF', body);
+      console.log('Failed to save. You can get the last JKF by: console.log(sessionStorage.getItem("lastFailedJKF"))');
+    }
+
     return new Promise((resolve, reject) => {
       fetch('/jkf', { method: 'PUT', body: body })
         .then((response) => {
           if (response.ok) {
             resolve();
           } else {
-            console.error(response);
-            console.log(body);  // to preserve data
+            preserveFailedData(response);
             reject(response);
           }
         })
         .catch((e) => {
-          console.error(e);
-          console.log(body);  // to preserve data
+          preserveFailedData(e);
           reject(e);
         });
     });
