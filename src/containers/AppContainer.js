@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchJKF, storeJKF, changeAutoSave } from '../actions';
+import { requestGetJKF, storeJKF, changeAutoSave } from '../actions';
 import App from '../components/App';
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  onLoad: fetchJKF,
+  onLoad: requestGetJKF,
   onClickSave: storeJKF,
   onChangeAutoSave: changeAutoSave,
 };

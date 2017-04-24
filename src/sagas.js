@@ -1,12 +1,13 @@
-import { put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import {
-  CHANGE_AUTO_SAVE,
+  REQUEST_GET_JKF, RECEIVE_GET_JKF, CHANGE_AUTO_SAVE,
   MOVE_PIECE, GO_BACK, GO_FORWARD, SCROLL_TO_CENTER,
   CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
   storeJKF
 } from './actions'
 import { getAutoSaveNeeded } from './selectors';
+import Api from './api';
 
 export function* watchInputMove() {
   yield takeEvery([MOVE_PIECE, GO_BACK, GO_FORWARD], scrollToCurrentNode);
@@ -29,8 +30,19 @@ export function* autoSaveIfNeeded(dispatch) {
   }
 }
 
+export function* watchFetchJKF() {
+  yield takeLatest(REQUEST_GET_JKF, fetchJKF);
+}
+
+export function* fetchJKF() {
+  // TODO: Handle error
+  const jkf = yield call(Api.fetchJKF);
+  yield put({ type: RECEIVE_GET_JKF, jkf: jkf });
+}
+
 export default function* rootSaga(dispatch) {
   yield [
+    watchFetchJKF(),
     watchInputMove(),
     watchNeedSave(dispatch),
   ];

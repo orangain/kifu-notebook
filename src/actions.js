@@ -20,15 +20,6 @@ export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
 
-export function fetchJKF() {
-  return dispatch => {
-    dispatch(requestGetJKF());
-    return fetch('/jkf')
-      .then(response => response.json())
-      .then(json => dispatch(receiveGetJKF(json)));
-  };
-}
-
 const clearMessageDebounce = debounce(5000);
 const storeJKFDebounce = debounce(500);
 
