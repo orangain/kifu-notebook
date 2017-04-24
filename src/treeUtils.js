@@ -86,3 +86,30 @@ export function findNodeByPath(tree, pathArray) {
   const nodes = getNodesOnPath(tree, pathArray);
   return nodes[nodes.length - 1];
 }
+
+export function getPreviousForkPath(tree, pathArray) {
+  const nodes = getNodesOnPath(tree, pathArray);
+  for (let i = nodes.length - 2; i >= 0; i--) {
+    const node = nodes[i];
+    if (node.children.length >= 2) {
+      return pathArray.slice(0, i + 1);
+    }
+  }
+  return [];
+}
+
+export function getNextForkPath(tree, pathArray) {
+  let currentNode = findNodeByPath(tree, pathArray);
+  if (currentNode.children.length === 0) {
+    return pathArray;
+  }
+
+  const newPathArray = [...pathArray];
+  while (true) {
+    currentNode = currentNode.children[0];
+    newPathArray.push(0);
+    if (currentNode.children.length !== 1) {
+      return newPathArray;
+    }
+  }
+}

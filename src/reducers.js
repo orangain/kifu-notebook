@@ -5,7 +5,10 @@ import {
   GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK,
   MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { jkfToKifuTree, kifuTreeToJKF, findNodeByPath, getNodesOnPath, getStringPathArray } from "./treeUtils";
+import {
+  jkfToKifuTree, kifuTreeToJKF, findNodeByPath,
+  getPreviousForkPath, getNextForkPath, getStringPathArray
+} from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
 const initialJKF = { header: {}, moves: [{}] };
@@ -111,31 +114,12 @@ export default function kifuTree(state = initialState, action) {
     }
     case GO_BACK_FORK: {
       const { kifuTree, currentPathArray } = state;
-      const nodes = getNodesOnPath(kifuTree, currentPathArray);
-      let newPathArray = [];
-      for (let i = nodes.length - 2; i >= 0; i--) {
-        const node = nodes[i];
-        if (node.children.length >= 2) {
-          newPathArray = currentPathArray.slice(0, i + 1);
-          break;
-        }
-      }
+      const newPathArray = getPreviousForkPath(kifuTree, currentPathArray);
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case GO_FORWARD_FORK: {
       const { kifuTree, currentPathArray } = state;
-      let currentNode = findNodeByPath(kifuTree, currentPathArray);
-      if (currentNode.children.length === 0) {
-        return state;
-      }
-      const newPathArray = [...currentPathArray];
-      while (true) {
-        currentNode = currentNode.children[0];
-        newPathArray.push(0);
-        if (currentNode.children.length !== 1) {
-          break;
-        }
-      }
+      const newPathArray = getNextForkPath(kifuTree, currentPathArray);
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case CHANGE_COMMENTS: {
