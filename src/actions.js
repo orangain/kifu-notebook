@@ -1,5 +1,3 @@
-import { debounce } from './utils';
-
 export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
 export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
 export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
@@ -19,40 +17,6 @@ export const GO_FORWARD = 'GO_FORWARD';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
 export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
 export const REMOVE_FORK = 'REMOVE_FORK';
-
-const clearMessageDebounce = debounce(5000);
-const storeJKFDebounce = debounce(500);
-
-export function storeJKF() {
-  return (dispatch, getState) => {
-    storeJKFDebounce().then(() => {
-      dispatch(requestPutJKF());
-      const state = getState();
-      const body = JSON.stringify(state.jkf, null, '  ');
-      fetch('/jkf', { method: 'PUT', body: body })
-        .then((response) => {
-          if (response.ok) {
-            dispatch(receivePutJKF());
-          } else {
-            console.error(response);
-            console.log(body);  // to preserve data
-            dispatch(failPutJKF(response));
-          }
-          clearMessageDebounce().then(() => {
-            dispatch(clearMessage());
-          });
-        })
-        .catch((e) => {
-          dispatch(failPutJKF(e));
-          console.error(e);
-          console.log(body);  // to preserve data
-          clearMessageDebounce().then(() => {
-            dispatch(clearMessage());
-          });
-        });
-    });
-  };
-}
 
 export function requestGetJKF() {
   return { type: REQUEST_GET_JKF };

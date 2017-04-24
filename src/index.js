@@ -12,7 +12,7 @@ import './index.css';
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [thunk, sagaMiddleware];
 const store = createStore(reducer, applyMiddleware(...middlewares));
-sagaMiddleware.run(rootSaga, store.dispatch);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
