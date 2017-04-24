@@ -3,7 +3,7 @@ import { put, call, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF,
-  CHANGE_AUTO_SAVE, MOVE_PIECE, GO_BACK, GO_FORWARD,
+  CHANGE_AUTO_SAVE, MOVE_PIECE, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK,
   CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
   receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage, scrollToCenter
 } from './actions';
@@ -54,7 +54,9 @@ export function* clearMessageLater() {
 }
 
 function* watchInputMove() {
-  yield takeEvery([MOVE_PIECE, GO_BACK, GO_FORWARD], scrollToCurrentNode);
+  yield takeEvery(
+    [MOVE_PIECE, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK],
+    scrollToCurrentNode);
 }
 
 export function* scrollToCurrentNode() {
