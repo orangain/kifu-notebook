@@ -1,7 +1,7 @@
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
+  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED, SCROLL_TO_CENTER,
   GOTO_PATH, GO_BACK, GO_FORWARD, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
 import { jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
@@ -13,21 +13,22 @@ const initialState = {
   kifuTree: jkfToKifuTree(initialJKF),
   reversed: false,
   currentPathArray: [],
-  fetching: false,
+  message: "",
   autoSaveEnabled: false,
   needSave: false,
+  booleanCounterOfNeedScroll: false,
 };
 
 export default function kifuTree(state = initialState, action) {
   switch (action.type) {
     case REQUEST_GET_JKF: {
-      return Object.assign({}, state, { fetching: true });
+      return Object.assign({}, state, { message: "Fetching..." });
     }
     case RECEIVE_GET_JKF: {
       const jkf = action.jkf;
       const tree = jkfToKifuTree(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, fetching: false });
+      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, message: "Fetched" });
     }
     case REQUEST_PUT_JKF: {
       return Object.assign({}, state, { message: "Saving...", needSave: false });
@@ -82,6 +83,9 @@ export default function kifuTree(state = initialState, action) {
 
       const newPathArray = findCurrentPathArray(kifuTree, player);
       return Object.assign({}, state, { currentPathArray: newPathArray });
+    }
+    case SCROLL_TO_CENTER: {
+      return Object.assign({}, state, { booleanCounterOfNeedScroll: !state.booleanCounterOfNeedScroll });
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPathArray: action.pathArray });

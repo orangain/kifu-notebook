@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return {
     kifuTree: state.kifuTree,
     currentPath: currentPath,
+    booleanCounterOfNeedScroll: state.booleanCounterOfNeedScroll,
   }
 };
 
