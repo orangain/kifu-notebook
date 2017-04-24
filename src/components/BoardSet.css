@@ -2,8 +2,7 @@
   display: flex;
 }
 
-.board {
-  margin-left: 20px;
+.boardSet > * {
   margin-right: 20px;
 }
 
