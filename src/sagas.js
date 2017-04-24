@@ -12,26 +12,30 @@ import Api from './api';
 
 export default function* rootSaga() {
   yield [
-    watchFetchJKF(),
-    watchStoreJKF(),
-    watchMessage(),
-    watchInputMove(),
-    watchNeedSave(),
+    watchActions(),
   ];
 }
 
-function* watchFetchJKF() {
-  yield takeLatest(REQUEST_GET_JKF, fetchJKF);
+function* watchActions() {
+  yield [
+    takeLatest(REQUEST_GET_JKF, fetchJKF),
+    takeLatest(REQUEST_PUT_JKF, storeJKF),
+    takeLatest(
+      [RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF],
+      clearMessageLater),
+    takeLatest(
+      [MOVE_PIECE, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK],
+      scrollToCurrentNode),
+    takeLatest(
+      [CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
+      autoSaveIfNeeded)
+  ]
 }
 
 export function* fetchJKF() {
   // TODO: Handle error
   const jkf = yield call(Api.fetchJKF);
   yield put(receiveGetJKF(jkf));
-}
-
-function* watchStoreJKF() {
-  yield takeLatest(REQUEST_PUT_JKF, storeJKF);
 }
 
 export function* storeJKF() {
@@ -44,29 +48,13 @@ export function* storeJKF() {
   }
 }
 
-function* watchMessage() {
-  yield takeLatest([RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF], clearMessageLater);
-}
-
 export function* clearMessageLater() {
   yield call(delay, 5000);
   yield put(clearMessage());
 }
 
-function* watchInputMove() {
-  yield takeLatest(
-    [MOVE_PIECE, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK],
-    scrollToCurrentNode);
-}
-
 export function* scrollToCurrentNode() {
   yield put(scrollToCenter());
-}
-
-function* watchNeedSave() {
-  yield takeLatest(
-    [CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
-    autoSaveIfNeeded);
 }
 
 export function* autoSaveIfNeeded() {
