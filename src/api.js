@@ -1,10 +1,12 @@
+import stringify from "json-stringify-pretty-compact";
+
 export default class Api {
   static fetchJKF() {
     return fetch('/jkf')
       .then(response => response.json());
   }
   static storeJKF(jkf) {
-    const body = JSON.stringify(jkf, null, '  ');
+    const body = stringify(jkf);
 
     function preserveFailedData(e) {
       console.error(e);
