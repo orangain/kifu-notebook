@@ -22,7 +22,13 @@ export default class KifuTree extends React.Component {
       this.props.onClickRemoveFork(pathArray);
     }
   }
+  componentWillUpdate() {
+    this.begin = new Date();
+  }
   componentDidUpdate(prevProps) {
+    const end = new Date();
+    console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
+
     const needScroll = this.props.booleanCounterOfNeedScroll !== prevProps.booleanCounterOfNeedScroll;
     //console.log('componentDidUpdate', needScroll);
     if (needScroll) {
