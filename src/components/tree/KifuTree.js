@@ -22,7 +22,13 @@ export default class KifuTree extends React.Component {
       this.props.onClickRemoveFork(pathArray);
     }
   }
+  componentWillUpdate() {
+    this.begin = new Date();
+  }
   componentDidUpdate(prevProps) {
+    const end = new Date();
+    console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
+
     const needScroll = this.props.booleanCounterOfNeedScroll !== prevProps.booleanCounterOfNeedScroll;
     //console.log('componentDidUpdate', needScroll);
     if (needScroll) {
@@ -30,20 +36,23 @@ export default class KifuTree extends React.Component {
       const currentElementDOMNode = domNode.querySelector('span.current');
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
-      const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
-      const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
-      domNode.scrollLeft = scrollLeft;
+      if (currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth) {
+        const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
+        const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
+        domNode.scrollLeft = scrollLeft;
+      }
     }
   }
   render() {
-    const { kifuTree, currentPath } = this.props;
+    const { kifuTree, currentPath, jumpMap } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNode
           kifuTreeNode={kifuTree}
           pathArray={[]}
-          currentPath={currentPath} />
+          currentPath={currentPath}
+          jumpMap={jumpMap} />
       </ul>
     );
   }

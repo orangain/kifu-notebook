@@ -2,8 +2,14 @@ import stringify from "json-stringify-pretty-compact";
 
 export default class Api {
   static fetchJKF() {
+    const begin = new Date();
     return fetch('/jkf')
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(json => {
+        const end = new Date();
+        console.log(`fetchJKF ${end.getTime() - begin.getTime()}ms`);
+        return json;
+      });
   }
   static storeJKF(jkf) {
     const body = stringify(jkf);
