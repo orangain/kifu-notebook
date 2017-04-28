@@ -1,7 +1,9 @@
 import JKFPlayer from "json-kifu-format";
+import { Map } from 'immutable';
 
 export function jkfToKifuTree(jkf) {
   const kifuTree = createKifuTreeNode(0, jkf.moves);
+  fillSFEN(kifuTree, jkf);
   return kifuTree;
 }
 
@@ -29,6 +31,61 @@ function moveFormatsToForks(moveFormats) {
     forks = forks.concat(moveFormats[1].forks);
   }
   return forks;
+}
+
+function fillSFEN(kifuTree, jkf) {
+  const begin = new Date();
+
+  const player = new JKFPlayer(jkf);
+  fillSFENToNode(kifuTree, player.shogi, []);
+
+  const end = new Date();
+  console.log(`fillSFEN ${end.getTime() - begin.getTime()}ms`);
+  console.log(kifuTree);
+
+  function fillSFENToNode(kifuTreeNode, shogi, stringPathArray) {
+    const sfen = shogi.toSFENString(kifuTreeNode.tesuu + 1);
+    kifuTreeNode.sfen = sfen;
+
+    kifuTreeNode.children.forEach((childNode, i) => {
+      JKFPlayer.doMove(shogi, childNode.move);
+      fillSFENToNode(childNode, shogi, stringPathArray.concat([childNode.readableKifu]));
+      JKFPlayer.undoMove(shogi, childNode.move);
+    });
+  }
+}
+
+export function buildJumpMap(kifuTree) {
+  const begin = new Date();
+
+  const jumpMap = Map().withMutations(jumpMap => {
+    const seen = {};
+
+    buildJumpMapFromNode(kifuTree, []);
+
+    function buildJumpMapFromNode(kifuTreeNode, pathArray) {
+      const sfen = kifuTreeNode.sfen;
+      if (seen[sfen]) {
+        jumpMap.set(sfen, seen[sfen]);
+      } else {
+        seen[sfen] = {
+          node: kifuTreeNode,
+          pathArray: pathArray,
+        };
+      }
+
+      kifuTreeNode.children.forEach((childNode, i) => {
+        buildJumpMapFromNode(childNode, pathArray.concat([i]));
+      });
+    }
+
+  });
+
+  const end = new Date();
+  console.log(`buildJumpMap: ${end.getTime() - begin.getTime()}ms`);
+  console.log(jumpMap);
+
+  return jumpMap;
 }
 
 export function kifuTreeToJKF(kifuTree, baseJKF) {
