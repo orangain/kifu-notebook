@@ -66,7 +66,11 @@ class BoardSet extends Component {
               <button onClick={e => this.props.onClickForward()} title="1手進む">&gt;</button>
               <button onClick={e => this.props.onClickForwardFork()} title="1つ先の分岐に進む">&raquo;</button>
             </div>
-            <ForkList currentNode={this.props.currentNode} onClickForward={this.props.onClickForward} />
+            <ForkList
+              currentNode={this.props.currentNode}
+              jumpMap={this.props.jumpMap}
+              onClickForward={this.props.onClickForward}
+              onClickPath={this.props.onClickPath} />
           </div>
         </div>
       </div>
