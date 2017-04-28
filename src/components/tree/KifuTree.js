@@ -36,9 +36,11 @@ export default class KifuTree extends React.Component {
       const currentElementDOMNode = domNode.querySelector('span.current');
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
-      const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
-      const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
-      domNode.scrollLeft = scrollLeft;
+      if (currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth) {
+        const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
+        const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
+        domNode.scrollLeft = scrollLeft;
+      }
     }
   }
   render() {
