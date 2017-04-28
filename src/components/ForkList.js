@@ -17,18 +17,19 @@ export default class ForkList extends Component {
         </li>
       )));
 
-      const jumpTo = jumpMap.get(currentNode.sfen);
-      const canJump = jumpTo && jumpTo.node !== currentNode;
+      const jumpToList = jumpMap.get(currentNode.sfen);
 
-      if (canJump) {
-        forkList = forkList.concat(jumpTo.node.children.map((childNode, i) =>
-          <li
-            key={"jump-" + childNode.readableKifu}
-            onClick={e => onClickPath(jumpTo.pathArray.concat([i]))}
-            className={childNode.comment && childNode.comment.startsWith('bad:') ? 'bad' : ''}>
-            ↪ {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
-          </li>
-        ));
+      if (jumpToList) {
+        jumpToList.filter(jumpTo => jumpTo.node !== currentNode).forEach(jumpTo => {
+          forkList = forkList.concat(jumpTo.node.children.map((childNode, i) =>
+            <li
+              key={"jump-" + childNode.readableKifu}
+              onClick={e => onClickPath(jumpTo.pathArray.concat([i]))}
+              className={childNode.comment && childNode.comment.startsWith('bad:') ? 'bad' : ''}>
+              ↪ {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
+            </li>
+          ));
+        });
       }
 
       if (forkList.length === 0) {

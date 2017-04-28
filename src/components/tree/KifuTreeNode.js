@@ -39,17 +39,18 @@ export default class KifuTreeNode extends React.Component {
           jumpMap={jumpMap} />
       );
 
-      const jumpTo = jumpMap.get(kifuTreeNode.sfen);
-      const canJump = jumpTo && jumpTo.node !== kifuTreeNode;
+      const jumpToList = jumpMap.get(kifuTreeNode.sfen);
 
-      if (canJump) {
-        children = children.concat(jumpTo.node.children.map((childNode, i) =>
-          <KifuTreeNode
-            key={"jump-" + childNode.readableKifu}
-            kifuTreeNode={childNode}
-            pathArray={jumpTo.pathArray.concat([i])}
-            isJump={true} />
-        ));
+      if (jumpToList) {
+        jumpToList.filter(jumpTo => jumpTo.node !== kifuTreeNode).forEach(jumpTo => {
+          children = children.concat(jumpTo.node.children.map((childNode, i) =>
+            <KifuTreeNode
+              key={"jump-" + childNode.readableKifu}
+              kifuTreeNode={childNode}
+              pathArray={jumpTo.pathArray.concat([i])}
+              isJump={true} />
+          ));
+        });
       }
 
       return children;

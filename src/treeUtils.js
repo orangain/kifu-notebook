@@ -65,13 +65,17 @@ export function buildJumpMap(kifuTree) {
 
     function buildJumpMapFromNode(kifuTreeNode, pathArray) {
       const sfen = kifuTreeNode.sfen;
+      const jumpTo = {
+        node: kifuTreeNode,
+        pathArray: pathArray,
+      };
       if (seen[sfen]) {
-        jumpMap.set(sfen, seen[sfen]);
+        if (!jumpMap.has(sfen)) {
+          jumpMap.set(sfen, [seen[sfen]]);
+        }
+        jumpMap.set(sfen, jumpMap.get(sfen).concat([jumpTo]));
       } else {
-        seen[sfen] = {
-          node: kifuTreeNode,
-          pathArray: pathArray,
-        };
+        seen[sfen] = jumpTo;
       }
 
       kifuTreeNode.children.forEach((childNode, i) => {
