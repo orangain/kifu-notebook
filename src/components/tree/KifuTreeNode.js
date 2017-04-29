@@ -2,6 +2,13 @@ import React from "react";
 
 import './KifuTreeNode.css';
 
+function isSubPath(myPath, testPath) {
+  if (testPath.length < myPath.length) {
+    return false;
+  }
+  return testPath.substr(0, myPath.length - 1) === myPath.substr(0, myPath.length - 1);
+}
+
 export default class KifuTreeNode extends React.Component {
   shouldComponentUpdate(nextProps) {
     // if (this.props.pathArray.length <= 1) {
@@ -11,10 +18,12 @@ export default class KifuTreeNode extends React.Component {
     //   console.log('jumpMap', nextProps.jumpMapChanged);
     //   console.log('pathArray', JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray));
     // }
-    const shouldUpdate = nextProps.currentPath !== this.props.currentPath
+    const nextPath = JSON.stringify(nextProps.pathArray);
+    const prevPath = JSON.stringify(this.props.pathArray)
+    const shouldUpdate = (nextProps.currentPath !== this.props.currentPath && (isSubPath(prevPath, this.props.currentPath) || isSubPath(nextPath, nextProps.currentPath)))
       || nextProps.kifuTreeNode !== this.props.kifuTreeNode
       || nextProps.jumpMapChanged
-      || JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray);
+      || nextPath !== prevPath;
 
     return shouldUpdate;
   }
