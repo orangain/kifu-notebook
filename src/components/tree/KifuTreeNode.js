@@ -1,5 +1,4 @@
 import React from "react";
-import Immutable from "immutable";
 
 import './KifuTreeNode.css';
 
@@ -9,18 +8,18 @@ export default class KifuTreeNode extends React.Component {
     //   console.log(this.props.pathArray);
     //   console.log('currentPath', nextProps.currentPath !== this.props.currentPath);
     //   console.log('kifuTreeNode', nextProps.kifuTreeNode !== this.props.kifuTreeNode);
-    //   console.log('jumpMap', !Immutable.is(nextProps.jumpMap, this.props.jumpMap));
+    //   console.log('jumpMap', nextProps.jumpMapChanged);
     //   console.log('pathArray', JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray));
     // }
     const shouldUpdate = nextProps.currentPath !== this.props.currentPath
-      || !Immutable.is(nextProps.kifuTreeNode, this.props.kifuTreeNode)
-      || !Immutable.is(nextProps.jumpMap, this.props.jumpMap)
+      || nextProps.kifuTreeNode !== this.props.kifuTreeNode
+      || nextProps.jumpMapChanged
       || JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray);
 
     return shouldUpdate;
   }
   render() {
-    const { kifuTreeNode, pathArray, currentPath, jumpMap, isJump } = this.props;
+    const { kifuTreeNode, pathArray, currentPath, jumpMap, isJump, jumpMapChanged } = this.props;
 
     const hasComment = kifuTreeNode.comment;
     const path = JSON.stringify(pathArray);
@@ -39,7 +38,8 @@ export default class KifuTreeNode extends React.Component {
           kifuTreeNode={childNode}
           pathArray={pathArray.concat([i])}
           currentPath={currentPath}
-          jumpMap={jumpMap} />
+          jumpMap={jumpMap}
+          jumpMapChanged={jumpMapChanged} />
       );
 
       const jumpToList = jumpMap.get(kifuTreeNode.sfen);

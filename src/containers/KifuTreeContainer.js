@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import Immutable from 'immutable';
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
 import { buildJumpMap } from '../treeUtils';
@@ -14,6 +15,7 @@ const mapStateToProps = () => {
 
     const currentPath = JSON.stringify(state.currentPathArray);
     const jumpMap = buildJumpMap(state.kifuTree);
+    const jumpMapChanged = !Immutable.is(jumpMap, prevProps.jumpMap);
     const currentPathChanged = currentPath !== prevProps.currentPath;
 
     const props = {
@@ -21,6 +23,7 @@ const mapStateToProps = () => {
       currentPath: currentPath,
       currentPathChanged: currentPathChanged,
       jumpMap: jumpMap,
+      jumpMapChanged: jumpMapChanged,
     };
     prevProps = props;
 
