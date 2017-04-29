@@ -1,5 +1,10 @@
 import JKFPlayer from "json-kifu-format";
-import { Map } from 'immutable';
+import { Map, List, Record } from 'immutable';
+
+const JumpTo = Record({
+  node: null,
+  pathArray: null,
+});
 
 export function jkfToKifuTree(jkf) {
   const kifuTree = createKifuTreeNode(0, jkf.moves);
@@ -61,17 +66,17 @@ export function buildJumpMap(kifuTree) {
   const jumpMap = Map().withMutations(jumpMap => {
     const seen = {};
 
-    buildJumpMapFromNode(kifuTree, []);
+    buildJumpMapFromNode(kifuTree, List());
 
     function buildJumpMapFromNode(kifuTreeNode, pathArray) {
       const sfen = kifuTreeNode.sfen;
-      const jumpTo = {
+      const jumpTo = new JumpTo({
         node: kifuTreeNode,
         pathArray: pathArray,
-      };
+      });
       if (seen[sfen]) {
         if (!jumpMap.has(sfen)) {
-          jumpMap.set(sfen, [seen[sfen]]);
+          jumpMap.set(sfen, List([seen[sfen]]));
         }
         jumpMap.set(sfen, jumpMap.get(sfen).concat([jumpTo]));
       } else {

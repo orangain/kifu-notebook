@@ -1,17 +1,20 @@
 import React from "react";
+import Immutable from "immutable";
 
 import './KifuTreeNode.css';
 
 export default class KifuTreeNode extends React.Component {
   shouldComponentUpdate(nextProps) {
-    /*if (this.props.pathArray.length <= 1) {
-      console.log(this.props.pathArray);
-      console.log(this.props.kifuTreeNode, this.props.pathArray, this.props.currentPath);
-      console.log(nextProps.kifuTreeNode, nextProps.pathArray, nextProps.currentPath);
-    }*/
+    // if (this.props.pathArray.length <= 1) {
+    //   console.log(this.props.pathArray);
+    //   console.log('currentPath', nextProps.currentPath !== this.props.currentPath);
+    //   console.log('kifuTreeNode', nextProps.kifuTreeNode !== this.props.kifuTreeNode);
+    //   console.log('jumpMap', !Immutable.is(nextProps.jumpMap, this.props.jumpMap));
+    //   console.log('pathArray', JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray));
+    // }
     const shouldUpdate = nextProps.currentPath !== this.props.currentPath
       || nextProps.kifuTreeNode !== this.props.kifuTreeNode
-      || nextProps.jumpMap !== this.props.jumpMap
+      || !Immutable.is(nextProps.jumpMap, this.props.jumpMap)
       || JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray);
 
     return shouldUpdate;
