@@ -56,7 +56,7 @@ function fillSFEN(kifuTree, jkf) {
 }
 
 export function buildJumpMap(kifuTree) {
-  const begin = new Date();
+  // const begin = new Date();
 
   const jumpMap = Map().withMutations(jumpMap => {
     const seen = {};
@@ -85,9 +85,9 @@ export function buildJumpMap(kifuTree) {
 
   });
 
-  const end = new Date();
-  console.log(`buildJumpMap: ${end.getTime() - begin.getTime()}ms`);
-  console.log(jumpMap);
+  // const end = new Date();
+  // console.log(`buildJumpMap: ${end.getTime() - begin.getTime()}ms`);
+  // console.log(jumpMap);
 
   return jumpMap;
 }
