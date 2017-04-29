@@ -4,7 +4,7 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { jkfToKifuTree, kifuTreeToJKF, findNodeByPath, getStringPathArray } from "./treeUtils";
+import { jkfToKifuTree, kifuTreeToJKF, pathArrayToKeyPath, findNodeByPath, getStringPathArray } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
 const initialJKF = { header: {}, moves: [{}] };
@@ -90,11 +90,11 @@ export default function kifuTree(state = initialState, action) {
       const { kifuTree, currentPathArray, jkf } = state;
       const value = action.value;
 
-      const { clonedTree, lastNode } = cloneTreeUntil(kifuTree, currentPathArray);
-      lastNode.comment = value;
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
+      const currentKeyPath = pathArrayToKeyPath(currentPathArray);
+      const newKifuTree = kifuTree.setIn(currentKeyPath.concat(['comment']), value);
+      const newJKF = kifuTreeToJKF(newKifuTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, { kifuTree: newKifuTree, jkf: newJKF, needSave: true });
     }
     case CHANGE_REVERSED: {
       const value = action.value;

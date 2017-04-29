@@ -105,7 +105,7 @@ export function kifuTreeToJKF(kifuTree, baseJKF) {
   const newJKF = {
     header: baseJKF.header,
     initial: baseJKF.initial,
-    moves: [firstMove].concat(nodesToMoveFormats(kifuTree.children)),
+    moves: [firstMove].concat(nodesToMoveFormats(kifuTree.children.toArray())),
   };
   return newJKF;
 }
@@ -127,7 +127,7 @@ function nodesToMoveFormats(nodes) {
       : undefined,
   };
 
-  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children));
+  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
 export function getNodesOnPath(tree, pathArray) {
@@ -143,6 +143,15 @@ export function getNodesOnPath(tree, pathArray) {
 
 export function getStringPathArray(tree, pathArray) {
   return getNodesOnPath(tree, pathArray).map(node => node.readableKifu);
+}
+
+export function pathArrayToKeyPath(pathArray) {
+  const keyPath = [];
+  pathArray.forEach(num => {
+    keyPath.push('children');
+    keyPath.push(num);
+  });
+  return keyPath;
 }
 
 export function findNodeByPath(tree, pathArray) {
