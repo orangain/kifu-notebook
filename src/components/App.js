@@ -6,7 +6,7 @@ import KifuTreeContainer from '../containers/KifuTreeContainer';
 
 class App extends Component {
   componentWillMount() {
-    //window.Perf = require('react-addons-perf');
+    window.Perf = require('react-addons-perf');
     this.props.onLoad();
   }
   render() {
