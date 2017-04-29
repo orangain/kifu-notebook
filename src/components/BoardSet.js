@@ -14,7 +14,7 @@ import ForkList from './ForkList';
 
 class BoardSet extends Component {
   render() {
-    const { player, reversed } = this.props;
+    const { player, reversed, previousPathArray, nextPathArray } = this.props;
     const playerState = player.getState();
     const players = [
       player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
@@ -62,8 +62,12 @@ class BoardSet extends Component {
               value={player.getComments().join("\n")}></textarea>
             <div className="buttons">
               <button onClick={e => this.props.onClickBackFork()} title="1つ前の分岐に戻る">&laquo;</button>
-              <button onClick={e => this.props.onClickBack()} title="1手戻る">&lt;</button>
-              <button onClick={e => this.props.onClickForward()} title="1手進む">&gt;</button>
+              <button
+                onClick={e => this.props.onClickPath(previousPathArray)}
+                title="1手戻る">&lt;</button>
+              <button
+                onClick={e => this.props.onClickPath(nextPathArray)}
+                title="1手進む">&gt;</button>
               <button onClick={e => this.props.onClickForwardFork()} title="1つ先の分岐に進む">&raquo;</button>
             </div>
             <ForkList

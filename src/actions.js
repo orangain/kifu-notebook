@@ -11,8 +11,6 @@ export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
 export const CHANGE_REVERSED = 'CHANGE_REVERSED';
 
 export const GOTO_PATH = 'GOTO_PATH';
-export const GO_BACK = 'GO_BACK';
-export const GO_FORWARD = 'GO_FORWARD';
 export const GO_BACK_FORK = 'GO_BACK_FORK';
 export const GO_FORWARD_FORK = 'GO_FORWARD_FORK';
 export const MOVE_UP_FORK = 'MOVE_UP_FORK';
@@ -62,14 +60,6 @@ export function changeReversed(value) {
 
 export function gotoPath(pathArray) {
   return { type: GOTO_PATH, pathArray: pathArray };
-}
-
-export function goBack() {
-  return { type: GO_BACK };
-}
-
-export function goForward(childIndex = 0) {
-  return { type: GO_FORWARD, childIndex: childIndex };
 }
 
 export function goBackFork() {
