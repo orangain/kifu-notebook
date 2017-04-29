@@ -13,7 +13,7 @@ export default class KifuTreeNode extends React.Component {
     //   console.log('pathArray', JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray));
     // }
     const shouldUpdate = nextProps.currentPath !== this.props.currentPath
-      || nextProps.kifuTreeNode !== this.props.kifuTreeNode
+      || !Immutable.is(nextProps.kifuTreeNode, this.props.kifuTreeNode)
       || !Immutable.is(nextProps.jumpMap, this.props.jumpMap)
       || JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray);
 
