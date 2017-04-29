@@ -29,14 +29,13 @@ export default class KifuTree extends React.Component {
     const end = new Date();
     console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
 
-    const needScroll = this.props.booleanCounterOfNeedScroll !== prevProps.booleanCounterOfNeedScroll;
-    //console.log('componentDidUpdate', needScroll);
-    if (needScroll) {
+    if (this.props.currentPathChanged) {
       const domNode = ReactDOM.findDOMNode(this);
       const currentElementDOMNode = domNode.querySelector('span.current');
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
-      if (currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth) {
+      const needScroll = currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth;
+      if (needScroll) {
         const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
         const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
         domNode.scrollLeft = scrollLeft;

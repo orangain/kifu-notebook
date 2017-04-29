@@ -1,7 +1,7 @@
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED, SCROLL_TO_CENTER,
+  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK,
   MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
@@ -20,7 +20,6 @@ const initialState = {
   message: "",
   autoSaveEnabled: false,
   needSave: false,
-  booleanCounterOfNeedScroll: false,
 };
 
 export default function kifuTree(state = initialState, action) {
@@ -87,9 +86,6 @@ export default function kifuTree(state = initialState, action) {
 
       const newPathArray = findCurrentPathArray(kifuTree, player);
       return Object.assign({}, state, { currentPathArray: newPathArray });
-    }
-    case SCROLL_TO_CENTER: {
-      return Object.assign({}, state, { booleanCounterOfNeedScroll: !state.booleanCounterOfNeedScroll });
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPathArray: action.pathArray });

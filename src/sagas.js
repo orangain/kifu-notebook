@@ -3,9 +3,9 @@ import { put, call, select, takeLatest } from 'redux-saga/effects';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF,
-  CHANGE_AUTO_SAVE, MOVE_PIECE, GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK,
+  CHANGE_AUTO_SAVE, MOVE_PIECE,
   CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
-  receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage, scrollToCenter
+  receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage
 } from './actions';
 import { getAutoSaveNeeded, getJKF } from './selectors';
 import Api from './api';
@@ -23,9 +23,6 @@ function* watchActions() {
     takeLatest(
       [RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF],
       clearMessageLater),
-    takeLatest(
-      [MOVE_PIECE, GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK],
-      scrollToCurrentNode),
     takeLatest(
       [CHANGE_AUTO_SAVE, MOVE_PIECE, CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
       autoSaveIfNeeded)
@@ -51,10 +48,6 @@ export function* storeJKF() {
 export function* clearMessageLater() {
   yield call(delay, 5000);
   yield put(clearMessage());
-}
-
-export function* scrollToCurrentNode() {
-  yield put(scrollToCenter());
 }
 
 export function* autoSaveIfNeeded() {
