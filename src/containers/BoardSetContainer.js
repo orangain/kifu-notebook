@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
     player: player,
     reversed: state.reversed,
     currentNode: currentNode,
+    currentPathArray: state.currentPathArray,
     previousPathArray: previousPathArray,
     nextPathArray: nextPathArray,
     previousForkPathArray: previousForkPathArray,

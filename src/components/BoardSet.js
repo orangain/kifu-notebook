@@ -14,8 +14,8 @@ import ForkList from './ForkList';
 
 class BoardSet extends Component {
   render() {
-    const { player, reversed, previousPathArray, nextPathArray,
-      previousForkPathArray, nextForkPathArray } = this.props;
+    const { player, reversed, jumpMap, currentNode, currentPathArray,
+      previousPathArray, nextPathArray, previousForkPathArray, nextForkPathArray } = this.props;
     const playerState = player.getState();
     const players = [
       player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
@@ -76,8 +76,9 @@ class BoardSet extends Component {
                 title="1つ先の分岐に進む">&raquo;</button>
             </div>
             <ForkList
-              currentNode={this.props.currentNode}
-              jumpMap={this.props.jumpMap}
+              currentNode={currentNode}
+              currentPathArray={currentPathArray}
+              jumpMap={jumpMap}
               onClickForward={this.props.onClickForward}
               onClickPath={this.props.onClickPath} />
           </div>
