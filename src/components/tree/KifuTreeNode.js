@@ -1,39 +1,38 @@
 import React from "react";
+import Immutable from 'immutable';
 
 import './KifuTreeNode.css';
 
 function isSubPath(myPath, testPath) {
-  if (testPath.length < myPath.length) {
+  if (testPath.size < myPath.size) {
     return false;
   }
-  return testPath.substr(0, myPath.length - 1) === myPath.substr(0, myPath.length - 1);
+  return Immutable.is(testPath.slice(0, myPath.size), myPath);
 }
 
 export default class KifuTreeNode extends React.Component {
   shouldComponentUpdate(nextProps) {
-    // if (this.props.pathArray.length <= 1) {
-    //   console.log(this.props.pathArray);
+    // if (this.props.path.length <= 1) {
+    //   console.log(this.props.path);
     //   console.log('currentPath', nextProps.currentPath !== this.props.currentPath);
     //   console.log('kifuTreeNode', nextProps.kifuTreeNode !== this.props.kifuTreeNode);
     //   console.log('jumpMap', nextProps.jumpMapChanged);
-    //   console.log('pathArray', JSON.stringify(nextProps.pathArray) !== JSON.stringify(this.props.pathArray));
+    //   console.log('path', JSON.stringify(nextProps.path) !== JSON.stringify(this.props.path));
     // }
-    const nextPath = JSON.stringify(nextProps.pathArray);
-    const prevPath = JSON.stringify(this.props.pathArray)
-    const shouldUpdate = (nextProps.currentPath !== this.props.currentPath && (isSubPath(prevPath, this.props.currentPath) || isSubPath(nextPath, nextProps.currentPath)))
-      || nextProps.kifuTreeNode !== this.props.kifuTreeNode
+    const shouldUpdate = nextProps.kifuTreeNode !== this.props.kifuTreeNode
       || nextProps.jumpMapChanged
-      || nextPath !== prevPath;
+      || (nextProps.currentPathChanged && (isSubPath(this.props.path, this.props.currentPath) || isSubPath(nextProps.path, nextProps.currentPath)))
+      || !Immutable.is(nextProps.path, this.props.path);
 
     return shouldUpdate;
   }
   render() {
-    const { kifuTreeNode, pathArray, currentPath, jumpMap, isJump, jumpMapChanged } = this.props;
+    const { kifuTreeNode, path, currentPath, currentPathChanged, jumpMap, isJump, jumpMapChanged } = this.props;
 
     const hasComment = !!kifuTreeNode.comment;
-    const path = JSON.stringify(pathArray);
-    const isCurrent = path === currentPath
-    const isControllable = pathArray.length > 0 && !isJump;
+    const jsonPath = JSON.stringify(path.toArray());
+    const isCurrent = Immutable.is(path, currentPath);
+    const isControllable = path.size > 0 && !isJump;
 
     function renderChildren() {
       if (isJump) {
@@ -44,8 +43,9 @@ export default class KifuTreeNode extends React.Component {
         <KifuTreeNode
           key={childNode.readableKifu}
           kifuTreeNode={childNode}
-          pathArray={pathArray.concat([i])}
+          path={path.concat([i])}
           currentPath={currentPath}
+          currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
       );
@@ -58,7 +58,7 @@ export default class KifuTreeNode extends React.Component {
             <KifuTreeNode
               key={"jump-" + childNode.readableKifu}
               kifuTreeNode={childNode}
-              pathArray={jumpTo.pathArray.concat([i])}
+              path={jumpTo.path.concat([i])}
               isJump={true} />
           ));
         });
@@ -69,7 +69,7 @@ export default class KifuTreeNode extends React.Component {
 
     return (
       <li className={kifuTreeNode.isBad() ? "bad" : ""}>
-        <div className="kifu-tree-node" data-path={path}>
+        <div className="kifu-tree-node" data-path={jsonPath}>
           <span className={"readable-kifu" + (isCurrent ? " current" : "")}
             title={kifuTreeNode.comment}>{(isJump ? "↪ " : "") + kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
           {isControllable ? <span className="controls">

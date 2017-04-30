@@ -56,18 +56,18 @@ export function changeReversed(value) {
   return { type: CHANGE_REVERSED, value: value };
 }
 
-export function gotoPath(pathArray) {
-  return { type: GOTO_PATH, pathArray: pathArray };
+export function gotoPath(path) {
+  return { type: GOTO_PATH, path: path };
 }
 
-export function moveUpFork(pathArray) {
-  return { type: MOVE_UP_FORK, pathArray: pathArray };
+export function moveUpFork(path) {
+  return { type: MOVE_UP_FORK, path: path };
 }
 
-export function moveDownFork(pathArray) {
-  return { type: MOVE_DOWN_FORK, pathArray: pathArray };
+export function moveDownFork(path) {
+  return { type: MOVE_DOWN_FORK, path: path };
 }
 
-export function removeFork(pathArray) {
-  return { type: REMOVE_FORK, pathArray: pathArray };
+export function removeFork(path) {
+  return { type: REMOVE_FORK, path: path };
 }

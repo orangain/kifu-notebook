@@ -1,15 +1,15 @@
 import JKFPlayer from "json-kifu-format";
 
 export function buildJKFPlayerFromState(state) {
-  const { jkf, currentPathArray } = state;
+  const { jkf, currentPath } = state;
   const player = new JKFPlayer(jkf);
-  gotoPath(player, currentPathArray);
+  gotoPath(player, currentPath);
 
   return player;
 }
 
-function gotoPath(player, pathArray) {
-  pathArray.forEach(num => {
+function gotoPath(player, path) {
+  path.forEach(num => {
     if (num === 0) {
       player.forward();
     } else {
