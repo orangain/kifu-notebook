@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import BoardSetContainer from '../containers/BoardSetContainer';
 import KifuTreeContainer from '../containers/KifuTreeContainer';
+import CurrentNode from '../containers/CurrentNodeContainer';
 
 class App extends Component {
   componentWillMount() {
@@ -23,6 +24,7 @@ class App extends Component {
         </div>
         <div className="App-body">
           <BoardSetContainer />
+          <CurrentNode />
         </div>
         <KifuTreeContainer />
       </div>
