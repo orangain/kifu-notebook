@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
   const player = buildJKFPlayerFromState(state);
   const currentNode = findNodeByPath(state.kifuTree, state.currentPathArray);
   const jumpMap = buildJumpMap(state.kifuTree);
-  const previousPathArray = state.currentPathArray.length > 0 ? state.currentPathArray.slice(0, state.currentPathArray.length - 1) : state.currentPathArray;
+  const previousPathArray = state.currentPathArray.size > 0 ? state.currentPathArray.slice(0, state.currentPathArray.size - 1) : state.currentPathArray;
   const nextPathArray = currentNode.children.size > 0 ? state.currentPathArray.concat([0]) : state.currentPathArray;
   const previousForkPathArray = getPreviousForkPath(state.kifuTree, state.currentPathArray);
   const nextForkPathArray = getNextForkPath(state.kifuTree, state.currentPathArray);

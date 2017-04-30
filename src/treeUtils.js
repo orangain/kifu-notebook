@@ -155,7 +155,7 @@ export function pathArrayToKeyPath(pathArray) {
 }
 
 export function findNodeByPath(tree, pathArray) {
-  if (pathArray.length === 0) {
+  if (pathArray.size === 0) {
     return tree;
   }
   const nodes = getNodesOnPath(tree, pathArray);

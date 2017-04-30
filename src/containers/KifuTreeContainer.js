@@ -13,7 +13,7 @@ const mapStateToProps = () => {
     // console.log('  prevProps:', prevProps);
     // console.log('  state:    ', state);
 
-    const currentPath = JSON.stringify(state.currentPathArray);
+    const currentPath = JSON.stringify(state.currentPathArray.toArray());
     const jumpMap = buildJumpMap(state.kifuTree);
     const jumpMapChanged = !Immutable.is(jumpMap, prevProps.jumpMap);
     const currentPathChanged = currentPath !== prevProps.currentPath;

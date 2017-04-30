@@ -1,3 +1,5 @@
+import { List } from 'immutable';
+
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
@@ -12,7 +14,7 @@ const initialState = {
   jkf: initialJKF,
   kifuTree: jkfToKifuTree(initialJKF),
   reversed: false,
-  currentPathArray: [],
+  currentPathArray: List(),
   message: "",
   autoSaveEnabled: false,
   needSave: false,
@@ -84,7 +86,7 @@ export default function kifuTree(state = initialState, action) {
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case GOTO_PATH: {
-      return Object.assign({}, state, { currentPathArray: action.pathArray });
+      return Object.assign({}, state, { currentPathArray: List(action.pathArray) });
     }
     case CHANGE_COMMENTS: {
       const { kifuTree, currentPathArray, jkf } = state;
@@ -176,7 +178,7 @@ function findCurrentPathArray(tree, player, stopIfMissing = false) {
     pathArray.push(nextNodeIndex);
     currentNode = nextNode;
   }
-  return pathArray;
+  return List(pathArray);
 }
 
 function getPathArray(tree, stringPathArray) {
