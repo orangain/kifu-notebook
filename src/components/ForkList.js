@@ -12,7 +12,7 @@ export default class ForkList extends Component {
         <li
           key={childNode.readableKifu}
           onClick={e => onClickPath(currentPathArray.concat([i]))}
-          className={childNode.comment && childNode.comment.startsWith('bad:') ? 'bad' : ''}>
+          className={childNode.isBad() ? 'bad' : ''}>
           {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
         </li>
       )).toArray());
@@ -25,7 +25,7 @@ export default class ForkList extends Component {
             <li
               key={"jump-" + childNode.readableKifu}
               onClick={e => onClickPath(jumpTo.pathArray.concat([i]))}
-              className={childNode.comment && childNode.comment.startsWith('bad:') ? 'bad' : ''}>
+              className={childNode.isBad() ? 'bad' : ''}>
               ↪ {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
             </li>
           ).toArray());
