@@ -7,11 +7,11 @@ import './KifuTree.css';
 
 export default class KifuTree extends React.Component {
   onClick(e) {
-    const path = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
-    if (!path) {
+    const jsonPath = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
+    if (!jsonPath) {
       return; // do nothing
     }
-    const pathArray = JSON.parse(path);
+    const pathArray = JSON.parse(jsonPath);
 
     if (e.target.classList.contains('readable-kifu')) {
       this.props.onClickPath(pathArray);

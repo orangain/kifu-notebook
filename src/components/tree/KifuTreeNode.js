@@ -30,7 +30,7 @@ export default class KifuTreeNode extends React.Component {
     const { kifuTreeNode, pathArray, currentPathArray, currentPathChanged, jumpMap, isJump, jumpMapChanged } = this.props;
 
     const hasComment = !!kifuTreeNode.comment;
-    const path = JSON.stringify(pathArray.toArray());
+    const jsonPath = JSON.stringify(pathArray.toArray());
     const isCurrent = Immutable.is(pathArray, currentPathArray);
     const isControllable = pathArray.size > 0 && !isJump;
 
@@ -69,7 +69,7 @@ export default class KifuTreeNode extends React.Component {
 
     return (
       <li className={kifuTreeNode.isBad() ? "bad" : ""}>
-        <div className="kifu-tree-node" data-path={path}>
+        <div className="kifu-tree-node" data-path={jsonPath}>
           <span className={"readable-kifu" + (isCurrent ? " current" : "")}
             title={kifuTreeNode.comment}>{(isJump ? "↪ " : "") + kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
           {isControllable ? <span className="controls">
