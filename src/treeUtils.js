@@ -170,7 +170,7 @@ export function getPreviousForkPath(tree, path) {
       return path.slice(0, i + 1);
     }
   }
-  return [];
+  return List();
 }
 
 export function getNextForkPath(tree, path) {
@@ -179,10 +179,10 @@ export function getNextForkPath(tree, path) {
     return path;
   }
 
-  const newPath = [...path];
+  let newPath = path;
   while (true) {
     currentNode = currentNode.children.get(0);
-    newPath.push(0);
+    newPath = newPath.push(0);
     if (currentNode.children.size !== 1) {
       return newPath;
     }

@@ -11,7 +11,7 @@ export default class KifuTree extends React.Component {
     if (!jsonPath) {
       return; // do nothing
     }
-    const path = JSON.parse(jsonPath);
+    const path = List(JSON.parse(jsonPath));
 
     if (e.target.classList.contains('readable-kifu')) {
       this.props.onClickPath(path);

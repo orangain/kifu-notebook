@@ -195,5 +195,5 @@ function getPath(tree, stringPath) {
     currentNode = nextNode;
   }
 
-  return path;
+  return List(path);
 }
