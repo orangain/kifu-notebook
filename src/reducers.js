@@ -144,7 +144,7 @@ function updateFork(state, path, forkUpdater) {
     return {}; // no change
   }
   const newJKF = kifuTreeToJKF(newKifuTree, jkf);
-  const newPath = getPath(newKifuTree, currentStringPath);
+  const newPath = getPathFromStringPath(newKifuTree, currentStringPath);
   const needSave = newKifuTree !== kifuTree;
 
   return { kifuTree: newKifuTree, currentPath: newPath, jkf: newJKF, needSave: needSave };
@@ -181,7 +181,7 @@ function findCurrentPath(tree, player, stopIfMissing = false) {
   return List(path);
 }
 
-function getPath(tree, stringPath) {
+function getPathFromStringPath(tree, stringPath) {
   const path = [];
   let currentNode = tree;
   for (let kifu of stringPath) {
