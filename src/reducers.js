@@ -164,7 +164,7 @@ function findCurrentPathArray(tree, player, stopIfMissing = false) {
   let currentNode = tree;
   for (let state of player.getReadableKifuState().slice(1, player.tesuu + 1)) {
     const nextNodeIndex = currentNode.children.findIndex(childNode => childNode.readableKifu === state.kifu);
-    const nextNode = currentNode.children[nextNodeIndex];
+    const nextNode = currentNode.children.get(nextNodeIndex);
     if (!nextNode) {
       if (stopIfMissing) {
         break;
