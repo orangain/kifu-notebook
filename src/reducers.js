@@ -1,4 +1,5 @@
 import { List } from 'immutable';
+import JKFPlayer from 'json-kifu-format';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
@@ -6,8 +7,10 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { jkfToKifuTree, kifuTreeToJKF, pathToKeyPath, getStringPath } from "./treeUtils";
-import { buildJKFPlayerFromState } from './playerUtils';
+import {
+  jkfToKifuTree, createKifuTreeNode, kifuTreeToJKF, pathToKeyPath,
+  getStringPath, findNodeByPath, getNodesOnPath
+} from "./treeUtils";
 
 const initialJKF = { header: {}, moves: [{}] };
 const initialState = {
@@ -48,42 +51,16 @@ export default function kifuTree(state = initialState, action) {
       return Object.assign({}, state, { autoSaveEnabled: enabled });
     }
     case MOVE_PIECE: {
-      const player = buildJKFPlayerFromState(state);
-      const { jkf, kifuTree } = state;
+      const { kifuTree, currentPath, jkf } = state;
       const move = action.move;
-      if (!move.to) {
-        return state; // drop to mochigoma
+
+      const changedState = movePiece({ kifuTree, currentPath, jkf }, move);
+      if (changedState.kifuTree && changedState.kifuTree !== kifuTree) {
+        const newJKF = kifuTreeToJKF(changedState.kifuTree, jkf);
+        changedState.jkf = newJKF;
+        changedState.needSave = true;
       }
-      if (move.from && move.from.x === move.to.x && move.from.y === move.to.y) {
-        return state; // drop to the same place. do nothing
-      }
-      move.to = { x: move.to.x, y: move.to.y }; // In some environment, move.to contains dropEffect attribute. Get rid of it.
-
-      const originalJKFString = JSON.stringify(jkf);
-
-      try {
-        if (!player.inputMove(move)) {
-          move.promote = confirm("成りますか？");
-          player.inputMove(move);
-        }
-      } catch (e) {
-        alert(e);
-        return state;
-      }
-
-      const newJKF = player.kifu;
-      const newJKFString = JSON.stringify(newJKF);
-      const changed = originalJKFString !== newJKFString;
-      //console.log(changed);
-
-      if (changed) {
-        const newKifuTree = jkfToKifuTree(newJKF);
-        const newPath = findCurrentPath(newKifuTree, player);
-        return Object.assign({}, state, { kifuTree: newKifuTree, currentPath: newPath, jkf: newJKF, needSave: true });
-      }
-
-      const newPath = findCurrentPath(kifuTree, player);
-      return Object.assign({}, state, { currentPath: newPath });
+      return Object.assign({}, state, changedState);
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPath: List(action.path) });
@@ -136,6 +113,52 @@ export default function kifuTree(state = initialState, action) {
   }
 };
 
+function movePiece(state, move) {
+  const { kifuTree, currentPath, jkf } = state;
+
+  // 1. Check and normalize move
+  if (!move.to) {
+    return {}; // drop to mochigoma
+  }
+  if (move.from && move.from.x === move.to.x && move.from.y === move.to.y) {
+    return {}; // drop to the same place. do nothing
+  }
+  move.to = { x: move.to.x, y: move.to.y }; // In some environment, move.to contains dropEffect attribute. Get rid of it.
+
+  // 2. Compare with existing nodes
+  const currentNode = findNodeByPath(kifuTree, currentPath);
+  const childIndex = currentNode.children.findIndex(childNode => JKFPlayer.sameMoveMinimal(childNode.move, move));
+  if (childIndex >= 0) {
+    return { currentPath: currentPath.push(childIndex) };
+  }
+
+  // 3. Make player then input move
+  const minimalMoveFormats = [{}].concat(getNodesOnPath(kifuTree, currentPath).map(node => ({ move: node.move })));
+  const minimalJKF = Object.assign({}, jkf, { moves: minimalMoveFormats });
+  const player = new JKFPlayer(minimalJKF);
+  player.goto(minimalMoveFormats.length);
+
+  try {
+    if (!player.inputMove(move)) {
+      move.promote = confirm("成りますか？");
+      player.inputMove(move);
+    }
+  } catch (e) {
+    alert(e);
+    return {};
+  }
+
+  // 4. Create new objects
+  const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
+  const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
+  const newKifuTree = kifuTree.updateIn(pathToKeyPath(currentPath).concat(['children']), children => {
+    return children.push(newNode);
+  })
+  const newCurrentPath = currentPath.push(currentNode.children.size);
+
+  return { kifuTree: newKifuTree, currentPath: newCurrentPath };
+}
+
 function updateFork(state, path, forkUpdater) {
   const { kifuTree, currentPath, jkf } = state;
   const currentStringPath = getStringPath(kifuTree, currentPath);
@@ -158,27 +181,6 @@ function updateForkOfKifuTree(kifuTree, path, forkUpdater) {
   });
 
   return newKifuTree;
-}
-
-// Find current path array from tree depending on the state of player
-function findCurrentPath(tree, player, stopIfMissing = false) {
-  const path = [];
-  let currentNode = tree;
-  for (let state of player.getReadableKifuState().slice(1, player.tesuu + 1)) {
-    const nextNodeIndex = currentNode.children.findIndex(childNode => childNode.readableKifu === state.kifu);
-    const nextNode = currentNode.children.get(nextNodeIndex);
-    if (!nextNode) {
-      if (stopIfMissing) {
-        break;
-      } else {
-        throw new Error("Active node not found");
-      }
-    }
-
-    path.push(nextNodeIndex);
-    currentNode = nextNode;
-  }
-  return List(path);
 }
 
 function getPathFromStringPath(tree, stringPath) {

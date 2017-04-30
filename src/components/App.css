@@ -46,5 +46,6 @@
 }
 
 .App-body {
+  display: flex;
   margin: 40px;
 }

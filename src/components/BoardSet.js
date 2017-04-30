@@ -10,16 +10,12 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
   return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
 };
 
-import ForkList from './ForkList';
-
 class BoardSet extends Component {
   render() {
-    const { player, reversed, jumpMap, currentNode, currentPath,
-      previousPath, nextPath, previousForkPath, nextForkPath } = this.props;
-    const playerState = player.getState();
+    const { shogiState, jkf, reversed, currentNode } = this.props;
     const players = [
-      player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
-      player.kifu.header["後手"] || player.kifu.header["上手"] || "後手",
+      jkf.header["先手"] || jkf.header["下手"] || "先手",
+      jkf.header["後手"] || jkf.header["上手"] || "後手",
     ];
 
     return (
@@ -28,7 +24,7 @@ class BoardSet extends Component {
           <div className="players left">
             <Hand
               color={reversed ? 0 : 1}
-              data={playerState.hands[reversed ? 0 : 1]}
+              data={shogiState.hands[reversed ? 0 : 1]}
               playerName={players[reversed ? 0 : 1]}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
@@ -38,49 +34,18 @@ class BoardSet extends Component {
           </div>
           <div className="board">
             <Board
-              board={playerState.board}
-              lastMove={player.getMove()}
+              board={shogiState.board}
+              lastMove={currentNode.move}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
           <div className="players right">
             <Hand
               color={reversed ? 1 : 0}
-              data={playerState.hands[reversed ? 1 : 0]}
+              data={shogiState.hands[reversed ? 1 : 0]}
               playerName={players[reversed ? 1 : 0]}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
-          </div>
-          <div>
-            <div>
-              {(player.tesuu === 0 ? null : player.tesuu + "手目")} {player.getReadableKifu()}
-            </div>
-            <textarea
-              rows="10"
-              className="comment"
-              placeholder="ここに現在の手についてコメントを書けます。"
-              onChange={e => { this.props.onChangeComments(e.target.value); }}
-              value={player.getComments().join("\n")}></textarea>
-            <div className="buttons">
-              <button
-                onClick={e => this.props.onClickPath(previousForkPath)}
-                title="1つ前の分岐に戻る">&laquo;</button>
-              <button
-                onClick={e => this.props.onClickPath(previousPath)}
-                title="1手戻る">&lt;</button>
-              <button
-                onClick={e => this.props.onClickPath(nextPath)}
-                title="1手進む">&gt;</button>
-              <button
-                onClick={e => this.props.onClickPath(nextForkPath)}
-                title="1つ先の分岐に進む">&raquo;</button>
-            </div>
-            <ForkList
-              currentNode={currentNode}
-              currentPath={currentPath}
-              jumpMap={jumpMap}
-              onClickForward={this.props.onClickForward}
-              onClickPath={this.props.onClickPath} />
           </div>
         </div>
       </div>

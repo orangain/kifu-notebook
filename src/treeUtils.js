@@ -3,7 +3,7 @@ import { Map, List, Record } from 'immutable';
 
 class KifuTreeNode extends Record({
   tesuu: 0,
-  comment: undefined,
+  comment: '',
   move: undefined,
   time: undefined,
   special: undefined,
@@ -28,12 +28,12 @@ export function jkfToKifuTree(jkf) {
   return kifuTree;
 }
 
-function createKifuTreeNode(shogi, tesuu, moveFormats) {
+export function createKifuTreeNode(shogi, tesuu, moveFormats) {
   const moveFormat = moveFormats[0];
   //console.log(tesuu, moveFormats);
   return new KifuTreeNode({
     tesuu: tesuu,
-    comment: moveFormat.comments ? moveFormat.comments.join('\n') : undefined,
+    comment: moveFormat.comments ? moveFormat.comments.join('\n') : '',
     move: moveFormat.move,
     time: moveFormat.time,
     special: moveFormat.special,
