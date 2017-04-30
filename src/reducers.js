@@ -129,15 +129,11 @@ export default function kifuTree(state = initialState, action) {
       return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
     }
     case REMOVE_FORK: {
-      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
-      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
-      const newKifuTree = removeFork(kifuTree, pathArray);
-      const newJKF = kifuTreeToJKF(newKifuTree, jkf);
-      const newPathArray = getPathArray(newKifuTree, currentStringPathArray);
-
-      return Object.assign({}, state, { kifuTree: newKifuTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, updateFork(state, pathArray, (children, lastIndex) => {
+        return children.delete(lastIndex);
+      }));
     }
     default:
       return state;
@@ -188,11 +184,25 @@ function moveDownFork(tree, pathArray) {
   return clonedTree;
 }
 
-function removeFork(kifuTree, pathArray) {
+function updateFork(state, pathArray, forkUpdater) {
+  const { kifuTree, currentPathArray, jkf } = state;
+  const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
+  const newKifuTree = updateForkOfKifuTree(kifuTree, pathArray, forkUpdater);
+  if (newKifuTree === kifuTree) {
+    return {}; // no change
+  }
+  const newJKF = kifuTreeToJKF(newKifuTree, jkf);
+  const newPathArray = getPathArray(newKifuTree, currentStringPathArray);
+  const needSave = newKifuTree !== kifuTree;
+
+  return { kifuTree: newKifuTree, currentPathArray: newPathArray, jkf: newJKF, needSave: needSave };
+}
+
+function updateForkOfKifuTree(kifuTree, pathArray, forkUpdater) {
   const lastIndex = pathArray[pathArray.length - 1];
   const parentKeyPath = pathArrayToKeyPath(pathArray.slice(0, -1));
   const newKifuTree = kifuTree.updateIn(parentKeyPath.concat(['children']), children => {
-    return children.delete(lastIndex);
+    return forkUpdater(children, lastIndex);
   });
 
   return newKifuTree;
