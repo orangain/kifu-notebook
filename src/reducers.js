@@ -1,14 +1,10 @@
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED, SCROLL_TO_CENTER,
-  GOTO_PATH, GO_BACK, GO_FORWARD, GO_BACK_FORK, GO_FORWARD_FORK,
-  MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
+  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
+  GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import {
-  jkfToKifuTree, kifuTreeToJKF, findNodeByPath,
-  getPreviousForkPath, getNextForkPath, getStringPathArray
-} from "./treeUtils";
+import { jkfToKifuTree, kifuTreeToJKF, pathArrayToKeyPath, getStringPathArray } from "./treeUtils";
 import { buildJKFPlayerFromState } from './playerUtils';
 
 const initialJKF = { header: {}, moves: [{}] };
@@ -20,7 +16,6 @@ const initialState = {
   message: "",
   autoSaveEnabled: false,
   needSave: false,
-  booleanCounterOfNeedScroll: false,
 };
 
 export default function kifuTree(state = initialState, action) {
@@ -88,176 +83,79 @@ export default function kifuTree(state = initialState, action) {
       const newPathArray = findCurrentPathArray(kifuTree, player);
       return Object.assign({}, state, { currentPathArray: newPathArray });
     }
-    case SCROLL_TO_CENTER: {
-      return Object.assign({}, state, { booleanCounterOfNeedScroll: !state.booleanCounterOfNeedScroll });
-    }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPathArray: action.pathArray });
-    }
-    case GO_BACK: {
-      const { currentPathArray } = state;
-      if (currentPathArray.length === 0) {
-        return state;
-      }
-      const newPathArray = currentPathArray.slice(0, -1);
-      return Object.assign({}, state, { currentPathArray: newPathArray });
-    }
-    case GO_FORWARD: {
-      const { kifuTree, currentPathArray } = state;
-      const childIndex = action.childIndex;
-      const currentNode = findNodeByPath(kifuTree, currentPathArray);
-      if (currentNode.children.length === 0) {
-        return state;
-      }
-      const newPathArray = [...currentPathArray, childIndex];
-      return Object.assign({}, state, { currentPathArray: newPathArray });
-    }
-    case GO_BACK_FORK: {
-      const { kifuTree, currentPathArray } = state;
-      const newPathArray = getPreviousForkPath(kifuTree, currentPathArray);
-      return Object.assign({}, state, { currentPathArray: newPathArray });
-    }
-    case GO_FORWARD_FORK: {
-      const { kifuTree, currentPathArray } = state;
-      const newPathArray = getNextForkPath(kifuTree, currentPathArray);
-      return Object.assign({}, state, { currentPathArray: newPathArray });
     }
     case CHANGE_COMMENTS: {
       const { kifuTree, currentPathArray, jkf } = state;
       const value = action.value;
 
-      const { clonedTree, lastNode } = cloneTreeUntil(kifuTree, currentPathArray);
-      lastNode.comment = value;
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
+      const currentKeyPath = pathArrayToKeyPath(currentPathArray);
+      const newKifuTree = kifuTree.setIn(currentKeyPath.concat(['comment']), value);
+      const newJKF = kifuTreeToJKF(newKifuTree, jkf);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, { kifuTree: newKifuTree, jkf: newJKF, needSave: true });
     }
     case CHANGE_REVERSED: {
       const value = action.value;
       return Object.assign({}, state, { reversed: value });
     }
     case MOVE_UP_FORK: {
-      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = moveUpFork(kifuTree, pathArray);
-      if (clonedTree === kifuTree) {
-        return state;
-      }
-      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
-      const newPathArray = getPathArray(clonedTree, currentStringPathArray);
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
-
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, updateFork(state, pathArray, (children, lastIndex) => {
+        if (lastIndex === 0) {
+          return children;
+        }
+        const prevNode = children.get(lastIndex - 1);
+        return children.delete(lastIndex - 1).insert(lastIndex, prevNode);
+      }));
     }
     case MOVE_DOWN_FORK: {
-      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = moveDownFork(kifuTree, pathArray);
-      if (clonedTree === kifuTree) {
-        return state;
-      }
-      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
-      const newPathArray = getPathArray(clonedTree, currentStringPathArray);
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
-
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, updateFork(state, pathArray, (children, lastIndex) => {
+        if (lastIndex === children.size - 1) {
+          return children;
+        }
+        const targetNode = children.get(lastIndex);
+        return children.delete(lastIndex).insert(lastIndex + 1, targetNode);
+      }));
     }
     case REMOVE_FORK: {
-      const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = removeFork(kifuTree, pathArray);
-
-      const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
-      const newPathArray = getPathArray(clonedTree, currentStringPathArray);
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
-
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, updateFork(state, pathArray, (children, lastIndex) => {
+        return children.delete(lastIndex);
+      }));
     }
     default:
       return state;
   }
 };
 
-function moveUpFork(tree, pathArray) {
-  if (pathArray.length === 0) {
-    return tree; // do nothing
+function updateFork(state, pathArray, forkUpdater) {
+  const { kifuTree, currentPathArray, jkf } = state;
+  const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
+  const newKifuTree = updateForkOfKifuTree(kifuTree, pathArray, forkUpdater);
+  if (newKifuTree === kifuTree) {
+    return {}; // no change
   }
-  const lastNum = pathArray[pathArray.length - 1];
-  const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
-  if (lastNum === 0) {
-    return tree; // do nothing
-  }
+  const newJKF = kifuTreeToJKF(newKifuTree, jkf);
+  const newPathArray = getPathArray(newKifuTree, currentStringPathArray);
+  const needSave = newKifuTree !== kifuTree;
 
-  const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArrayOfParent);
-
-  lastNode.children = [
-    ...lastNode.children.slice(0, lastNum - 1),
-    lastNode.children[lastNum],
-    lastNode.children[lastNum - 1],
-    ...lastNode.children.slice(lastNum + 1),
-  ];
-
-  return clonedTree;
+  return { kifuTree: newKifuTree, currentPathArray: newPathArray, jkf: newJKF, needSave: needSave };
 }
 
-function moveDownFork(tree, pathArray) {
-  if (pathArray.length === 0) {
-    return tree; // do nothing
-  }
-  const lastNum = pathArray[pathArray.length - 1];
-  const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
-  if (lastNum === findNodeByPath(tree, pathArrayOfParent).children.length - 1) {
-    return tree; // do nothing
-  }
-
-  const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArrayOfParent);
-
-  lastNode.children = [
-    ...lastNode.children.slice(0, lastNum),
-    lastNode.children[lastNum + 1],
-    lastNode.children[lastNum],
-    ...lastNode.children.slice(lastNum + 2),
-  ];
-
-  return clonedTree;
-}
-
-function removeFork(tree, pathArray) {
-  if (pathArray.length === 0) {
-    return tree; // do nothing
-  }
-  const lastNum = pathArray[pathArray.length - 1];
-  const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
-
-  const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArrayOfParent);
-
-  lastNode.children = [
-    ...lastNode.children.slice(0, lastNum),
-    ...lastNode.children.slice(lastNum + 1),
-  ];
-
-  return clonedTree;
-}
-
-function cloneTreeUntil(tree, pathArray) {
-  const clonedTree = Object.assign({}, tree);
-
-  let currentNode = clonedTree;
-  pathArray.forEach(num => {
-    const childNode = Object.assign({}, currentNode.children[num]);
-    currentNode.children = [
-      ...currentNode.children.slice(0, num),
-      childNode,
-      ...currentNode.children.slice(num + 1),
-    ];
-
-    currentNode = childNode;
+function updateForkOfKifuTree(kifuTree, pathArray, forkUpdater) {
+  const lastIndex = pathArray[pathArray.length - 1];
+  const parentKeyPath = pathArrayToKeyPath(pathArray.slice(0, -1));
+  const newKifuTree = kifuTree.updateIn(parentKeyPath.concat(['children']), children => {
+    return forkUpdater(children, lastIndex);
   });
 
-  return { clonedTree: clonedTree, lastNode: currentNode };
+  return newKifuTree;
 }
 
 // Find current path array from tree depending on the state of player
@@ -286,10 +184,11 @@ function getPathArray(tree, stringPathArray) {
   let currentNode = tree;
   for (let kifu of stringPathArray) {
     const nextNodeIndex = currentNode.children.findIndex(childNode => childNode.readableKifu === kifu);
-    const nextNode = currentNode.children[nextNodeIndex];
-    if (!nextNode) {
+    if (nextNodeIndex < 0) {
       break;  // stop if node is missing (e.g. node is removed)
     }
+    const nextNode = currentNode.children.get(nextNodeIndex);
+
     pathArray.push(nextNodeIndex);
     currentNode = nextNode;
   }
