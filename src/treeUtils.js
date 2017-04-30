@@ -18,7 +18,7 @@ class KifuTreeNode extends Record({
 
 const JumpTo = Record({
   node: null,
-  pathArray: null,
+  path: null,
 });
 
 export function jkfToKifuTree(jkf) {
@@ -68,11 +68,11 @@ export function buildJumpMap(kifuTree) {
 
     buildJumpMapFromNode(kifuTree, List());
 
-    function buildJumpMapFromNode(kifuTreeNode, pathArray) {
+    function buildJumpMapFromNode(kifuTreeNode, path) {
       const sfen = kifuTreeNode.sfen;
       const jumpTo = new JumpTo({
         node: kifuTreeNode,
-        pathArray: pathArray,
+        path: path,
       });
       if (seen[sfen]) {
         if (!jumpMap.has(sfen)) {
@@ -84,7 +84,7 @@ export function buildJumpMap(kifuTree) {
       }
 
       kifuTreeNode.children.forEach((childNode, i) => {
-        buildJumpMapFromNode(childNode, pathArray.concat([i]));
+        buildJumpMapFromNode(childNode, path.concat([i]));
       });
     }
 
@@ -130,10 +130,10 @@ function nodesToMoveFormats(nodes) {
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
-export function getNodesOnPath(tree, pathArray) {
+export function getNodesOnPath(tree, path) {
   const nodes = [];
   let currentNode = tree;
-  pathArray.forEach(num => {
+  path.forEach(num => {
     currentNode = currentNode.children.get(num);
     nodes.push(currentNode);
   });
@@ -141,50 +141,50 @@ export function getNodesOnPath(tree, pathArray) {
   return nodes;
 }
 
-export function getStringPathArray(tree, pathArray) {
-  return getNodesOnPath(tree, pathArray).map(node => node.readableKifu);
+export function getStringPath(tree, path) {
+  return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
-export function pathArrayToKeyPath(pathArray) {
+export function pathToKeyPath(path) {
   const keyPath = [];
-  pathArray.forEach(num => {
+  path.forEach(num => {
     keyPath.push('children');
     keyPath.push(num);
   });
   return keyPath;
 }
 
-export function findNodeByPath(tree, pathArray) {
-  if (pathArray.size === 0) {
+export function findNodeByPath(tree, path) {
+  if (path.size === 0) {
     return tree;
   }
-  const nodes = getNodesOnPath(tree, pathArray);
+  const nodes = getNodesOnPath(tree, path);
   return nodes[nodes.length - 1];
 }
 
-export function getPreviousForkPath(tree, pathArray) {
-  const nodes = getNodesOnPath(tree, pathArray);
+export function getPreviousForkPath(tree, path) {
+  const nodes = getNodesOnPath(tree, path);
   for (let i = nodes.length - 2; i >= 0; i--) {
     const node = nodes[i];
     if (node.children.size >= 2) {
-      return pathArray.slice(0, i + 1);
+      return path.slice(0, i + 1);
     }
   }
   return [];
 }
 
-export function getNextForkPath(tree, pathArray) {
-  let currentNode = findNodeByPath(tree, pathArray);
+export function getNextForkPath(tree, path) {
+  let currentNode = findNodeByPath(tree, path);
   if (currentNode.children.size === 0) {
-    return pathArray;
+    return path;
   }
 
-  const newPathArray = [...pathArray];
+  const newPath = [...path];
   while (true) {
     currentNode = currentNode.children.get(0);
-    newPathArray.push(0);
+    newPath.push(0);
     if (currentNode.children.size !== 1) {
-      return newPathArray;
+      return newPath;
     }
   }
 }

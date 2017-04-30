@@ -11,22 +11,22 @@ import BoardSet from '../components/BoardSet';
 const mapStateToProps = (state) => {
   //console.log(state);
   const player = buildJKFPlayerFromState(state);
-  const currentNode = findNodeByPath(state.kifuTree, state.currentPathArray);
+  const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
   const jumpMap = buildJumpMap(state.kifuTree);
-  const previousPathArray = state.currentPathArray.size > 0 ? state.currentPathArray.slice(0, state.currentPathArray.size - 1) : state.currentPathArray;
-  const nextPathArray = currentNode.children.size > 0 ? state.currentPathArray.concat([0]) : state.currentPathArray;
-  const previousForkPathArray = getPreviousForkPath(state.kifuTree, state.currentPathArray);
-  const nextForkPathArray = getNextForkPath(state.kifuTree, state.currentPathArray);
+  const previousPath = state.currentPath.size > 0 ? state.currentPath.slice(0, state.currentPath.size - 1) : state.currentPath;
+  const nextPath = currentNode.children.size > 0 ? state.currentPath.concat([0]) : state.currentPath;
+  const previousForkPath = getPreviousForkPath(state.kifuTree, state.currentPath);
+  const nextForkPath = getNextForkPath(state.kifuTree, state.currentPath);
 
   return {
     player: player,
     reversed: state.reversed,
     currentNode: currentNode,
-    currentPathArray: state.currentPathArray,
-    previousPathArray: previousPathArray,
-    nextPathArray: nextPathArray,
-    previousForkPathArray: previousForkPathArray,
-    nextForkPathArray: nextForkPathArray,
+    currentPath: state.currentPath,
+    previousPath: previousPath,
+    nextPath: nextPath,
+    previousForkPath: previousForkPath,
+    nextForkPath: nextForkPath,
     jumpMap: jumpMap,
   }
 };

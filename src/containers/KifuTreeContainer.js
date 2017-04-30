@@ -16,11 +16,11 @@ const mapStateToProps = () => {
     const jumpMap = buildJumpMap(state.kifuTree);
     // calculate here for performance optimization of KifuTreeNode.shouldComponentUpdate
     const jumpMapChanged = !Immutable.is(jumpMap, prevProps.jumpMap);
-    const currentPathChanged = !Immutable.is(state.currentPathArray, prevProps.currentPathArray);
+    const currentPathChanged = !Immutable.is(state.currentPath, prevProps.currentPath);
 
     const props = {
       kifuTree: state.kifuTree,
-      currentPathArray: state.currentPathArray,
+      currentPath: state.currentPath,
       currentPathChanged: currentPathChanged,
       jumpMap: jumpMap,
       jumpMapChanged: jumpMapChanged,

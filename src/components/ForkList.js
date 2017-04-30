@@ -4,14 +4,14 @@ import './ForkList.css';
 
 export default class ForkList extends Component {
   render() {
-    const { currentNode, jumpMap, currentPathArray, onClickPath } = this.props;
+    const { currentNode, jumpMap, currentPath, onClickPath } = this.props;
 
     function renderList() {
       let forkList = [];
       forkList = forkList.concat(currentNode.children.map((childNode, i) => (
         <li
           key={childNode.readableKifu}
-          onClick={e => onClickPath(currentPathArray.concat([i]))}
+          onClick={e => onClickPath(currentPath.concat([i]))}
           className={childNode.isBad() ? 'bad' : ''}>
           {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
         </li>
@@ -24,7 +24,7 @@ export default class ForkList extends Component {
           forkList = forkList.concat(jumpTo.node.children.map((childNode, i) =>
             <li
               key={"jump-" + childNode.readableKifu}
-              onClick={e => onClickPath(jumpTo.pathArray.concat([i]))}
+              onClick={e => onClickPath(jumpTo.path.concat([i]))}
               className={childNode.isBad() ? 'bad' : ''}>
               ↪ {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
             </li>

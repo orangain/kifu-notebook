@@ -11,16 +11,16 @@ export default class KifuTree extends React.Component {
     if (!jsonPath) {
       return; // do nothing
     }
-    const pathArray = JSON.parse(jsonPath);
+    const path = JSON.parse(jsonPath);
 
     if (e.target.classList.contains('readable-kifu')) {
-      this.props.onClickPath(pathArray);
+      this.props.onClickPath(path);
     } else if (e.target.classList.contains('up')) {
-      this.props.onClickMoveUpFork(pathArray);
+      this.props.onClickMoveUpFork(path);
     } else if (e.target.classList.contains('down')) {
-      this.props.onClickMoveDownFork(pathArray);
+      this.props.onClickMoveDownFork(path);
     } else if (e.target.classList.contains('remove')) {
-      this.props.onClickRemoveFork(pathArray);
+      this.props.onClickRemoveFork(path);
     }
   }
   componentWillUpdate() {
@@ -44,14 +44,14 @@ export default class KifuTree extends React.Component {
     }
   }
   render() {
-    const { kifuTree, currentPathArray, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
+    const { kifuTree, currentPath, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNode
           kifuTreeNode={kifuTree}
-          pathArray={List()}
-          currentPathArray={currentPathArray}
+          path={List()}
+          currentPath={currentPath}
           currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
