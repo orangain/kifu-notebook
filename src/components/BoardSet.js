@@ -53,14 +53,14 @@ class BoardSet extends Component {
           </div>
           <div>
             <div>
-              {(player.tesuu === 0 ? null : player.tesuu + "手目")} {player.getReadableKifu()}
+              {(currentNode.tesuu === 0 ? null : currentNode.tesuu + "手目")} {currentNode.readableKifu}
             </div>
             <textarea
               rows="10"
               className="comment"
               placeholder="ここに現在の手についてコメントを書けます。"
               onChange={e => { this.props.onChangeComments(e.target.value); }}
-              value={player.getComments().join("\n")}></textarea>
+              value={currentNode.comment}></textarea>
             <div className="buttons">
               <button
                 onClick={e => this.props.onClickPath(previousForkPath)}
