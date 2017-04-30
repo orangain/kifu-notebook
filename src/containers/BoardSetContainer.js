@@ -1,16 +1,23 @@
 import { connect } from 'react-redux';
+import { Shogi } from 'shogi.js';
+import JKFPlayer from 'json-kifu-format';
 
-import { buildJKFPlayerFromState } from "../playerUtils";
+import { findNodeByPath } from '../treeUtils';
 import { inputMove, changeReversed } from '../actions';
 import BoardSet from '../components/BoardSet';
 
 const mapStateToProps = (state) => {
   //console.log(state);
-  const player = buildJKFPlayerFromState(state);
+  const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
+  const shogi = new Shogi();
+  shogi.initializeFromSFENString(currentNode.sfen);
+  const shogiState = JKFPlayer.getState(shogi);
 
   return {
-    player: player,
+    shogiState: shogiState,
+    jkf: state.jkf,
     reversed: state.reversed,
+    currentNode: currentNode,
   }
 };
 

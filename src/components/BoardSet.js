@@ -12,11 +12,10 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
 
 class BoardSet extends Component {
   render() {
-    const { player, reversed } = this.props;
-    const playerState = player.getState();
+    const { shogiState, jkf, reversed, currentNode } = this.props;
     const players = [
-      player.kifu.header["先手"] || player.kifu.header["下手"] || "先手",
-      player.kifu.header["後手"] || player.kifu.header["上手"] || "後手",
+      jkf.header["先手"] || jkf.header["下手"] || "先手",
+      jkf.header["後手"] || jkf.header["上手"] || "後手",
     ];
 
     return (
@@ -25,7 +24,7 @@ class BoardSet extends Component {
           <div className="players left">
             <Hand
               color={reversed ? 0 : 1}
-              data={playerState.hands[reversed ? 0 : 1]}
+              data={shogiState.hands[reversed ? 0 : 1]}
               playerName={players[reversed ? 0 : 1]}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
@@ -35,15 +34,15 @@ class BoardSet extends Component {
           </div>
           <div className="board">
             <Board
-              board={playerState.board}
-              lastMove={player.getMove()}
+              board={shogiState.board}
+              lastMove={currentNode.move}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
           <div className="players right">
             <Hand
               color={reversed ? 1 : 0}
-              data={playerState.hands[reversed ? 1 : 0]}
+              data={shogiState.hands[reversed ? 1 : 0]}
               playerName={players[reversed ? 1 : 0]}
               onInputMove={e => { this.props.onInputMove(e) }}
               reversed={reversed} />
