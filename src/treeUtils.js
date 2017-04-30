@@ -28,7 +28,7 @@ export function jkfToKifuTree(jkf) {
   return kifuTree;
 }
 
-function createKifuTreeNode(shogi, tesuu, moveFormats) {
+export function createKifuTreeNode(shogi, tesuu, moveFormats) {
   const moveFormat = moveFormats[0];
   //console.log(tesuu, moveFormats);
   return new KifuTreeNode({
