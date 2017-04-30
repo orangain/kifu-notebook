@@ -132,13 +132,12 @@ export default function kifuTree(state = initialState, action) {
       const { kifuTree, currentPathArray, jkf } = state;
       const pathArray = action.pathArray;
 
-      const clonedTree = removeFork(kifuTree, pathArray);
-
       const currentStringPathArray = getStringPathArray(kifuTree, currentPathArray);
-      const newPathArray = getPathArray(clonedTree, currentStringPathArray);
-      const newJKF = kifuTreeToJKF(clonedTree, jkf);
+      const newKifuTree = removeFork(kifuTree, pathArray);
+      const newJKF = kifuTreeToJKF(newKifuTree, jkf);
+      const newPathArray = getPathArray(newKifuTree, currentStringPathArray);
 
-      return Object.assign({}, state, { kifuTree: clonedTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
+      return Object.assign({}, state, { kifuTree: newKifuTree, currentPathArray: newPathArray, jkf: newJKF, needSave: true });
     }
     default:
       return state;
@@ -189,21 +188,14 @@ function moveDownFork(tree, pathArray) {
   return clonedTree;
 }
 
-function removeFork(tree, pathArray) {
-  if (pathArray.length === 0) {
-    return tree; // do nothing
-  }
-  const lastNum = pathArray[pathArray.length - 1];
-  const pathArrayOfParent = pathArray.slice(0, pathArray.length - 1);
+function removeFork(kifuTree, pathArray) {
+  const lastIndex = pathArray[pathArray.length - 1];
+  const parentKeyPath = pathArrayToKeyPath(pathArray.slice(0, -1));
+  const newKifuTree = kifuTree.updateIn(parentKeyPath.concat(['children']), children => {
+    return children.delete(lastIndex);
+  });
 
-  const { clonedTree, lastNode } = cloneTreeUntil(tree, pathArrayOfParent);
-
-  lastNode.children = [
-    ...lastNode.children.slice(0, lastNum),
-    ...lastNode.children.slice(lastNum + 1),
-  ];
-
-  return clonedTree;
+  return newKifuTree;
 }
 
 function cloneTreeUntil(tree, pathArray) {
@@ -250,10 +242,11 @@ function getPathArray(tree, stringPathArray) {
   let currentNode = tree;
   for (let kifu of stringPathArray) {
     const nextNodeIndex = currentNode.children.findIndex(childNode => childNode.readableKifu === kifu);
-    const nextNode = currentNode.children[nextNodeIndex];
-    if (!nextNode) {
+    if (nextNodeIndex < 0) {
       break;  // stop if node is missing (e.g. node is removed)
     }
+    const nextNode = currentNode.children.get(nextNodeIndex);
+
     pathArray.push(nextNodeIndex);
     currentNode = nextNode;
   }
