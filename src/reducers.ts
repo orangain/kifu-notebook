@@ -113,7 +113,7 @@ export default function kifuTree(state = initialState, action) {
   }
 };
 
-function movePiece(state, move) {
+function movePiece(state, move): { kifuTree?, currentPath?, jkf?, needSave?} {
   const { kifuTree, currentPath, jkf } = state;
 
   // 1. Check and normalize move
@@ -184,7 +184,7 @@ function updateForkOfKifuTree(kifuTree, path, forkUpdater) {
 }
 
 function getPathFromStringPath(tree, stringPath) {
-  const path = [];
+  const path: number[] = [];
   let currentNode = tree;
   for (let kifu of stringPath) {
     const nextNodeIndex = currentNode.children.findIndex(childNode => childNode.readableKifu === kifu);

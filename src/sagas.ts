@@ -12,12 +12,6 @@ import Api from './api';
 
 export default function* rootSaga() {
   yield [
-    watchActions(),
-  ];
-}
-
-function* watchActions() {
-  yield [
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
     takeLatest(
