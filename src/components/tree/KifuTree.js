@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import KifuTreeNode from "./KifuTreeNode.js"
+import { List } from "immutable";
 
 import './KifuTree.css';
 
@@ -43,14 +44,15 @@ export default class KifuTree extends React.Component {
     }
   }
   render() {
-    const { kifuTree, currentPath, jumpMap, jumpMapChanged } = this.props;
+    const { kifuTree, currentPathArray, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNode
           kifuTreeNode={kifuTree}
-          pathArray={[]}
-          currentPath={currentPath}
+          pathArray={List()}
+          currentPathArray={currentPathArray}
+          currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
       </ul>
