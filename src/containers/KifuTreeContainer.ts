@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
 import { buildJumpMap } from '../treeUtils';
 import KifuTree from '../components/tree/KifuTree';
 
 const mapStateToProps = () => {
-  let prevProps = {};
+  let prevProps: any = {};
 
   return (state) => {
     // console.log('mapStateToProps')

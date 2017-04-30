@@ -1,7 +1,10 @@
-import JKFPlayer from "json-kifu-format";
-import { Map, List, Record } from 'immutable';
+import { JKFPlayer, JSONKifuFormat, MoveFormat, MoveMoveFormat, TimeFormat, Shogi } from './shogiUtils';
+import { Map, List, Iterable, Record } from 'immutable';
 
-class KifuTreeNode extends Record({
+export type Path = List<number>;
+export type SFEN = string;
+export type JumpMap = Map<SFEN, List<JumpTo>>;
+export class KifuTreeNode extends Record({
   tesuu: 0,
   comment: '',
   move: undefined,
@@ -11,24 +14,39 @@ class KifuTreeNode extends Record({
   sfen: undefined,
   children: List(),
 }) {
-  isBad() {
-    return this.comment && this.comment.startsWith('bad:');
+  tesuu: number;
+  comment?: string;
+  move?: MoveMoveFormat;
+  time?: {
+    now: TimeFormat;
+    total: TimeFormat
+  };
+  special?: string;
+  readableKifu: string;
+  sfen: SFEN;
+  children: List<KifuTreeNode>;
+
+  isBad(): boolean {
+    return !!this.comment && this.comment.startsWith('bad:');
   }
 }
 
-const JumpTo = Record({
+export class JumpTo extends Record({
   node: null,
   path: null,
-});
+}) {
+  node: KifuTreeNode;
+  path: Path;
+}
 
-export function jkfToKifuTree(jkf) {
+export function jkfToKifuTree(jkf: JSONKifuFormat): KifuTreeNode {
   const shogi = new JKFPlayer(jkf).shogi;
   const kifuTree = createKifuTreeNode(shogi, 0, jkf.moves);
   //fillSFEN(kifuTree, jkf);
   return kifuTree;
 }
 
-export function createKifuTreeNode(shogi, tesuu, moveFormats) {
+export function createKifuTreeNode(shogi: Shogi, tesuu: number, moveFormats: MoveFormat[]): KifuTreeNode {
   const moveFormat = moveFormats[0];
   //console.log(tesuu, moveFormats);
   return new KifuTreeNode({
@@ -48,27 +66,26 @@ export function createKifuTreeNode(shogi, tesuu, moveFormats) {
   });
 }
 
-function moveFormatsToForks(moveFormats) {
-  let forks = [];
+function moveFormatsToForks(moveFormats: MoveFormat[]): MoveFormat[][] {
+  let forks: MoveFormat[][] = [];
   if (moveFormats.length >= 2) {
     forks.push(moveFormats.slice(1));
   }
 
   if (moveFormats[1] && moveFormats[1].forks) {
-    forks = forks.concat(moveFormats[1].forks);
+    forks = forks.concat(moveFormats[1].forks as MoveFormat[][]);
   }
   return forks;
 }
 
-export function buildJumpMap(kifuTree) {
+export function buildJumpMap(kifuTree: KifuTreeNode): JumpMap {
   // const begin = new Date();
+  const jumpMap = Map<SFEN, List<JumpTo>>().withMutations(jumpMap => {
+    const seen: { [sfen: string]: JumpTo } = {};
 
-  const jumpMap = Map().withMutations(jumpMap => {
-    const seen = {};
+    buildJumpMapFromNode(kifuTree, List<number>());
 
-    buildJumpMapFromNode(kifuTree, List());
-
-    function buildJumpMapFromNode(kifuTreeNode, path) {
+    function buildJumpMapFromNode(kifuTreeNode: KifuTreeNode, path: Path) {
       const sfen = kifuTreeNode.sfen;
       const jumpTo = new JumpTo({
         node: kifuTreeNode,
@@ -76,15 +93,15 @@ export function buildJumpMap(kifuTree) {
       });
       if (seen[sfen]) {
         if (!jumpMap.has(sfen)) {
-          jumpMap.set(sfen, List([seen[sfen]]));
+          jumpMap.set(sfen, List<JumpTo>([seen[sfen]]));
         }
-        jumpMap.set(sfen, jumpMap.get(sfen).concat([jumpTo]));
+        jumpMap.set(sfen, jumpMap.get(sfen).push(jumpTo));
       } else {
         seen[sfen] = jumpTo;
       }
 
-      kifuTreeNode.children.forEach((childNode, i) => {
-        buildJumpMapFromNode(childNode, path.concat([i]));
+      kifuTreeNode.children.forEach((childNode: KifuTreeNode, i: number) => {
+        buildJumpMapFromNode(childNode, path.push(i));
       });
     }
 
@@ -97,7 +114,7 @@ export function buildJumpMap(kifuTree) {
   return jumpMap;
 }
 
-export function kifuTreeToJKF(kifuTree, baseJKF) {
+export function kifuTreeToJKF(kifuTree: KifuTreeNode, baseJKF: JSONKifuFormat): JSONKifuFormat {
   const firstMove = Object.assign({}, baseJKF.moves[0]);
   firstMove.comments = kifuTree.comment ? kifuTree.comment.split('\n') : undefined;
 
@@ -110,7 +127,7 @@ export function kifuTreeToJKF(kifuTree, baseJKF) {
   return newJKF;
 }
 
-function nodesToMoveFormats(nodes) {
+function nodesToMoveFormats(nodes: KifuTreeNode[]): MoveFormat[] {
   const primaryNode = nodes[0];
 
   if (!primaryNode) {
@@ -118,7 +135,7 @@ function nodesToMoveFormats(nodes) {
   }
 
   // key order is important for readability
-  const primaryMoveFormat = {
+  const primaryMoveFormat: MoveFormat = {
     comments: primaryNode.comment ? primaryNode.comment.split('\n') : undefined,
     move: primaryNode.move,
     time: primaryNode.time,
@@ -130,10 +147,10 @@ function nodesToMoveFormats(nodes) {
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
-export function getNodesOnPath(tree, path) {
-  const nodes = [];
+export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
+  const nodes: KifuTreeNode[] = [];
   let currentNode = tree;
-  path.forEach(num => {
+  path.forEach((num: number) => {
     currentNode = currentNode.children.get(num);
     nodes.push(currentNode);
   });
@@ -141,12 +158,12 @@ export function getNodesOnPath(tree, path) {
   return nodes;
 }
 
-export function getStringPath(tree, path) {
+export function getStringPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
-export function pathToKeyPath(path) {
-  const keyPath = [];
+export function pathToKeyPath(path: Path | Iterable<number, number>): any[] {
+  const keyPath: any[] = [];
   path.forEach(num => {
     keyPath.push('children');
     keyPath.push(num);
@@ -154,7 +171,7 @@ export function pathToKeyPath(path) {
   return keyPath;
 }
 
-export function findNodeByPath(tree, path) {
+export function findNodeByPath(tree: KifuTreeNode, path: Path): KifuTreeNode {
   if (path.size === 0) {
     return tree;
   }
@@ -162,18 +179,18 @@ export function findNodeByPath(tree, path) {
   return nodes[nodes.length - 1];
 }
 
-export function getPreviousForkPath(tree, path) {
+export function getPreviousForkPath(tree: KifuTreeNode, path: Path): Path {
   const nodes = getNodesOnPath(tree, path);
   for (let i = nodes.length - 2; i >= 0; i--) {
     const node = nodes[i];
     if (node.children.size >= 2) {
-      return path.slice(0, i + 1);
+      return path.slice(0, i + 1) as Path;
     }
   }
-  return List();
+  return List<number>();
 }
 
-export function getNextForkPath(tree, path) {
+export function getNextForkPath(tree: KifuTreeNode, path: Path): Path {
   let currentNode = findNodeByPath(tree, path);
   if (currentNode.children.size === 0) {
     return path;

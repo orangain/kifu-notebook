@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { Shogi } from 'shogi.js';
-import JKFPlayer from 'json-kifu-format';
+import { Shogi, JKFPlayer } from '../shogiUtils';
 
 import { findNodeByPath } from '../treeUtils';
 import { inputMove, changeReversed } from '../actions';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { findNodeByPath, buildJumpMap, getPreviousForkPath, getNextForkPath } from "../treeUtils";
-import { changeComments, gotoPath, goBackFork, goForwardFork } from '../actions';
+import { changeComments, gotoPath } from '../actions';
 import CurrentNode from '../components/CurrentNode';
 
 const mapStateToProps = (state) => {
@@ -27,8 +27,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   onChangeComments: changeComments,
   onClickPath: gotoPath,
-  onClickBackFork: goBackFork,
-  onClickForwardFork: goForwardFork,
 };
 
 const CurrentNodeContainer = connect(
