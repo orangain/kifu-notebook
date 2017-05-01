@@ -2,10 +2,18 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es5",
     "noImplicitAny": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "jsx": "react",
-    "allowJs": true
-  }
+    "allowJs": false,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "strictNullChecks": true
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
