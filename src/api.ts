@@ -1,4 +1,4 @@
-import stringify from "json-stringify-pretty-compact";
+import * as stringify from "json-stringify-pretty-compact";
 import { JSONKifuFormat } from "./shogiUtils";
 
 export default class Api {
