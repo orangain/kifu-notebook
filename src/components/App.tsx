@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
+import { Component } from 'react';
+const logo = require('./logo.svg');
 import './App.css';
 import BoardSetContainer from '../containers/BoardSetContainer';
 import KifuTreeContainer from '../containers/KifuTreeContainer';
 import CurrentNode from '../containers/CurrentNodeContainer';
 
-class App extends Component {
+interface AppProps {
+  message: string;
+  isAutoSaveEnabled: boolean;
+  onLoad: () => void;
+  onClickSave: () => void;
+  onChangeAutoSave: (enabled: boolean) => void;
+}
+
+class App extends Component<AppProps, {}> {
   componentWillMount() {
-    window.Perf = require('react-addons-perf');
+    (window as any).Perf = require('react-addons-perf');
     this.props.onLoad();
   }
   render() {

@@ -2,6 +2,7 @@ import { JKFPlayer, JSONKifuFormat, MoveFormat, MoveMoveFormat, TimeFormat, Shog
 import { Map, List, Iterable, Record } from 'immutable';
 
 export type Path = List<number>;
+export type PathLike = Path | Iterable<number, number>
 export type SFEN = string;
 export type JumpMap = Map<SFEN, List<JumpTo>>;
 export class KifuTreeNode extends Record({
@@ -147,7 +148,7 @@ function nodesToMoveFormats(nodes: KifuTreeNode[]): MoveFormat[] {
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
-export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
+export function getNodesOnPath(tree: KifuTreeNode, path: PathLike): KifuTreeNode[] {
   const nodes: KifuTreeNode[] = [];
   let currentNode = tree;
   path.forEach((num: number) => {
@@ -162,7 +163,7 @@ export function getStringPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
-export function pathToKeyPath(path: Path | Iterable<number, number>): any[] {
+export function pathToKeyPath(path: PathLike): any[] {
   const keyPath: any[] = [];
   path.forEach(num => {
     keyPath.push('children');
@@ -171,7 +172,7 @@ export function pathToKeyPath(path: Path | Iterable<number, number>): any[] {
   return keyPath;
 }
 
-export function findNodeByPath(tree: KifuTreeNode, path: Path): KifuTreeNode {
+export function findNodeByPath(tree: KifuTreeNode, path: PathLike): KifuTreeNode {
   if (path.size === 0) {
     return tree;
   }
