@@ -9,14 +9,9 @@ import {
 } from './actions';
 import { getAutoSaveNeeded, getJKF } from './selectors';
 import Api from './api';
+import { JSONKifuFormat } from "./shogiUtils";
 
 export default function* rootSaga() {
-  yield [
-    watchActions(),
-  ];
-}
-
-function* watchActions() {
   yield [
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
@@ -36,7 +31,7 @@ export function* fetchJKF() {
 }
 
 export function* storeJKF() {
-  const jkf = yield select(getJKF);
+  const jkf: JSONKifuFormat = yield select(getJKF);
   try {
     yield call(Api.storeJKF, jkf);
     yield put(receivePutJKF());

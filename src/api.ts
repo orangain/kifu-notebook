@@ -1,4 +1,5 @@
-import stringify from "json-stringify-pretty-compact";
+import * as stringify from "json-stringify-pretty-compact";
+import { JSONKifuFormat } from "./shogiUtils";
 
 export default class Api {
   static fetchJKF() {
@@ -11,10 +12,10 @@ export default class Api {
         return json;
       });
   }
-  static storeJKF(jkf) {
+  static storeJKF(jkf: JSONKifuFormat) {
     const body = stringify(jkf);
 
-    function preserveFailedData(e) {
+    function preserveFailedData(e: Error | Response) {
       console.error(e);
       window.sessionStorage.setItem('lastFailedJKF', body);
       console.log('Failed to save. You can get the last JKF by: console.log(sessionStorage.getItem("lastFailedJKF"))');

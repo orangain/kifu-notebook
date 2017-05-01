@@ -1,9 +1,26 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import './CurrentNode.css';
 
 import ForkList from './ForkList';
+import { JumpMap, KifuTreeNode, Path } from "../treeUtils";
 
-export default class CurrentNode extends Component {
+export interface CurrentNodeStateProps {
+  jumpMap: JumpMap;
+  currentNode: KifuTreeNode;
+  currentPath: Path;
+  previousPath: Path;
+  nextPath: Path;
+  previousForkPath: Path;
+  nextForkPath: Path;
+}
+
+export interface CurrentNodeDispatchProps {
+  onClickPath: (path: Path) => void;
+  onChangeComments: (comment: string) => void;
+}
+
+export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, {}> {
   render() {
     const { jumpMap, currentNode, currentPath,
       previousPath, nextPath, previousForkPath, nextForkPath } = this.props;
@@ -14,7 +31,7 @@ export default class CurrentNode extends Component {
           {(currentNode.tesuu === 0 ? null : currentNode.tesuu + "手目")} {currentNode.readableKifu}
         </div>
         <textarea
-          rows="10"
+          rows={10}
           className="comment"
           placeholder="ここに現在の手についてコメントを書けます。"
           onChange={e => { this.props.onChangeComments(e.target.value); }}
@@ -37,7 +54,6 @@ export default class CurrentNode extends Component {
           currentNode={currentNode}
           currentPath={currentPath}
           jumpMap={jumpMap}
-          onClickForward={this.props.onClickForward}
           onClickPath={this.props.onClickPath} />
       </div>
     )

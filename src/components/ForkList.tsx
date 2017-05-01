@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 
 import './ForkList.css';
+import { KifuTreeNode, JumpMap, Path, JumpTo } from "../treeUtils";
 
-export default class ForkList extends Component {
+interface ForkListProps {
+  currentNode: KifuTreeNode;
+  jumpMap: JumpMap;
+  currentPath: Path;
+  onClickPath: (path: Path) => void;
+}
+export default class ForkList extends Component<ForkListProps, {}> {
   render() {
     const { currentNode, jumpMap, currentPath, onClickPath } = this.props;
 
-    function renderList() {
-      let forkList = [];
-      forkList = forkList.concat(currentNode.children.map((childNode, i) => (
+    function renderList(): JSX.Element[] {
+      let forkList: JSX.Element[] = [];
+      forkList = forkList.concat(currentNode.children.map((childNode: KifuTreeNode, i: number) => (
         <li
           key={childNode.readableKifu}
           onClick={e => onClickPath(currentPath.concat([i]))}
@@ -20,8 +28,8 @@ export default class ForkList extends Component {
       const jumpToList = jumpMap.get(currentNode.sfen);
 
       if (jumpToList) {
-        jumpToList.filter(jumpTo => jumpTo.node !== currentNode).forEach(jumpTo => {
-          forkList = forkList.concat(jumpTo.node.children.map((childNode, i) =>
+        jumpToList.filter((jumpTo: JumpTo) => jumpTo.node !== currentNode).forEach((jumpTo: JumpTo) => {
+          forkList = forkList.concat(jumpTo.node.children.map((childNode: KifuTreeNode, i: number) =>
             <li
               key={"jump-" + childNode.readableKifu}
               onClick={e => onClickPath(jumpTo.path.concat([i]))}
@@ -33,7 +41,7 @@ export default class ForkList extends Component {
       }
 
       if (forkList.length === 0) {
-        return (<li>なし</li>);
+        return [<li key="なし">なし</li>];
       }
 
       return forkList;

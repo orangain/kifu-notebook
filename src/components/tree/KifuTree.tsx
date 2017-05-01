@@ -1,38 +1,57 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import KifuTreeNode from "./KifuTreeNode.js"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { default as KifuTreeNodeComponent } from "./KifuTreeNode";
 import { List } from "immutable";
 
 import './KifuTree.css';
+import { Path, JumpMap, KifuTreeNode } from "../../treeUtils";
 
-export default class KifuTree extends React.Component {
-  onClick(e) {
-    const jsonPath = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
+export interface KifuTreeStateProps {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+  currentPathChanged: boolean;
+  jumpMap: JumpMap;
+  jumpMapChanged: boolean;
+}
+
+export interface KifuTreeDispatchProps {
+  onClickPath: (path: Path) => void;
+  onClickMoveUpFork: (path: Path) => void;
+  onClickMoveDownFork: (path: Path) => void;
+  onClickRemoveFork: (path: Path) => void;
+}
+
+export default class KifuTree extends React.Component<KifuTreeStateProps & KifuTreeDispatchProps, {}> {
+  begin: Date;
+
+  onClick(e: React.MouseEvent<HTMLUListElement>) {
+    const target = e.target as any;
+    const jsonPath = target.dataset.path || target.parentNode.dataset.path || target.parentNode.parentNode.dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }
-    const path = List(JSON.parse(jsonPath));
+    const path = List<number>(JSON.parse(jsonPath)) as Path;
 
-    if (e.target.classList.contains('readable-kifu')) {
+    if (target.classList.contains('readable-kifu')) {
       this.props.onClickPath(path);
-    } else if (e.target.classList.contains('up')) {
+    } else if (target.classList.contains('up')) {
       this.props.onClickMoveUpFork(path);
-    } else if (e.target.classList.contains('down')) {
+    } else if (target.classList.contains('down')) {
       this.props.onClickMoveDownFork(path);
-    } else if (e.target.classList.contains('remove')) {
+    } else if (target.classList.contains('remove')) {
       this.props.onClickRemoveFork(path);
     }
   }
   componentWillUpdate() {
     this.begin = new Date();
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
     const end = new Date();
     console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
 
     if (this.props.currentPathChanged) {
       const domNode = ReactDOM.findDOMNode(this);
-      const currentElementDOMNode = domNode.querySelector('span.current');
+      const currentElementDOMNode = domNode.querySelector('span.current') as Element;
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
       const needScroll = currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth;
@@ -48,9 +67,9 @@ export default class KifuTree extends React.Component {
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
-        <KifuTreeNode
+        <KifuTreeNodeComponent
           kifuTreeNode={kifuTree}
-          path={List()}
+          path={List<number>()}
           currentPath={currentPath}
           currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
