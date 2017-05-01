@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Component } from 'react';
 
 import './ForkList.css';
-import { KifuTreeNode, JumpMap, Path, PathLike, JumpTo } from "../treeUtils";
+import { KifuTreeNode, JumpMap, Path, JumpTo } from "../treeUtils";
 
 interface ForkListProps {
   currentNode: KifuTreeNode;
   jumpMap: JumpMap;
   currentPath: Path;
-  onClickPath: (path: PathLike) => void;
+  onClickPath: (path: Path) => void;
 }
 export default class ForkList extends Component<ForkListProps, {}> {
   render() {

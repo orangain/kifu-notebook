@@ -1,10 +1,17 @@
-import { connect } from 'react-redux';
+import { connect, MapDispatchToPropsObject } from 'react-redux';
 
-import { findNodeByPath, buildJumpMap, getPreviousForkPath, getNextForkPath } from "../treeUtils";
+import { findNodeByPath, buildJumpMap, getPreviousForkPath, getNextForkPath, KifuTreeNode, Path } from "../treeUtils";
 import { changeComments, gotoPath } from '../actions';
-import CurrentNode from '../components/CurrentNode';
+import CurrentNode, { CurrentNodeStateProps, CurrentNodeDispatchProps } from '../components/CurrentNode';
+import { JSONKifuFormat } from "../shogiUtils";
 
-const mapStateToProps = (state) => {
+interface CurrentNodeState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+  jkf: JSONKifuFormat;
+}
+
+const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
   //console.log(state);
   const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
   const jumpMap = buildJumpMap(state.kifuTree);
@@ -24,7 +31,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: CurrentNodeDispatchProps & MapDispatchToPropsObject = {
   onChangeComments: changeComments,
   onClickPath: gotoPath,
 };

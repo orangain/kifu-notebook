@@ -1,11 +1,18 @@
-import { connect } from 'react-redux';
-import { Shogi, JKFPlayer } from '../shogiUtils';
+import { connect, MapDispatchToPropsObject } from 'react-redux';
+import { Shogi, JKFPlayer, JSONKifuFormat } from '../shogiUtils';
 
-import { findNodeByPath } from '../treeUtils';
+import { findNodeByPath, KifuTreeNode, Path } from '../treeUtils';
 import { inputMove, changeReversed } from '../actions';
-import BoardSet from '../components/BoardSet';
+import BoardSet, { BoardSetStateProps, BoardSetDispatchProps } from '../components/BoardSet';
 
-const mapStateToProps = (state) => {
+interface BoardSetState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+  jkf: JSONKifuFormat;
+  reversed: boolean;
+}
+
+const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
   //console.log(state);
   const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
   const shogi = new Shogi();
@@ -20,7 +27,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: BoardSetDispatchProps & MapDispatchToPropsObject = {
   onInputMove: inputMove,
   onChangeReversed: changeReversed,
 };

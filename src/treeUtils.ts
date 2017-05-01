@@ -1,8 +1,7 @@
 import { JKFPlayer, JSONKifuFormat, MoveFormat, MoveMoveFormat, TimeFormat, Shogi } from './shogiUtils';
 import { Map, List, Iterable, Record } from 'immutable';
 
-export type Path = List<number>;
-export type PathLike = Path | Iterable<number, number>
+export type Path = Iterable<number, number>;
 export type SFEN = string;
 export type JumpMap = Map<SFEN, List<JumpTo>>;
 export class KifuTreeNode extends Record({
@@ -102,7 +101,7 @@ export function buildJumpMap(kifuTree: KifuTreeNode): JumpMap {
       }
 
       kifuTreeNode.children.forEach((childNode: KifuTreeNode, i: number) => {
-        buildJumpMapFromNode(childNode, path.push(i));
+        buildJumpMapFromNode(childNode, path.concat([i]));
       });
     }
 
@@ -148,7 +147,7 @@ function nodesToMoveFormats(nodes: KifuTreeNode[]): MoveFormat[] {
   return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
-export function getNodesOnPath(tree: KifuTreeNode, path: PathLike): KifuTreeNode[] {
+export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
   const nodes: KifuTreeNode[] = [];
   let currentNode = tree;
   path.forEach((num: number) => {
@@ -163,7 +162,7 @@ export function getStringPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
-export function pathToKeyPath(path: PathLike): any[] {
+export function pathToKeyPath(path: Path): any[] {
   const keyPath: any[] = [];
   path.forEach(num => {
     keyPath.push('children');
@@ -172,7 +171,7 @@ export function pathToKeyPath(path: PathLike): any[] {
   return keyPath;
 }
 
-export function findNodeByPath(tree: KifuTreeNode, path: PathLike): KifuTreeNode {
+export function findNodeByPath(tree: KifuTreeNode, path: Path): KifuTreeNode {
   if (path.size === 0) {
     return tree;
   }
@@ -200,7 +199,7 @@ export function getNextForkPath(tree: KifuTreeNode, path: Path): Path {
   let newPath = path;
   while (true) {
     currentNode = currentNode.children.get(0);
-    newPath = newPath.push(0);
+    newPath = newPath.concat([0]);
     if (currentNode.children.size !== 1) {
       return newPath;
     }

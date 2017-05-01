@@ -48,7 +48,7 @@ export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeP
     const isCurrent = Immutable.is(path, currentPath);
     const isControllable = path.size > 0 && !isJump;
 
-    function renderChildren() {
+    function renderChildren(): JSX.Element[] {
       if (!jumpMap) {
         return [];
       }
@@ -62,7 +62,7 @@ export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeP
           currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
-      );
+      ).toArray();
 
       const jumpToList = jumpMap.get(kifuTreeNode.sfen);
 
@@ -73,7 +73,7 @@ export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeP
               key={"jump-" + childNode.readableKifu}
               kifuTreeNode={childNode}
               path={jumpTo.path.concat([i]) as Path} />
-          ));
+          ).toArray());
         });
       }
 

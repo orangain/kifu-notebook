@@ -5,7 +5,7 @@ import './CurrentNode.css';
 import ForkList from './ForkList';
 import { JumpMap, KifuTreeNode, Path } from "../treeUtils";
 
-interface CurrentNodeProps {
+export interface CurrentNodeStateProps {
   jumpMap: JumpMap;
   currentNode: KifuTreeNode;
   currentPath: Path;
@@ -13,11 +13,14 @@ interface CurrentNodeProps {
   nextPath: Path;
   previousForkPath: Path;
   nextForkPath: Path;
+}
+
+export interface CurrentNodeDispatchProps {
   onClickPath: (path: Path) => void;
   onChangeComments: (comment: string) => void;
 }
 
-export default class CurrentNode extends Component<CurrentNodeProps, {}> {
+export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, {}> {
   render() {
     const { jumpMap, currentNode, currentPath,
       previousPath, nextPath, previousForkPath, nextForkPath } = this.props;

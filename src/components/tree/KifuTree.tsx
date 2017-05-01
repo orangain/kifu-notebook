@@ -6,42 +6,46 @@ import { List } from "immutable";
 import './KifuTree.css';
 import { Path, JumpMap, KifuTreeNode } from "../../treeUtils";
 
-interface KifuTreeProps {
+export interface KifuTreeStateProps {
   kifuTree: KifuTreeNode;
   currentPath: Path;
   currentPathChanged: boolean;
   jumpMap: JumpMap;
   jumpMapChanged: boolean;
+}
+
+export interface KifuTreeDispatchProps {
   onClickPath: (path: Path) => void;
   onClickMoveUpFork: (path: Path) => void;
   onClickMoveDownFork: (path: Path) => void;
   onClickRemoveFork: (path: Path) => void;
 }
 
-export default class KifuTree extends React.Component<KifuTreeProps, {}> {
+export default class KifuTree extends React.Component<KifuTreeStateProps & KifuTreeDispatchProps, {}> {
   begin: Date;
 
-  onClick(e) {
-    const jsonPath = e.target.dataset.path || e.target.parentNode.dataset.path || e.target.parentNode.parentNode.dataset.path;
+  onClick(e: React.MouseEvent<HTMLUListElement>) {
+    const target = e.target as any;
+    const jsonPath = target.dataset.path || target.parentNode.dataset.path || target.parentNode.parentNode.dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }
-    const path = List(JSON.parse(jsonPath)) as Path;
+    const path = List<number>(JSON.parse(jsonPath)) as Path;
 
-    if (e.target.classList.contains('readable-kifu')) {
+    if (target.classList.contains('readable-kifu')) {
       this.props.onClickPath(path);
-    } else if (e.target.classList.contains('up')) {
+    } else if (target.classList.contains('up')) {
       this.props.onClickMoveUpFork(path);
-    } else if (e.target.classList.contains('down')) {
+    } else if (target.classList.contains('down')) {
       this.props.onClickMoveDownFork(path);
-    } else if (e.target.classList.contains('remove')) {
+    } else if (target.classList.contains('remove')) {
       this.props.onClickRemoveFork(path);
     }
   }
   componentWillUpdate() {
     this.begin = new Date();
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
     const end = new Date();
     console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
 

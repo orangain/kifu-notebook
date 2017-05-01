@@ -6,15 +6,18 @@ import BoardSetContainer from '../containers/BoardSetContainer';
 import KifuTreeContainer from '../containers/KifuTreeContainer';
 import CurrentNode from '../containers/CurrentNodeContainer';
 
-interface AppProps {
+export interface AppStateProps {
   message: string;
-  isAutoSaveEnabled: boolean;
-  onLoad: () => void;
-  onClickSave: () => void;
-  onChangeAutoSave: (enabled: boolean) => void;
+  autoSaveEnabled: boolean;
 }
 
-class App extends Component<AppProps, {}> {
+export interface AppDispatchProps {
+  onLoad: () => any;
+  onClickSave: () => any;
+  onChangeAutoSave: (enabled: boolean) => any;
+}
+
+class App extends Component<AppStateProps & AppDispatchProps, {}> {
   componentWillMount() {
     (window as any).Perf = require('react-addons-perf');
     this.props.onLoad();
@@ -26,7 +29,7 @@ class App extends Component<AppProps, {}> {
           <img src={logo} className="App-logo" alt="logo" />
           <div className="global-controls">
             <span className="message">{this.props.message}</span>
-            <label><input type="checkbox" checked={this.props.isAutoSaveEnabled} onChange={e => this.props.onChangeAutoSave(e.target.checked)} />AutoSave</label>
+            <label><input type="checkbox" checked={this.props.autoSaveEnabled} onChange={e => this.props.onChangeAutoSave(e.target.checked)} />AutoSave</label>
             <button onClick={e => this.props.onClickSave()} >Save</button>
           </div>
           <h2>Kifu Notebook</h2>

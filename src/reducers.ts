@@ -32,7 +32,7 @@ const initialState: KifuState = {
   needSave: false,
 };
 
-export default function kifuTree(state: KifuState = initialState, action) {
+export default function kifuTree(state: KifuState = initialState, action: any) {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
@@ -138,7 +138,7 @@ function movePiece(state: { kifuTree: KifuTreeNode, currentPath: Path, jkf: JSON
   const currentNode = findNodeByPath(kifuTree, currentPath);
   const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
   if (childIndex >= 0) {
-    return { currentPath: currentPath.push(childIndex) };
+    return { currentPath: currentPath.concat([childIndex]) };
   }
 
   // 3. Make player then input move
@@ -163,7 +163,7 @@ function movePiece(state: { kifuTree: KifuTreeNode, currentPath: Path, jkf: JSON
   const newKifuTree = kifuTree.updateIn(pathToKeyPath(currentPath).concat(['children']), children => {
     return children.push(newNode);
   }) as KifuTreeNode;
-  const newCurrentPath = currentPath.push(currentNode.children.size);
+  const newCurrentPath = currentPath.concat([currentNode.children.size]);
 
   return { kifuTree: newKifuTree, currentPath: newCurrentPath };
 }

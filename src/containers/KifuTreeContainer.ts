@@ -1,14 +1,20 @@
-import { connect } from 'react-redux';
+import { connect, MapDispatchToPropsObject, MapStateToPropsFactory, MapStateToProps, MapDispatchToProps, MapStateToPropsParam } from 'react-redux';
 import * as Immutable from 'immutable';
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
-import { buildJumpMap } from '../treeUtils';
-import KifuTree from '../components/tree/KifuTree';
+import { buildJumpMap, KifuTreeNode, Path, JumpMap } from '../treeUtils';
+import KifuTree, { KifuTreeStateProps, KifuTreeDispatchProps } from '../components/tree/KifuTree';
 
-const mapStateToProps = () => {
-  let prevProps: any = {};
+interface KifuTreeState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+}
 
-  return (state) => {
+const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
+  let prevProps: KifuTreeStateProps | { jumpMap?: JumpMap, currentPath?: Path } = {};
+
+  return (state: KifuTreeState): KifuTreeStateProps => {
+    //return (state: KifuTreeState): KifuTreeStateProps => {
     // console.log('mapStateToProps')
     // console.log('  prevProps:', prevProps);
     // console.log('  state:    ', state);
@@ -18,7 +24,7 @@ const mapStateToProps = () => {
     const jumpMapChanged = !Immutable.is(jumpMap, prevProps.jumpMap);
     const currentPathChanged = !Immutable.is(state.currentPath, prevProps.currentPath);
 
-    const props = {
+    const props: KifuTreeStateProps = {
       kifuTree: state.kifuTree,
       currentPath: state.currentPath,
       currentPathChanged: currentPathChanged,
@@ -31,7 +37,7 @@ const mapStateToProps = () => {
   };
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: KifuTreeDispatchProps & MapDispatchToProps<KifuTreeDispatchProps, undefined> = {
   onClickPath: gotoPath,
   onClickMoveUpFork: moveUpFork,
   onClickMoveDownFork: moveDownFork,
@@ -39,7 +45,7 @@ const mapDispatchToProps = {
 };
 
 const KifuTreeContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps as MapStateToPropsParam<KifuTreeStateProps, {}>,
+  mapDispatchToProps as MapDispatchToProps<KifuTreeDispatchProps, {}>
 )(KifuTree);
 export default KifuTreeContainer;
