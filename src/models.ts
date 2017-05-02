@@ -1,13 +1,15 @@
-import { Record, Map } from 'immutable';
-import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath } from "./treeUtils";
+import { Record, Map, List } from 'immutable';
+import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath } from "./treeUtils";
 import { JSONKifuFormat } from "./shogiUtils";
 
 export class KifuTree extends Record({
   rootNode: null,
   baseJKF: null,
+  currentPath: List<number>(),
 }) {
   readonly rootNode: KifuTreeNode;
   readonly baseJKF: JSONKifuFormat;
+  readonly currentPath: Path;
 
   static fromJKF(jkf: JSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
@@ -17,6 +19,22 @@ export class KifuTree extends Record({
 
   toJKF(): JSONKifuFormat {
     return kifuTreeToJKF(this.rootNode, this.baseJKF);
+  }
+
+  setCurrentPath(path: Path): KifuTree {
+    return this.set('currentPath', path) as KifuTree;
+  }
+
+  getCurrentNode(): KifuTreeNode {
+    return this.getNodeByPath(this.currentPath);
+  }
+
+  getNodeByPath(path: Path): KifuTreeNode {
+    return findNodeByPath(this.rootNode, path);
+  }
+
+  getNodesOnPath(path: Path): KifuTreeNode[] {
+    return getNodesOnPath(this.rootNode, this.currentPath);
   }
 
   updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>): KifuTree {
@@ -36,16 +54,13 @@ export interface AppState {
 
 export interface BoardSetState {
   kifuTree: KifuTree;
-  currentPath: Path;
   reversed: boolean;
 }
 
 export interface CurrentNodeState {
   kifuTree: KifuTree;
-  currentPath: Path;
 }
 
 export interface KifuTreeState {
   kifuTree: KifuTree;
-  currentPath: Path;
 }

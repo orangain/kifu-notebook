@@ -9,7 +9,6 @@ import { KifuTree } from "../../models";
 
 export interface KifuTreeStateProps {
   kifuTree: KifuTree;
-  currentPath: Path;
   currentPathChanged: boolean;
   jumpMap: JumpMap;
   jumpMapChanged: boolean;
@@ -64,14 +63,14 @@ export default class KifuTreeComponent extends React.Component<KifuTreeStateProp
     }
   }
   render() {
-    const { kifuTree, currentPath, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
+    const { kifuTree, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNodeComponent
           kifuTreeNode={kifuTree.rootNode}
           path={List<number>()}
-          currentPath={currentPath}
+          currentPath={kifuTree.currentPath}
           currentPathChanged={currentPathChanged}
           jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
