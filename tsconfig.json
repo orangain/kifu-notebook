@@ -3,7 +3,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
-    "noImplicitAny": false,
     "sourceMap": true,
     "jsx": "react",
     "allowJs": false,
@@ -11,7 +10,10 @@
       "es2017",
       "dom"
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true
   },
   "include": [
     "src/**/*"
