@@ -6,7 +6,8 @@ import './BoardSet.css';
 
 import { Board, Hand, Piece, PieceHand } from 'kifu-for-js';
 import { KifuTreeNode } from "../treeUtils";
-import { StateFormat, JSONKifuFormat, MoveMoveFormat } from "../shogiUtils";
+import { StateFormat, MoveMoveFormat } from "../shogiUtils";
+import { KifuTree } from "../models";
 
 // Use svg images
 Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.prototype.getPieceImage = (kind: string | null, color: number) => {
@@ -15,7 +16,7 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
 
 export interface BoardSetStateProps {
   shogiState: StateFormat;
-  jkf: JSONKifuFormat;
+  kifuTree: KifuTree;
   reversed: boolean;
   currentNode: KifuTreeNode;
 }
@@ -27,10 +28,10 @@ export interface BoardSetDispatchProps {
 
 class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}> {
   render() {
-    const { shogiState, jkf, reversed, currentNode } = this.props;
+    const { shogiState, kifuTree, reversed, currentNode } = this.props;
     const players = [
-      jkf.header["先手"] || jkf.header["下手"] || "先手",
-      jkf.header["後手"] || jkf.header["上手"] || "後手",
+      kifuTree.baseJKF.header["先手"] || kifuTree.baseJKF.header["下手"] || "先手",
+      kifuTree.baseJKF.header["後手"] || kifuTree.baseJKF.header["上手"] || "後手",
     ];
 
     return (

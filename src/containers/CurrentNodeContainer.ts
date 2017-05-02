@@ -7,12 +7,12 @@ import { CurrentNodeState } from "../models";
 
 const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
   //console.log(state);
-  const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
-  const jumpMap = buildJumpMap(state.kifuTree);
+  const currentNode = findNodeByPath(state.kifuTree.rootNode, state.currentPath);
+  const jumpMap = buildJumpMap(state.kifuTree.rootNode);
   const previousPath = state.currentPath.size > 0 ? state.currentPath.slice(0, state.currentPath.size - 1) : state.currentPath;
   const nextPath = currentNode.children.size > 0 ? state.currentPath.concat([0]) : state.currentPath;
-  const previousForkPath = getPreviousForkPath(state.kifuTree, state.currentPath);
-  const nextForkPath = getNextForkPath(state.kifuTree, state.currentPath);
+  const previousForkPath = getPreviousForkPath(state.kifuTree.rootNode, state.currentPath);
+  const nextForkPath = getNextForkPath(state.kifuTree.rootNode, state.currentPath);
 
   return {
     currentNode: currentNode,

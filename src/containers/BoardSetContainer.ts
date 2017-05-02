@@ -8,14 +8,14 @@ import { BoardSetState } from "../models";
 
 const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
   //console.log(state);
-  const currentNode = findNodeByPath(state.kifuTree, state.currentPath);
+  const currentNode = findNodeByPath(state.kifuTree.rootNode, state.currentPath);
   const shogi = new Shogi();
   shogi.initializeFromSFENString(currentNode.sfen);
   const shogiState = JKFPlayer.getState(shogi);
 
   return {
     shogiState: shogiState,
-    jkf: state.jkf,
+    kifuTree: state.kifuTree,
     reversed: state.reversed,
     currentNode: currentNode,
   }

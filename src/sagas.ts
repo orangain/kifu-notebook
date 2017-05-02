@@ -7,9 +7,9 @@ import {
   CHANGE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
   receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage
 } from './actions';
-import { getAutoSaveNeeded, getJKF } from './selectors';
+import { getAutoSaveNeeded, getKifuTree } from './selectors';
 import Api from './api';
-import { JSONKifuFormat } from "./shogiUtils";
+import { KifuTree } from "./models";
 
 export default function* rootSaga() {
   yield [
@@ -31,7 +31,8 @@ export function* fetchJKF() {
 }
 
 export function* storeJKF() {
-  const jkf: JSONKifuFormat = yield select(getJKF);
+  const kifuTree: KifuTree = yield select(getKifuTree)
+  const jkf = kifuTree.toJKF();
   try {
     yield call(Api.storeJKF, jkf);
     yield put(receivePutJKF());
