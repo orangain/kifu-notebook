@@ -155,43 +155,10 @@ function movePiece(kifuTree: KifuTree, move: MoveMoveFormat): Partial<KifuNotebo
 }
 
 function updateFork(kifuTree: KifuTree, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): Partial<KifuNotebookState> {
-  const currentStringPath = getStringPath(kifuTree.rootNode, kifuTree.currentPath);
-  let newKifuTree = updateForkOfKifuTree(kifuTree, path, forkUpdater);
+  const newKifuTree = kifuTree.updateFork(path, forkUpdater);
   if (newKifuTree === kifuTree) {
     return {}; // no change
   }
 
-  const newPath = getPathFromStringPath(newKifuTree.rootNode, currentStringPath);
-  newKifuTree = newKifuTree.setCurrentPath(newPath);
-
   return { kifuTree: newKifuTree, needSave: true };
-}
-
-function updateForkOfKifuTree(kifuTree: KifuTree, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
-  const lastIndex = path.get(path.size - 1);
-  const parentPath = path.slice(0, -1);
-  const newKifuTree = kifuTree.updateNode(parentPath, (node: KifuTreeNode) => {
-    return node.update('children', (children: List<KifuTreeNode>) => {
-      return forkUpdater(children, lastIndex);
-    });
-  });
-
-  return newKifuTree;
-}
-
-function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]): Path {
-  const path: number[] = [];
-  let currentNode = tree;
-  for (let kifu of stringPath) {
-    const nextNodeIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => childNode.readableKifu === kifu);
-    if (nextNodeIndex < 0) {
-      break;  // stop if node is missing (e.g. node is removed)
-    }
-    const nextNode = currentNode.children.get(nextNodeIndex);
-
-    path.push(nextNodeIndex);
-    currentNode = nextNode;
-  }
-
-  return List(path);
 }

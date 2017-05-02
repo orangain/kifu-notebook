@@ -162,6 +162,23 @@ export function getStringPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
+export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]): Path {
+  const path: number[] = [];
+  let currentNode = tree;
+  for (let kifu of stringPath) {
+    const nextNodeIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => childNode.readableKifu === kifu);
+    if (nextNodeIndex < 0) {
+      break;  // stop if node is missing (e.g. node is removed)
+    }
+    const nextNode = currentNode.children.get(nextNodeIndex);
+
+    path.push(nextNodeIndex);
+    currentNode = nextNode;
+  }
+
+  return List(path);
+}
+
 export function pathToKeyPath(path: Path): any[] {
   const keyPath: any[] = [];
   path.forEach(num => {

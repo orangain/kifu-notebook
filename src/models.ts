@@ -1,5 +1,5 @@
 import { Record, Map, List } from 'immutable';
-import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath } from "./treeUtils";
+import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath } from "./treeUtils";
 import { JSONKifuFormat } from "./shogiUtils";
 
 export class KifuTree extends Record({
@@ -42,6 +42,28 @@ export class KifuTree extends Record({
     const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) => nodeUpdater(node)) as KifuTreeNode;
     return this.set('rootNode', newRootNode) as KifuTree;
   }
+
+  updateFork(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
+    const currentStringPath = getStringPath(this.rootNode, this.currentPath);
+    let newKifuTree = this.updateForkOfKifuTree(path, forkUpdater);
+    if (newKifuTree === this) {
+      return this; // no change
+    }
+
+    const newPath = getPathFromStringPath(newKifuTree.rootNode, currentStringPath);
+    return newKifuTree.setCurrentPath(newPath);
+  }
+
+  private updateForkOfKifuTree(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
+    const lastIndex = path.get(path.size - 1);
+    const parentPath = path.slice(0, -1);
+    return this.updateNode(parentPath, (node: KifuTreeNode) => {
+      return node.update('children', (children: List<KifuTreeNode>) => {
+        return forkUpdater(children, lastIndex);
+      });
+    });
+  }
+
 }
 
 export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
