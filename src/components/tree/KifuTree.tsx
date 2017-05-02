@@ -21,7 +21,7 @@ export interface KifuTreeDispatchProps {
   onClickRemoveFork: (path: Path) => void;
 }
 
-export default class KifuTree extends React.Component<KifuTreeStateProps & KifuTreeDispatchProps, {}> {
+export default class KifuTreeComponent extends React.Component<KifuTreeStateProps & KifuTreeDispatchProps, {}> {
   begin: Date;
 
   onClick(e: React.MouseEvent<HTMLUListElement>) {

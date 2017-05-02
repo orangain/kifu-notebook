@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
 import { buildJumpMap, Path, JumpMap } from '../treeUtils';
-import KifuTree, { KifuTreeStateProps, KifuTreeDispatchProps } from '../components/tree/KifuTree';
+import KifuTreeComponent, { KifuTreeStateProps, KifuTreeDispatchProps } from '../components/tree/KifuTree';
 import { KifuTreeState } from "../models";
 
 const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
@@ -43,5 +43,5 @@ const mapDispatchToProps: KifuTreeDispatchProps & MapDispatchToProps<KifuTreeDis
 const KifuTreeContainer = connect(
   mapStateToProps as MapStateToPropsParam<KifuTreeStateProps, {}>,
   mapDispatchToProps as MapDispatchToProps<KifuTreeDispatchProps, {}>
-)(KifuTree);
+)(KifuTreeComponent);
 export default KifuTreeContainer;
