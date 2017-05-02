@@ -2,11 +2,7 @@ import { connect, MapDispatchToPropsObject } from 'react-redux';
 
 import { requestGetJKF, requestPutJKF, changeAutoSave } from '../actions';
 import App, { AppStateProps, AppDispatchProps } from '../components/App';
-
-interface AppState {
-  message: string;
-  autoSaveEnabled: boolean;
-}
+import { AppState } from "../models";
 
 const mapStateToProps = (state: AppState): AppStateProps => {
   return {

@@ -1,14 +1,10 @@
-import { connect, MapDispatchToPropsObject, MapStateToPropsFactory, MapStateToProps, MapDispatchToProps, MapStateToPropsParam } from 'react-redux';
+import { connect, MapStateToPropsFactory, MapDispatchToProps, MapStateToPropsParam } from 'react-redux';
 import * as Immutable from 'immutable';
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
-import { buildJumpMap, KifuTreeNode, Path, JumpMap } from '../treeUtils';
+import { buildJumpMap, Path, JumpMap } from '../treeUtils';
 import KifuTree, { KifuTreeStateProps, KifuTreeDispatchProps } from '../components/tree/KifuTree';
-
-interface KifuTreeState {
-  kifuTree: KifuTreeNode;
-  currentPath: Path;
-}
+import { KifuTreeState } from "../models";
 
 const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
   let prevProps: KifuTreeStateProps | { jumpMap?: JumpMap, currentPath?: Path } = {};

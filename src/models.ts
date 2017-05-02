@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF } from "./treeUtils";
+import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path } from "./treeUtils";
 import { JSONKifuFormat } from "./shogiUtils";
 
 export class KifuTree extends Record({
@@ -18,4 +18,30 @@ export class KifuTree extends Record({
   toJKF(): JSONKifuFormat {
     return kifuTreeToJKF(this.rootNode, this.baseJKF);
   }
+}
+
+export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
+
+export interface AppState {
+  message: string;
+  autoSaveEnabled: boolean;
+  needSave: boolean;
+}
+
+export interface BoardSetState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+  jkf: JSONKifuFormat;
+  reversed: boolean;
+}
+
+export interface CurrentNodeState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
+  jkf: JSONKifuFormat;
+}
+
+export interface KifuTreeState {
+  kifuTree: KifuTreeNode;
+  currentPath: Path;
 }

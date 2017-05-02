@@ -11,18 +11,10 @@ import {
   KifuTreeNode, Path, jkfToKifuTree, createKifuTreeNode, kifuTreeToJKF, pathToKeyPath,
   getStringPath, findNodeByPath, getNodesOnPath
 } from "./treeUtils";
+import { KifuNotebookState } from "./models";
 
-interface KifuState {
-  jkf: JSONKifuFormat,
-  kifuTree: KifuTreeNode,
-  reversed: boolean,
-  currentPath: Path,
-  message: string,
-  autoSaveEnabled: boolean,
-  needSave: boolean,
-}
 const initialJKF = { header: {}, moves: [{}] };
-const initialState: KifuState = {
+const initialState: KifuNotebookState = {
   jkf: initialJKF,
   kifuTree: jkfToKifuTree(initialJKF),
   reversed: false,
@@ -32,7 +24,7 @@ const initialState: KifuState = {
   needSave: false,
 };
 
-export default function kifuTree(state: KifuState = initialState, action: any) {
+export default function kifuTree(state: KifuNotebookState = initialState, action: any) {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
@@ -168,7 +160,7 @@ function movePiece(state: { kifuTree: KifuTreeNode, currentPath: Path, jkf: JSON
   return { kifuTree: newKifuTree, currentPath: newCurrentPath };
 }
 
-function updateFork(state: KifuState, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): { kifuTree?: KifuTreeNode, currentPath?: Path, jkf?: JSONKifuFormat, needSave?: boolean } {
+function updateFork(state: KifuNotebookState, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): { kifuTree?: KifuTreeNode, currentPath?: Path, jkf?: JSONKifuFormat, needSave?: boolean } {
   const { kifuTree, currentPath, jkf } = state;
   const currentStringPath = getStringPath(kifuTree, currentPath);
   const newKifuTree = updateForkOfKifuTree(kifuTree, path, forkUpdater);

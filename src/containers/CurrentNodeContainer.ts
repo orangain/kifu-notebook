@@ -1,15 +1,9 @@
 import { connect, MapDispatchToPropsObject } from 'react-redux';
 
-import { findNodeByPath, buildJumpMap, getPreviousForkPath, getNextForkPath, KifuTreeNode, Path } from "../treeUtils";
+import { findNodeByPath, buildJumpMap, getPreviousForkPath, getNextForkPath } from "../treeUtils";
 import { changeComments, gotoPath } from '../actions';
 import CurrentNode, { CurrentNodeStateProps, CurrentNodeDispatchProps } from '../components/CurrentNode';
-import { JSONKifuFormat } from "../shogiUtils";
-
-interface CurrentNodeState {
-  kifuTree: KifuTreeNode;
-  currentPath: Path;
-  jkf: JSONKifuFormat;
-}
+import { CurrentNodeState } from "../models";
 
 const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
   //console.log(state);
