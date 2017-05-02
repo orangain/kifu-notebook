@@ -1,5 +1,6 @@
+import { KifuNotebookState } from "./models";
 import { JSONKifuFormat } from "./shogiUtils";
 
-export const getAutoSaveNeeded = (state: { autoSaveEnabled: boolean, needSave: boolean }) => state.autoSaveEnabled && state.needSave;
+export const getAutoSaveNeeded = (state: KifuNotebookState): boolean => state.autoSaveEnabled && state.needSave;
 
-export const getJKF = (state: { jkf: JSONKifuFormat }) => state.jkf;
+export const getJKF = (state: KifuNotebookState): JSONKifuFormat => state.jkf;
