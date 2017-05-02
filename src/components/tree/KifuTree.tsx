@@ -62,16 +62,15 @@ export default class KifuTreeComponent extends React.Component<KifuTreeStateProp
     }
   }
   render() {
-    const { kifuTree, currentPathChanged, jumpMap, jumpMapChanged } = this.props;
+    const { kifuTree, currentPathChanged, jumpMapChanged } = this.props;
 
     return (
       <ul className="kifu-tree" onClick={e => this.onClick(e)}>
         <KifuTreeNodeComponent
+          kifuTree={kifuTree}
           kifuTreeNode={kifuTree.rootNode}
           path={List<number>()}
-          currentPath={kifuTree.currentPath}
           currentPathChanged={currentPathChanged}
-          jumpMap={jumpMap}
           jumpMapChanged={jumpMapChanged} />
       </ul>
     );
