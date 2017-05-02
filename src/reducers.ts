@@ -53,11 +53,7 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
       const { kifuTree, currentPath } = state;
       const move = action.move;
 
-      const changedState = movePiece({ kifuTree, currentPath }, move);
-      if (changedState.kifuTree && changedState.kifuTree !== kifuTree) {
-        changedState.needSave = true;
-      }
-      return Object.assign({}, state, changedState);
+      return Object.assign({}, state, movePiece({ kifuTree, currentPath }, move));
     }
     case GOTO_PATH: {
       return Object.assign({}, state, { currentPath: List(action.path) });
@@ -123,7 +119,7 @@ function movePiece(state: { kifuTree: KifuTree, currentPath: Path }, move: MoveM
   const currentNode = findNodeByPath(kifuTree.rootNode, currentPath);
   const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
   if (childIndex >= 0) {
-    return { currentPath: currentPath.concat([childIndex]) };
+    return { currentPath: currentPath.concat([childIndex]) }; // Proceed to existing node
   }
 
   // 3. Make player then input move
@@ -153,7 +149,7 @@ function movePiece(state: { kifuTree: KifuTree, currentPath: Path }, move: MoveM
 
   const newCurrentPath = currentPath.concat([currentNode.children.size]);
 
-  return { kifuTree: newKifuTree, currentPath: newCurrentPath };
+  return { kifuTree: newKifuTree, currentPath: newCurrentPath, needSave: true };
 }
 
 function updateFork(state: KifuNotebookState, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): Partial<KifuNotebookState> {
