@@ -195,30 +195,3 @@ export function findNodeByPath(tree: KifuTreeNode, path: Path): KifuTreeNode {
   const nodes = getNodesOnPath(tree, path);
   return nodes[nodes.length - 1];
 }
-
-export function getPreviousForkPath(tree: KifuTreeNode, path: Path): Path {
-  const nodes = getNodesOnPath(tree, path);
-  for (let i = nodes.length - 2; i >= 0; i--) {
-    const node = nodes[i];
-    if (node.children.size >= 2) {
-      return path.slice(0, i + 1) as Path;
-    }
-  }
-  return List<number>();
-}
-
-export function getNextForkPath(tree: KifuTreeNode, path: Path): Path {
-  let currentNode = findNodeByPath(tree, path);
-  if (currentNode.children.size === 0) {
-    return path;
-  }
-
-  let newPath = path;
-  while (true) {
-    currentNode = currentNode.children.get(0);
-    newPath = newPath.concat([0]);
-    if (currentNode.children.size !== 1) {
-      return newPath;
-    }
-  }
-}

@@ -41,6 +41,46 @@ export class KifuTree extends Record({
     return getNodesOnPath(this.rootNode, this.currentPath);
   }
 
+  getPreviousPath(): Path {
+    const path = this.currentPath;
+    return path.size > 0 ? path.slice(0, path.size - 1) : path;
+  }
+
+  getNextPath(): Path {
+    const path = this.currentPath;
+    const node = this.getNodeByPath(path);
+    return node.children.size > 0 ? path.concat([0]) : path;
+  }
+
+  getPreviousForkPath(): Path {
+    const path = this.currentPath;
+    const nodes = this.getNodesOnPath(path);
+    for (let i = nodes.length - 2; i >= 0; i--) {
+      const node = nodes[i];
+      if (node.children.size >= 2) {
+        return path.slice(0, i + 1);
+      }
+    }
+    return List<number>();
+  }
+
+  getNextForkPath(): Path {
+    const path = this.currentPath;
+    let currentNode = this.getNodeByPath(path);
+    if (currentNode.children.size === 0) {
+      return path;
+    }
+
+    let newPath = path;
+    while (true) {
+      currentNode = currentNode.children.get(0);
+      newPath = newPath.concat([0]);
+      if (currentNode.children.size !== 1) {
+        return newPath;
+      }
+    }
+  }
+
   updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>): KifuTree {
     const keyPath = pathToKeyPath(path);
     const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) => nodeUpdater(node)) as KifuTreeNode;

@@ -7,10 +7,6 @@ import { Path, KifuTree } from "../models";
 
 export interface CurrentNodeStateProps {
   kifuTree: KifuTree;
-  previousPath: Path;
-  nextPath: Path;
-  previousForkPath: Path;
-  nextForkPath: Path;
 }
 
 export interface CurrentNodeDispatchProps {
@@ -20,8 +16,12 @@ export interface CurrentNodeDispatchProps {
 
 export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, {}> {
   render() {
-    const { kifuTree, previousPath, nextPath, previousForkPath, nextForkPath } = this.props;
+    const { kifuTree } = this.props;
     const currentNode = kifuTree.getCurrentNode();
+    const previousPath = kifuTree.getPreviousPath();
+    const nextPath = kifuTree.getNextPath();
+    const previousForkPath = kifuTree.getPreviousForkPath();
+    const nextForkPath = kifuTree.getNextForkPath();
 
     return (
       <div>
