@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Component } from 'react';
 
 import './ForkList.css';
-import { KifuTreeNode, JumpMap, Path, JumpTo } from "../models";
+import { KifuTreeNode, Path, JumpTo, KifuTree } from "../models";
 
 interface ForkListProps {
-  currentNode: KifuTreeNode;
-  jumpMap: JumpMap;
-  currentPath: Path;
+  kifuTree: KifuTree;
   onClickPath: (path: Path) => void;
 }
 export default class ForkList extends Component<ForkListProps, {}> {
   render() {
-    const { currentNode, jumpMap, currentPath, onClickPath } = this.props;
+    const { kifuTree, onClickPath } = this.props;
+    const { jumpMap, currentPath } = kifuTree;
+    const currentNode = kifuTree.getCurrentNode();
 
     function renderList(): JSX.Element[] {
       let forkList: JSX.Element[] = [];

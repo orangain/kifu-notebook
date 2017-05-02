@@ -15,13 +15,11 @@ const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
   const nextForkPath = getNextForkPath(state.kifuTree.rootNode, currentPath);
 
   return {
-    currentNode: currentNode,
-    currentPath: currentPath,
+    kifuTree: state.kifuTree,
     previousPath: previousPath,
     nextPath: nextPath,
     previousForkPath: previousForkPath,
     nextForkPath: nextForkPath,
-    jumpMap: state.kifuTree.jumpMap,
   }
 };
 

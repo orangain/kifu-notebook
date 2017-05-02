@@ -27,7 +27,8 @@ export interface BoardSetDispatchProps {
 
 class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}> {
   render() {
-    const { shogiState, kifuTree, reversed, currentNode } = this.props;
+    const { shogiState, kifuTree, reversed } = this.props;
+    const currentNode = kifuTree.getCurrentNode();
     const players = [
       kifuTree.baseJKF.header["先手"] || kifuTree.baseJKF.header["下手"] || "先手",
       kifuTree.baseJKF.header["後手"] || kifuTree.baseJKF.header["上手"] || "後手",

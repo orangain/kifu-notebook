@@ -21,7 +21,6 @@ const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
     const props: KifuTreeStateProps = {
       kifuTree: state.kifuTree,
       currentPathChanged: currentPathChanged,
-      jumpMap: state.kifuTree.jumpMap,
       jumpMapChanged: jumpMapChanged,
     };
     prevProps = props;

@@ -4,12 +4,11 @@ import { default as KifuTreeNodeComponent } from "./KifuTreeNode";
 import { List } from "immutable";
 
 import './KifuTree.css';
-import { KifuTree, Path, JumpMap } from "../../models";
+import { KifuTree, Path } from "../../models";
 
 export interface KifuTreeStateProps {
   kifuTree: KifuTree;
   currentPathChanged: boolean;
-  jumpMap: JumpMap;
   jumpMapChanged: boolean;
 }
 
