@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { JKFPlayer, MoveMoveFormat } from './shogiUtils';
+import { MoveMoveFormat } from './shogiUtils';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
@@ -7,7 +7,7 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { KifuTreeNode, Path, createKifuTreeNode, getStringPath } from "./treeUtils";
+import { KifuTreeNode, Path } from "./treeUtils";
 import { KifuNotebookState, KifuTree } from "./models";
 
 const initialState: KifuNotebookState = {
@@ -117,41 +117,24 @@ function movePiece(kifuTree: KifuTree, move: MoveMoveFormat): Partial<KifuNotebo
   }
   move.to = { x: move.to.x, y: move.to.y }; // In some environment, move.to contains dropEffect attribute. Get rid of it.
 
-  // 2. Compare with existing nodes
-  const currentNode = kifuTree.getCurrentNode();
-  const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
-  if (childIndex >= 0) {
-    return { kifuTree: kifuTree.setCurrentPath(kifuTree.currentPath.concat([childIndex])) }; // Proceed to existing node
-  }
-
-  // 3. Make player then input move
-  const minimalMoveFormats = [{}].concat(kifuTree.getNodesOnPath(kifuTree.currentPath).map(node => ({ move: node.move })));
-  const minimalJKF = Object.assign({}, kifuTree.baseJKF, { moves: minimalMoveFormats });
-  const player = new JKFPlayer(minimalJKF);
-  player.goto(minimalMoveFormats.length);
-
+  // 2. do move piece
+  let newKifuTree: KifuTree | false;
   try {
-    if (!player.inputMove(move)) {
+    newKifuTree = kifuTree.movePiece(move);
+    if (newKifuTree === false) {
       move.promote = confirm("成りますか？");
-      player.inputMove(move);
+      newKifuTree = kifuTree.movePiece(move) as KifuTree;
     }
   } catch (e) {
     alert(e);
     return {};
   }
 
-  // 4. Create new objects
-  const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
-  const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
-  const newKifuTree = kifuTree
-    .updateNode(kifuTree.currentPath, (node: KifuTreeNode) => {
-      return node.update('children', children => {
-        return children.push(newNode);
-      });
-    })
-    .setCurrentPath(kifuTree.currentPath.concat([currentNode.children.size]));
+  // When save is not needed, needSave must be undefined, not false.
+  // needSave is changed to false only when save is done.
+  const needSave = newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
 
-  return { kifuTree: newKifuTree, needSave: true };
+  return { kifuTree: newKifuTree, needSave: needSave };
 }
 
 function updateFork(kifuTree: KifuTree, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): Partial<KifuNotebookState> {

@@ -1,6 +1,6 @@
 import { Record, Map, List } from 'immutable';
-import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath } from "./treeUtils";
-import { JSONKifuFormat } from "./shogiUtils";
+import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath, createKifuTreeNode } from "./treeUtils";
+import { JSONKifuFormat, MoveMoveFormat, JKFPlayer } from "./shogiUtils";
 
 export class KifuTree extends Record({
   rootNode: null,
@@ -64,6 +64,35 @@ export class KifuTree extends Record({
     });
   }
 
+  movePiece(move: MoveMoveFormat): KifuTree | false {
+    // 1. Compare with existing nodes
+    const currentNode = this.getCurrentNode();
+    const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
+    if (childIndex >= 0) {
+      return this.setCurrentPath(this.currentPath.concat([childIndex])); // Proceed to existing node
+    }
+
+    // 2. Make player then input move
+    const minimalMoveFormats = [{}].concat(this.getNodesOnPath(this.currentPath).map(node => ({ move: node.move })));
+    const minimalJKF = Object.assign({}, this.baseJKF, { moves: minimalMoveFormats });
+    const player = new JKFPlayer(minimalJKF);
+    player.goto(minimalMoveFormats.length);
+
+    if (!player.inputMove(move)) {
+      return false;
+    }
+
+    // 3. Create new objects
+    const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
+    const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
+    return this
+      .updateNode(this.currentPath, (node: KifuTreeNode) => {
+        return node.update('children', children => {
+          return children.push(newNode);
+        });
+      })
+      .setCurrentPath(this.currentPath.concat([currentNode.children.size]));
+  }
 }
 
 export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
