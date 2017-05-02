@@ -7,8 +7,7 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import { KifuTreeNode, Path } from "./treeUtils";
-import { KifuNotebookState, KifuTree } from "./models";
+import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
 
 const initialState: KifuNotebookState = {
   kifuTree: KifuTree.fromJKF({ header: {}, moves: [{}] }),

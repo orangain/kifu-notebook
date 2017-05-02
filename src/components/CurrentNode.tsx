@@ -3,7 +3,7 @@ import { Component } from 'react';
 import './CurrentNode.css';
 
 import ForkList from './ForkList';
-import { JumpMap, KifuTreeNode, Path } from "../treeUtils";
+import { JumpMap, KifuTreeNode, Path } from "../models";
 
 export interface CurrentNodeStateProps {
   jumpMap: JumpMap;

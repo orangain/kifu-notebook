@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 
 import './ForkList.css';
-import { KifuTreeNode, JumpMap, Path, JumpTo } from "../treeUtils";
+import { KifuTreeNode, JumpMap, Path, JumpTo } from "../models";
 
 interface ForkListProps {
   currentNode: KifuTreeNode;

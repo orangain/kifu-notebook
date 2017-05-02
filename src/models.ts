@@ -1,6 +1,8 @@
 import { Record, Map, List } from 'immutable';
-import { KifuTreeNode, jkfToKifuTree, kifuTreeToJKF, Path, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath, createKifuTreeNode } from "./treeUtils";
+import { KifuTreeNode, Path, JumpMap, JumpTo, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath, createKifuTreeNode } from "./treeUtils";
 import { JSONKifuFormat, MoveMoveFormat, JKFPlayer } from "./shogiUtils";
+
+export { KifuTreeNode, Path, JumpMap, JumpTo }; // for convenience
 
 export class KifuTree extends Record({
   rootNode: null,

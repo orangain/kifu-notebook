@@ -5,9 +5,8 @@ import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
 import { Board, Hand, Piece, PieceHand } from 'kifu-for-js';
-import { KifuTreeNode } from "../treeUtils";
 import { StateFormat, MoveMoveFormat } from "../shogiUtils";
-import { KifuTree } from "../models";
+import { KifuTree, KifuTreeNode } from "../models";
 
 // Use svg images
 Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.prototype.getPieceImage = (kind: string | null, color: number) => {

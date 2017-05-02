@@ -4,8 +4,7 @@ import { default as KifuTreeNodeComponent } from "./KifuTreeNode";
 import { List } from "immutable";
 
 import './KifuTree.css';
-import { Path, JumpMap } from "../../treeUtils";
-import { KifuTree } from "../../models";
+import { KifuTree, Path, JumpMap } from "../../models";
 
 export interface KifuTreeStateProps {
   kifuTree: KifuTree;

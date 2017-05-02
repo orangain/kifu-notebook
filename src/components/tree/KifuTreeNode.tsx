@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Immutable from 'immutable';
 
 import './KifuTreeNode.css';
-import { Path, JumpMap, KifuTreeNode, JumpTo } from "../../treeUtils";
+import { Path, JumpMap, KifuTreeNode, JumpTo } from "../../models";
 
 function isSubPath(myPath: Path, testPath?: Path): boolean {
   if (!testPath) {
