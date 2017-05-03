@@ -193,6 +193,7 @@ export interface BoardSetState {
 
 export interface CurrentNodeState {
   kifuTree: KifuTree;
+  latestComment: string;
 }
 
 export interface KifuTreeState {

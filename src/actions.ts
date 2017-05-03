@@ -11,6 +11,7 @@ export const CHANGE_AUTO_SAVE = 'CHANGE_AUTO_SAVE';
 
 export const MOVE_PIECE = 'MOVE_PIECE';
 export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
+export const UPDATE_COMMENTS = 'UPDATE_COMMENTS';
 export const CHANGE_REVERSED = 'CHANGE_REVERSED';
 
 export const GOTO_PATH = 'GOTO_PATH';
@@ -53,6 +54,10 @@ export function inputMove(move: MoveMoveFormat) {
 
 export function changeComments(value: string) {
   return { type: CHANGE_COMMENTS, value: value };
+}
+
+export function updateComments() {
+  return { type: UPDATE_COMMENTS };
 }
 
 export function changeReversed(value: boolean) {

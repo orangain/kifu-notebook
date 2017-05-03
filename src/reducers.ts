@@ -4,7 +4,7 @@ import { MoveMoveFormat } from './shogiUtils';
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
   FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
+  MOVE_PIECE, CHANGE_COMMENTS, UPDATE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
 import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
@@ -15,6 +15,7 @@ const initialState: KifuNotebookState = {
   message: "",
   autoSaveEnabled: false,
   needSave: false,
+  latestComment: "",
 };
 
 export default function kifuTree(state: KifuNotebookState = initialState, action: any): Partial<KifuNotebookState> {
@@ -57,11 +58,14 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
       return Object.assign({}, state, { kifuTree: kifuTree.setCurrentPath(path) });
     }
     case CHANGE_COMMENTS: {
-      const { kifuTree } = state;
       const value = action.value;
+      return Object.assign({}, state, { latestComment: value });
+    }
+    case UPDATE_COMMENTS: {
+      const { kifuTree, latestComment } = state;
 
       const newKifuTree = kifuTree.updateNode(kifuTree.currentPath, (node: KifuTreeNode) => {
-        return node.set('comment', value);
+        return node.set('comment', latestComment);
       });
       return Object.assign({}, state, { kifuTree: newKifuTree, needSave: true });
     }
