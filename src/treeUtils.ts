@@ -185,7 +185,7 @@ export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
   return nodes;
 }
 
-export function getStringPath(tree: KifuTreeNode, path: Path): string[] {
+export function getStringPathFromPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map(node => node.readableKifu);
 }
 
@@ -206,9 +206,9 @@ export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]):
   return List(path);
 }
 
-export function pathToKeyPath(path: Path): any[] {
-  const keyPath: any[] = [];
-  path.forEach(num => {
+export function pathToKeyPath(path: Path): (string | number)[] {
+  const keyPath: (string | number)[] = [];
+  path.forEach((num: number) => {
     keyPath.push('children');
     keyPath.push(num);
   });

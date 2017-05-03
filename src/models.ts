@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 
 import {
   KifuTreeNode, Path, JumpTo, JumpTarget, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath,
-  findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath,
+  findNodeByPath, getNodesOnPath, getStringPathFromPath, getPathFromStringPath,
   createKifuTreeNode, buildJumpMap, traverseTree
 } from "./treeUtils";
 import { JSONKifuFormat, MoveMoveFormat, JKFPlayer } from "./shogiUtils";
@@ -92,7 +92,7 @@ export class KifuTree extends Record({
   }
 
   updateFork(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
-    const currentStringPath = getStringPath(this.rootNode, this.currentPath);
+    const currentStringPath = getStringPathFromPath(this.rootNode, this.currentPath);
     let newKifuTree = this.updateForkOfKifuTree(path, forkUpdater);
     if (newKifuTree === this) {
       return this; // no change
