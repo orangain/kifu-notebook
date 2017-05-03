@@ -1,9 +1,9 @@
 import { JKFPlayer, JSONKifuFormat, MoveFormat, MoveMoveFormat, TimeFormat, Shogi } from './shogiUtils';
-import { Map, List, Iterable, Record } from 'immutable';
+import { List, Iterable, Record } from 'immutable';
 
 export type Path = Iterable<number, number>;
 export type SFEN = string;
-export type JumpMap = Map<SFEN, List<JumpTo>>;
+export type JumpMap = { [sfen: string]: JumpTo[] };
 export class KifuTreeNode extends Record({
   tesuu: 0,
   comment: '',
@@ -13,6 +13,7 @@ export class KifuTreeNode extends Record({
   readableKifu: '',
   sfen: undefined,
   children: List(),
+  jumpTargets: List(),
 }) {
   tesuu: number;
   comment?: string;
@@ -25,6 +26,21 @@ export class KifuTreeNode extends Record({
   readableKifu: string;
   sfen: SFEN;
   children: List<KifuTreeNode>;
+  jumpTargets: List<JumpTarget>;
+
+  isBad(): boolean {
+    return !!this.comment && this.comment.startsWith('bad:');
+  }
+}
+
+export class JumpTarget extends Record({
+  path: null,
+  comment: '',
+  readableKifu: '',
+}) {
+  path: Path;
+  comment: string;
+  readableKifu: string;
 
   isBad(): boolean {
     return !!this.comment && this.comment.startsWith('bad:');
@@ -78,33 +94,44 @@ function moveFormatsToForks(moveFormats: MoveFormat[]): MoveFormat[][] {
   return forks;
 }
 
-export function buildJumpMap(kifuTree: KifuTreeNode): JumpMap {
-  // const begin = new Date();
-  const jumpMap = Map<SFEN, List<JumpTo>>().withMutations(jumpMap => {
-    const seen: { [sfen: string]: JumpTo } = {};
+export function traverseTree(rootNode: KifuTreeNode, callback: (node: KifuTreeNode, path: Path) => void): void {
+  const stack: { path: Path, node: KifuTreeNode }[] = [];
+  stack.push({ path: List<number>(), node: rootNode });
 
-    buildJumpMapFromNode(kifuTree, List<number>());
-
-    function buildJumpMapFromNode(kifuTreeNode: KifuTreeNode, path: Path) {
-      const sfen = kifuTreeNode.sfen;
-      const jumpTo = new JumpTo({
-        node: kifuTreeNode,
-        path: path,
-      });
-      if (seen[sfen]) {
-        if (!jumpMap.has(sfen)) {
-          jumpMap.set(sfen, List<JumpTo>([seen[sfen]]));
-        }
-        jumpMap.set(sfen, jumpMap.get(sfen).push(jumpTo));
-      } else {
-        seen[sfen] = jumpTo;
-      }
-
-      kifuTreeNode.children.forEach((childNode: KifuTreeNode, i: number) => {
-        buildJumpMapFromNode(childNode, path.concat([i]));
-      });
+  while (true) {
+    const currentNode = stack.pop();
+    if (!currentNode) {
+      break;
     }
+    callback(currentNode.node, currentNode.path);
 
+    for (let i = currentNode.node.children.size - 1; i >= 0; i--) {
+      const node = currentNode.node.children.get(i);
+      const path = currentNode.path.concat(i);
+      stack.push({ node, path });
+    }
+  }
+}
+
+export function buildJumpMap(rootNode: KifuTreeNode): JumpMap {
+  // const begin = new Date();
+  const jumpMap: JumpMap = {};
+  const seen: { [sfen: string]: JumpTo } = {};
+
+  traverseTree(rootNode, (node: KifuTreeNode, path: Path) => {
+    const sfen = node.sfen;
+    const jumpTo = new JumpTo({
+      node: node,
+      path: path,
+    });
+    if (seen[sfen]) {
+      if (!jumpMap[sfen]) {
+        jumpMap[sfen] = [seen[sfen]];
+      }
+      jumpMap[sfen].push(jumpTo);
+    } else {
+      seen[sfen] = jumpTo;
+    }
   });
 
   // const end = new Date();

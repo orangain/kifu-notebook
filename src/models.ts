@@ -1,24 +1,28 @@
 import { Record, Map, List } from 'immutable';
-import { KifuTreeNode, Path, JumpMap, JumpTo, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath, findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath, createKifuTreeNode, buildJumpMap } from "./treeUtils";
+import * as Immutable from 'immutable';
+
+import {
+  KifuTreeNode, Path, JumpTo, JumpTarget, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath,
+  findNodeByPath, getNodesOnPath, getStringPath, getPathFromStringPath,
+  createKifuTreeNode, buildJumpMap, traverseTree
+} from "./treeUtils";
 import { JSONKifuFormat, MoveMoveFormat, JKFPlayer } from "./shogiUtils";
 
-export { KifuTreeNode, Path, JumpMap, JumpTo }; // for convenience
+export { KifuTreeNode, Path, JumpTo, JumpTarget }; // for convenience
 
 export class KifuTree extends Record({
   rootNode: null,
   baseJKF: null,
   currentPath: List<number>(),
-  jumpMap: null,
 }) {
   readonly rootNode: KifuTreeNode;
   readonly baseJKF: JSONKifuFormat;
   readonly currentPath: Path;
-  readonly jumpMap: JumpMap;
 
   static fromJKF(jkf: JSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
     const baseJKF = Object.assign({}, jkf, { moves: [jkf.moves[0]] });
-    return new KifuTree({ rootNode, baseJKF }).updateJumpMap();
+    return new KifuTree({ rootNode, baseJKF }).maintainJumpTargets();
   }
 
   toJKF(): JSONKifuFormat {
@@ -84,7 +88,7 @@ export class KifuTree extends Record({
   updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>): KifuTree {
     const keyPath = pathToKeyPath(path);
     const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) => nodeUpdater(node)) as KifuTreeNode;
-    return (this.set('rootNode', newRootNode) as KifuTree).updateJumpMap();
+    return (this.set('rootNode', newRootNode) as KifuTree).maintainJumpTargets();
   }
 
   updateFork(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
@@ -109,7 +113,7 @@ export class KifuTree extends Record({
     if (newKifuTree === this) {
       return this; // no change
     }
-    return newKifuTree.updateJumpMap();
+    return newKifuTree.maintainJumpTargets();
   }
 
   movePiece(move: MoveMoveFormat): KifuTree | false {
@@ -139,12 +143,38 @@ export class KifuTree extends Record({
           return children.push(newNode);
         });
       })
-      .updateJumpMap()
+      .maintainJumpTargets()
       .setCurrentPath(this.currentPath.concat([currentNode.children.size]));
   }
 
-  private updateJumpMap(): KifuTree {
-    return this.set('jumpMap', buildJumpMap(this.rootNode)) as KifuTree;
+  private maintainJumpTargets(): KifuTree {
+    const begin = new Date();
+
+    const jumpMap = buildJumpMap(this.rootNode);
+    const newKifuTree = this.set('rootNode', this.rootNode.withMutations((rootNode: KifuTreeNode) => {
+      traverseTree(this.rootNode, (node: KifuTreeNode, path: Path) => {
+        const jumpToList = (jumpMap[node.sfen] || []).filter((jumpTo: JumpTo) => jumpTo.node !== node);
+        const jumpTargets = List<JumpTarget>().withMutations(jumpTargets => {
+          jumpToList.forEach((jumpTo: JumpTo) => {
+            jumpTo.node.children.forEach((jumpTargetNode: KifuTreeNode, i: number) => {
+              jumpTargets.push(new JumpTarget({
+                path: jumpTo.path.concat(i),
+                comment: jumpTargetNode.comment,
+                readableKifu: jumpTargetNode.readableKifu,
+              }));
+            });
+          });
+        });
+
+        if (!Immutable.is(node.jumpTargets, jumpTargets)) {
+          rootNode.setIn(pathToKeyPath(path).concat('jumpTargets'), jumpTargets);
+        }
+      });
+    })) as KifuTree;
+
+    const end = new Date();
+    console.log(`maintainJumpTargets: ${end.getTime() - begin.getTime()}ms`);
+    return newKifuTree;
   }
 }
 

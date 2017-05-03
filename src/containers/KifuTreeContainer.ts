@@ -15,13 +15,12 @@ const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
     // console.log('  state:    ', state);
 
     // calculate here for performance optimization of KifuTreeNode.shouldComponentUpdate
-    const jumpMapChanged = !prevProps || !Immutable.is(state.kifuTree.jumpMap, prevProps.kifuTree.jumpMap);
     const currentPathChanged = !prevProps || !Immutable.is(state.kifuTree.currentPath, prevProps.kifuTree.currentPath);
+    // console.log('currentPathChanged: ', currentPathChanged);
 
     const props: KifuTreeStateProps = {
       kifuTree: state.kifuTree,
       currentPathChanged: currentPathChanged,
-      jumpMapChanged: jumpMapChanged,
     };
     prevProps = props;
 
