@@ -4,7 +4,7 @@ const logo = require('./logo.svg');
 import './App.css';
 import BoardSetContainer from '../containers/BoardSetContainer';
 import KifuTreeContainer from '../containers/KifuTreeContainer';
-import CurrentNode from '../containers/CurrentNodeContainer';
+import CurrentNodeContainer from '../containers/CurrentNodeContainer';
 
 export interface AppStateProps {
   message: string;
@@ -36,7 +36,7 @@ class App extends Component<AppStateProps & AppDispatchProps, {}> {
         </div>
         <div className="App-body">
           <BoardSetContainer />
-          <CurrentNode />
+          <CurrentNodeContainer />
         </div>
         <KifuTreeContainer />
       </div>
