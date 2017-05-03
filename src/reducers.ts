@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { JKFPlayer, JSONKifuFormat, MoveFormat, MoveMoveFormat, TimeFormat } from './shogiUtils';
+import { MoveMoveFormat } from './shogiUtils';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
@@ -7,41 +7,26 @@ import {
   MOVE_PIECE, CHANGE_COMMENTS, CHANGE_REVERSED,
   GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
 } from './actions';
-import {
-  KifuTreeNode, Path, jkfToKifuTree, createKifuTreeNode, kifuTreeToJKF, pathToKeyPath,
-  getStringPath, findNodeByPath, getNodesOnPath
-} from "./treeUtils";
+import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
 
-interface KifuState {
-  jkf: JSONKifuFormat,
-  kifuTree: KifuTreeNode,
-  reversed: boolean,
-  currentPath: Path,
-  message: string,
-  autoSaveEnabled: boolean,
-  needSave: boolean,
-}
-const initialJKF = { header: {}, moves: [{}] };
-const initialState: KifuState = {
-  jkf: initialJKF,
-  kifuTree: jkfToKifuTree(initialJKF),
+const initialState: KifuNotebookState = {
+  kifuTree: KifuTree.fromJKF({ header: {}, moves: [{}] }),
   reversed: false,
-  currentPath: List<number>(),
   message: "",
   autoSaveEnabled: false,
   needSave: false,
 };
 
-export default function kifuTree(state: KifuState = initialState, action: any) {
+export default function kifuTree(state: KifuNotebookState = initialState, action: any): Partial<KifuNotebookState> {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
     }
     case RECEIVE_GET_JKF: {
       const jkf = action.jkf;
-      const tree = jkfToKifuTree(jkf);
+      const kifuTree = KifuTree.fromJKF(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: tree, jkf: jkf, message: "Fetched" });
+      return Object.assign({}, state, initialState, { kifuTree: kifuTree, message: "Fetched" });
     }
     case REQUEST_PUT_JKF: {
       return Object.assign({}, state, { message: "Saving...", needSave: false });
@@ -60,38 +45,35 @@ export default function kifuTree(state: KifuState = initialState, action: any) {
       return Object.assign({}, state, { autoSaveEnabled: enabled });
     }
     case MOVE_PIECE: {
-      const { kifuTree, currentPath, jkf } = state;
+      const { kifuTree } = state;
       const move = action.move;
 
-      const changedState = movePiece({ kifuTree, currentPath, jkf }, move);
-      if (changedState.kifuTree && changedState.kifuTree !== kifuTree) {
-        const newJKF = kifuTreeToJKF(changedState.kifuTree, jkf);
-        changedState.jkf = newJKF;
-        changedState.needSave = true;
-      }
-      return Object.assign({}, state, changedState);
+      return Object.assign({}, state, movePiece(kifuTree, move));
     }
     case GOTO_PATH: {
-      return Object.assign({}, state, { currentPath: List(action.path) });
+      const { kifuTree } = state;
+      const path = action.path;
+
+      return Object.assign({}, state, { kifuTree: kifuTree.setCurrentPath(path) });
     }
     case CHANGE_COMMENTS: {
-      const { kifuTree, currentPath, jkf } = state;
+      const { kifuTree } = state;
       const value = action.value;
 
-      const currentKeyPath = pathToKeyPath(currentPath);
-      const newKifuTree = kifuTree.setIn(currentKeyPath.concat(['comment']), value) as KifuTreeNode;
-      const newJKF = kifuTreeToJKF(newKifuTree, jkf);
-
-      return Object.assign({}, state, { kifuTree: newKifuTree, jkf: newJKF, needSave: true });
+      const newKifuTree = kifuTree.updateNode(kifuTree.currentPath, (node: KifuTreeNode) => {
+        return node.set('comment', value);
+      });
+      return Object.assign({}, state, { kifuTree: newKifuTree, needSave: true });
     }
     case CHANGE_REVERSED: {
       const value = action.value;
       return Object.assign({}, state, { reversed: value });
     }
     case MOVE_UP_FORK: {
+      const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(state, path, (children, lastIndex) => {
+      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
         if (lastIndex === 0) {
           return children;
         }
@@ -100,9 +82,10 @@ export default function kifuTree(state: KifuState = initialState, action: any) {
       }));
     }
     case MOVE_DOWN_FORK: {
+      const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(state, path, (children, lastIndex) => {
+      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
         if (lastIndex === children.size - 1) {
           return children;
         }
@@ -111,9 +94,10 @@ export default function kifuTree(state: KifuState = initialState, action: any) {
       }));
     }
     case REMOVE_FORK: {
+      const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(state, path, (children, lastIndex) => {
+      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
         return children.delete(lastIndex);
       }));
     }
@@ -122,9 +106,7 @@ export default function kifuTree(state: KifuState = initialState, action: any) {
   }
 };
 
-function movePiece(state: { kifuTree: KifuTreeNode, currentPath: Path, jkf: JSONKifuFormat }, move: MoveMoveFormat): { kifuTree?: KifuTreeNode, currentPath?: Path, jkf?: JSONKifuFormat, needSave?: boolean } {
-  const { kifuTree, currentPath, jkf } = state;
-
+function movePiece(kifuTree: KifuTree, move: MoveMoveFormat): Partial<KifuNotebookState> {
   // 1. Check and normalize move
   if (!move.to) {
     return {}; // drop to mochigoma
@@ -134,77 +116,31 @@ function movePiece(state: { kifuTree: KifuTreeNode, currentPath: Path, jkf: JSON
   }
   move.to = { x: move.to.x, y: move.to.y }; // In some environment, move.to contains dropEffect attribute. Get rid of it.
 
-  // 2. Compare with existing nodes
-  const currentNode = findNodeByPath(kifuTree, currentPath);
-  const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
-  if (childIndex >= 0) {
-    return { currentPath: currentPath.concat([childIndex]) };
-  }
-
-  // 3. Make player then input move
-  const minimalMoveFormats = [{}].concat(getNodesOnPath(kifuTree, currentPath).map(node => ({ move: node.move })));
-  const minimalJKF = Object.assign({}, jkf, { moves: minimalMoveFormats });
-  const player = new JKFPlayer(minimalJKF);
-  player.goto(minimalMoveFormats.length);
-
+  // 2. do move piece
+  let newKifuTree: KifuTree | false;
   try {
-    if (!player.inputMove(move)) {
+    newKifuTree = kifuTree.movePiece(move);
+    if (newKifuTree === false) {
       move.promote = confirm("成りますか？");
-      player.inputMove(move);
+      newKifuTree = kifuTree.movePiece(move) as KifuTree;
     }
   } catch (e) {
     alert(e);
     return {};
   }
 
-  // 4. Create new objects
-  const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
-  const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
-  const newKifuTree = kifuTree.updateIn(pathToKeyPath(currentPath).concat(['children']), children => {
-    return children.push(newNode);
-  }) as KifuTreeNode;
-  const newCurrentPath = currentPath.concat([currentNode.children.size]);
+  // When save is not needed, needSave must be undefined, not false.
+  // needSave is changed to false only when save is done.
+  const needSave = newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
 
-  return { kifuTree: newKifuTree, currentPath: newCurrentPath };
+  return { kifuTree: newKifuTree, needSave: needSave };
 }
 
-function updateFork(state: KifuState, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): { kifuTree?: KifuTreeNode, currentPath?: Path, jkf?: JSONKifuFormat, needSave?: boolean } {
-  const { kifuTree, currentPath, jkf } = state;
-  const currentStringPath = getStringPath(kifuTree, currentPath);
-  const newKifuTree = updateForkOfKifuTree(kifuTree, path, forkUpdater);
+function updateFork(kifuTree: KifuTree, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): Partial<KifuNotebookState> {
+  const newKifuTree = kifuTree.updateFork(path, forkUpdater);
   if (newKifuTree === kifuTree) {
     return {}; // no change
   }
-  const newJKF = kifuTreeToJKF(newKifuTree, jkf);
-  const newPath = getPathFromStringPath(newKifuTree, currentStringPath);
-  const needSave = newKifuTree !== kifuTree;
 
-  return { kifuTree: newKifuTree, currentPath: newPath, jkf: newJKF, needSave: needSave };
-}
-
-function updateForkOfKifuTree(kifuTree: KifuTreeNode, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTreeNode {
-  const lastIndex = path.get(path.size - 1);
-  const parentKeyPath = pathToKeyPath(path.slice(0, -1));
-  const newKifuTree = kifuTree.updateIn(parentKeyPath.concat(['children']), (children: List<KifuTreeNode>) => {
-    return forkUpdater(children, lastIndex);
-  }) as KifuTreeNode;
-
-  return newKifuTree;
-}
-
-function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]): Path {
-  const path: number[] = [];
-  let currentNode = tree;
-  for (let kifu of stringPath) {
-    const nextNodeIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => childNode.readableKifu === kifu);
-    if (nextNodeIndex < 0) {
-      break;  // stop if node is missing (e.g. node is removed)
-    }
-    const nextNode = currentNode.children.get(nextNodeIndex);
-
-    path.push(nextNodeIndex);
-    currentNode = nextNode;
-  }
-
-  return List(path);
+  return { kifuTree: newKifuTree, needSave: true };
 }

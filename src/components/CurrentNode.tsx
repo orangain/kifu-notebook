@@ -3,16 +3,10 @@ import { Component } from 'react';
 import './CurrentNode.css';
 
 import ForkList from './ForkList';
-import { JumpMap, KifuTreeNode, Path } from "../treeUtils";
+import { Path, KifuTree } from "../models";
 
 export interface CurrentNodeStateProps {
-  jumpMap: JumpMap;
-  currentNode: KifuTreeNode;
-  currentPath: Path;
-  previousPath: Path;
-  nextPath: Path;
-  previousForkPath: Path;
-  nextForkPath: Path;
+  kifuTree: KifuTree;
 }
 
 export interface CurrentNodeDispatchProps {
@@ -22,8 +16,12 @@ export interface CurrentNodeDispatchProps {
 
 export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, {}> {
   render() {
-    const { jumpMap, currentNode, currentPath,
-      previousPath, nextPath, previousForkPath, nextForkPath } = this.props;
+    const { kifuTree } = this.props;
+    const currentNode = kifuTree.getCurrentNode();
+    const previousPath = kifuTree.getPreviousPath();
+    const nextPath = kifuTree.getNextPath();
+    const previousForkPath = kifuTree.getPreviousForkPath();
+    const nextForkPath = kifuTree.getNextForkPath();
 
     return (
       <div>
@@ -51,9 +49,7 @@ export default class CurrentNode extends Component<CurrentNodeStateProps & Curre
             title="1つ先の分岐に進む">&raquo;</button>
         </div>
         <ForkList
-          currentNode={currentNode}
-          currentPath={currentPath}
-          jumpMap={jumpMap}
+          kifuTree={kifuTree}
           onClickPath={this.props.onClickPath} />
       </div>
     )
