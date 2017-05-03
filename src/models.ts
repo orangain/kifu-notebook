@@ -42,7 +42,7 @@ export class KifuTree extends Record({
   }
 
   getNodesOnPath(path: Path): KifuTreeNode[] {
-    return getNodesOnPath(this.rootNode, this.currentPath);
+    return getNodesOnPath(this.rootNode, path);
   }
 
   getPreviousPath(): Path {
