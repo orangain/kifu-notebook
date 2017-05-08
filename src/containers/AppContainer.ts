@@ -8,6 +8,7 @@ const mapStateToProps = (state: AppState): AppStateProps => {
   return {
     message: state.message,
     autoSaveEnabled: state.autoSaveEnabled,
+    needSave: state.needSave,
   }
 };
 

@@ -9,6 +9,7 @@ import CurrentNodeContainer from '../containers/CurrentNodeContainer';
 export interface AppStateProps {
   message: string;
   autoSaveEnabled: boolean;
+  needSave: boolean;
 }
 
 export interface AppDispatchProps {
@@ -22,6 +23,15 @@ class App extends Component<AppStateProps & AppDispatchProps, {}> {
     (window as any).Perf = require('react-addons-perf');
     this.props.onLoad();
   }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', (e: BeforeUnloadEvent) => {
+      if (this.props.needSave) {
+        e.returnValue = '変更が保存されていません。'; // Custom message will not be shown.
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
