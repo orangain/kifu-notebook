@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { Component } from 'react';
 import './CurrentNode.css';
+import * as Immutable from 'immutable';
 
 import ForkList from './ForkList';
 import { Path, KifuTree } from "../models";
+
+interface CurrentNodeLocalState {
+  comment?: string;
+}
 
 export interface CurrentNodeStateProps {
   kifuTree: KifuTree;
@@ -12,11 +17,32 @@ export interface CurrentNodeStateProps {
 export interface CurrentNodeDispatchProps {
   onClickPath: (path: Path) => void;
   onChangeComments: (comment: string) => void;
+  onBlurComments: () => void;
 }
 
-export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, {}> {
+export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, CurrentNodeLocalState> {
+  componentWillMount() {
+    const { kifuTree } = this.props;
+    const currentNode = kifuTree.getCurrentNode();
+    this.setState({ comment: currentNode.comment });
+  }
+
+  componentWillReceiveProps(nextProps: CurrentNodeStateProps & CurrentNodeDispatchProps) {
+    if (!Immutable.is(this.props.kifuTree.currentPath, nextProps.kifuTree.currentPath)) {
+      const { kifuTree } = nextProps;
+      const currentNode = kifuTree.getCurrentNode();
+      this.setState({ comment: currentNode.comment });
+    }
+  }
+
+  onChangeComments(comment: string) {
+    this.setState({ comment: comment });
+    this.props.onChangeComments(comment);
+  }
+
   render() {
     const { kifuTree } = this.props;
+    const { comment } = this.state;
     const currentNode = kifuTree.getCurrentNode();
     const previousPath = kifuTree.getPreviousPath();
     const nextPath = kifuTree.getNextPath();
@@ -32,8 +58,9 @@ export default class CurrentNode extends Component<CurrentNodeStateProps & Curre
           rows={10}
           className="comment"
           placeholder="ここに現在の手についてコメントを書けます。"
-          onChange={e => { this.props.onChangeComments(e.target.value); }}
-          value={currentNode.comment}></textarea>
+          onChange={e => { this.onChangeComments(e.target.value); }}
+          onBlur={e => { this.props.onBlurComments(); }}
+          value={comment}></textarea>
         <div className="buttons">
           <button
             onClick={e => this.props.onClickPath(previousForkPath)}
