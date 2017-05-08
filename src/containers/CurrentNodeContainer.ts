@@ -1,6 +1,6 @@
 import { connect, MapDispatchToPropsObject } from 'react-redux';
 
-import { changeComments, gotoPath } from '../actions';
+import { changeComments, gotoPath, updateComments } from '../actions';
 import CurrentNode, { CurrentNodeStateProps, CurrentNodeDispatchProps } from '../components/CurrentNode';
 import { CurrentNodeState } from "../models";
 
@@ -12,6 +12,7 @@ const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
 
 const mapDispatchToProps: CurrentNodeDispatchProps & MapDispatchToPropsObject = {
   onChangeComments: changeComments,
+  onBlurComments: updateComments,
   onClickPath: gotoPath,
 };
 

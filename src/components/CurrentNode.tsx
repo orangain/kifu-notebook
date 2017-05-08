@@ -17,6 +17,7 @@ export interface CurrentNodeStateProps {
 export interface CurrentNodeDispatchProps {
   onClickPath: (path: Path) => void;
   onChangeComments: (comment: string) => void;
+  onBlurComments: () => void;
 }
 
 export default class CurrentNode extends Component<CurrentNodeStateProps & CurrentNodeDispatchProps, CurrentNodeLocalState> {
@@ -58,6 +59,7 @@ export default class CurrentNode extends Component<CurrentNodeStateProps & Curre
           className="comment"
           placeholder="ここに現在の手についてコメントを書けます。"
           onChange={e => { this.onChangeComments(e.target.value); }}
+          onBlur={e => { this.props.onBlurComments(); }}
           value={comment}></textarea>
         <div className="buttons">
           <button
