@@ -13,7 +13,7 @@ export default class Api {
       });
   }
   static storeJKF(jkf: JSONKifuFormat) {
-    const body = stringify(jkf);
+    const body = stringify(jkf) + '\n'; // Add newline at end of file
 
     function preserveFailedData(e: Error | Response) {
       console.error(e);
