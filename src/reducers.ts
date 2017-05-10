@@ -64,10 +64,15 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
     case UPDATE_COMMENTS: {
       const { kifuTree, latestComment } = state;
 
+      if (latestComment === '') {
+        // This will happen when user leave textarea without changing comment.
+        return state;
+      }
+
       const newKifuTree = kifuTree.updateNode(kifuTree.currentPath, (node: KifuTreeNode) => {
         return node.set('comment', latestComment);
       });
-      return Object.assign({}, state, { kifuTree: newKifuTree, needSave: true });
+      return Object.assign({}, state, { kifuTree: newKifuTree, needSave: true, latestComment: "" });
     }
     case CHANGE_REVERSED: {
       const value = action.value;
