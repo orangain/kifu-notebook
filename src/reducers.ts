@@ -1,12 +1,23 @@
-import { List } from 'immutable';
-import { IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
+import { List } from "immutable";
+import { IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 
 import {
-  REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
-  FAIL_PUT_JKF, CLEAR_MESSAGE, CHANGE_AUTO_SAVE,
-  MOVE_PIECE, CHANGE_COMMENTS, UPDATE_COMMENTS, CHANGE_REVERSED,
-  GOTO_PATH, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK
-} from './actions';
+  REQUEST_GET_JKF,
+  RECEIVE_GET_JKF,
+  REQUEST_PUT_JKF,
+  RECEIVE_PUT_JKF,
+  FAIL_PUT_JKF,
+  CLEAR_MESSAGE,
+  CHANGE_AUTO_SAVE,
+  MOVE_PIECE,
+  CHANGE_COMMENTS,
+  UPDATE_COMMENTS,
+  CHANGE_REVERSED,
+  GOTO_PATH,
+  MOVE_UP_FORK,
+  MOVE_DOWN_FORK,
+  REMOVE_FORK,
+} from "./actions";
 import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
 
 const initialState: KifuNotebookState = {
@@ -18,7 +29,10 @@ const initialState: KifuNotebookState = {
   latestComment: "",
 };
 
-export default function kifuTree(state: KifuNotebookState = initialState, action: any): KifuNotebookState {
+export default function kifuTree(
+  state: KifuNotebookState = initialState,
+  action: any
+): KifuNotebookState {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
@@ -27,10 +41,16 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
       const jkf = action.jkf;
       const kifuTree = KifuTree.fromJKF(jkf);
 
-      return Object.assign({}, state, initialState, { kifuTree: kifuTree, message: "Fetched" });
+      return Object.assign({}, state, initialState, {
+        kifuTree: kifuTree,
+        message: "Fetched",
+      });
     }
     case REQUEST_PUT_JKF: {
-      return Object.assign({}, state, { message: "Saving...", needSave: false });
+      return Object.assign({}, state, {
+        message: "Saving...",
+        needSave: false,
+      });
     }
     case RECEIVE_PUT_JKF: {
       return Object.assign({}, state, { message: "Saved" });
@@ -55,7 +75,9 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, { kifuTree: kifuTree.setCurrentPath(path) });
+      return Object.assign({}, state, {
+        kifuTree: kifuTree.setCurrentPath(path),
+      });
     }
     case CHANGE_COMMENTS: {
       const value = action.value;
@@ -64,15 +86,22 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
     case UPDATE_COMMENTS: {
       const { kifuTree, latestComment } = state;
 
-      if (latestComment === '') {
+      if (latestComment === "") {
         // This will happen when user leave textarea without changing comment.
         return state;
       }
 
-      const newKifuTree = kifuTree.updateNode(kifuTree.currentPath, (node: KifuTreeNode) => {
-        return node.set('comment', latestComment);
+      const newKifuTree = kifuTree.updateNode(
+        kifuTree.currentPath,
+        (node: KifuTreeNode) => {
+          return node.set("comment", latestComment);
+        }
+      );
+      return Object.assign({}, state, {
+        kifuTree: newKifuTree,
+        needSave: true,
+        latestComment: "",
       });
-      return Object.assign({}, state, { kifuTree: newKifuTree, needSave: true, latestComment: "" });
     }
     case CHANGE_REVERSED: {
       const value = action.value;
@@ -82,40 +111,55 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
-        if (lastIndex === 0) {
-          return children;
-        }
-        const prevNode = children.get(lastIndex - 1);
-        return children.delete(lastIndex - 1).insert(lastIndex, prevNode);
-      }));
+      return Object.assign(
+        {},
+        state,
+        updateFork(kifuTree, path, (children, lastIndex) => {
+          if (lastIndex === 0) {
+            return children;
+          }
+          const prevNode = children.get(lastIndex - 1);
+          return children.delete(lastIndex - 1).insert(lastIndex, prevNode);
+        })
+      );
     }
     case MOVE_DOWN_FORK: {
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
-        if (lastIndex === children.size - 1) {
-          return children;
-        }
-        const targetNode = children.get(lastIndex);
-        return children.delete(lastIndex).insert(lastIndex + 1, targetNode);
-      }));
+      return Object.assign(
+        {},
+        state,
+        updateFork(kifuTree, path, (children, lastIndex) => {
+          if (lastIndex === children.size - 1) {
+            return children;
+          }
+          const targetNode = children.get(lastIndex);
+          return children.delete(lastIndex).insert(lastIndex + 1, targetNode);
+        })
+      );
     }
     case REMOVE_FORK: {
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign({}, state, updateFork(kifuTree, path, (children, lastIndex) => {
-        return children.delete(lastIndex);
-      }));
+      return Object.assign(
+        {},
+        state,
+        updateFork(kifuTree, path, (children, lastIndex) => {
+          return children.delete(lastIndex);
+        })
+      );
     }
     default:
       return state;
   }
-};
+}
 
-function movePiece(kifuTree: KifuTree, move: IMoveMoveFormat): Partial<KifuNotebookState> {
+function movePiece(
+  kifuTree: KifuTree,
+  move: IMoveMoveFormat
+): Partial<KifuNotebookState> {
   // 1. Check and normalize move
   if (!move.to) {
     return {}; // drop to mochigoma
@@ -140,12 +184,20 @@ function movePiece(kifuTree: KifuTree, move: IMoveMoveFormat): Partial<KifuNoteb
 
   // When save is not needed, needSave must be undefined, not false.
   // needSave is changed to false only when save is done.
-  const needSave = newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
+  const needSave =
+    newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
 
   return { kifuTree: newKifuTree, needSave: needSave };
 }
 
-function updateFork(kifuTree: KifuTree, path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): Partial<KifuNotebookState> {
+function updateFork(
+  kifuTree: KifuTree,
+  path: Path,
+  forkUpdater: (
+    children: List<KifuTreeNode>,
+    lastIndex: number
+  ) => List<KifuTreeNode>
+): Partial<KifuNotebookState> {
   const newKifuTree = kifuTree.updateFork(path, forkUpdater);
   if (newKifuTree === kifuTree) {
     return {}; // no change

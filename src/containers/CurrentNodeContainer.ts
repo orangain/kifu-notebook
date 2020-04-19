@@ -1,16 +1,20 @@
-import { connect, MapDispatchToPropsObject } from 'react-redux';
+import { connect, MapDispatchToPropsObject } from "react-redux";
 
-import { changeComments, gotoPath, updateComments } from '../actions';
-import CurrentNode, { CurrentNodeStateProps, CurrentNodeDispatchProps } from '../components/CurrentNode';
+import { changeComments, gotoPath, updateComments } from "../actions";
+import CurrentNode, {
+  CurrentNodeStateProps,
+  CurrentNodeDispatchProps,
+} from "../components/CurrentNode";
 import { CurrentNodeState } from "../models";
 
 const mapStateToProps = (state: CurrentNodeState): CurrentNodeStateProps => {
   return {
     kifuTree: state.kifuTree,
-  }
+  };
 };
 
-const mapDispatchToProps: CurrentNodeDispatchProps & MapDispatchToPropsObject = {
+const mapDispatchToProps: CurrentNodeDispatchProps &
+  MapDispatchToPropsObject = {
   onChangeComments: changeComments,
   onBlurComments: updateComments,
   onClickPath: gotoPath,
