@@ -1,5 +1,5 @@
 import * as stringify from "json-stringify-pretty-compact";
-import { JSONKifuFormat } from "./shogiUtils";
+import { IJSONKifuFormat } from 'json-kifu-format/dist/src/Formats';
 
 export default class Api {
   static fetchJKF() {
@@ -12,7 +12,7 @@ export default class Api {
         return json;
       });
   }
-  static storeJKF(jkf: JSONKifuFormat) {
+  static storeJKF(jkf: IJSONKifuFormat) {
     const body = stringify(jkf) + '\n'; // Add newline at end of file
 
     function preserveFailedData(e: Error | Response) {

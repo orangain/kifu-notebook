@@ -1,5 +1,6 @@
 import { connect, MapDispatchToPropsObject } from 'react-redux';
-import { Shogi, JKFPlayer } from '../shogiUtils';
+import { JKFPlayer } from 'json-kifu-format';
+import { Shogi } from 'shogi.js';
 
 import { inputMove, changeReversed } from '../actions';
 import BoardSet, { BoardSetStateProps, BoardSetDispatchProps } from '../components/BoardSet';

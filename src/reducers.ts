@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { MoveMoveFormat } from './shogiUtils';
+import { IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
 
 import {
   REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF,
@@ -18,7 +18,7 @@ const initialState: KifuNotebookState = {
   latestComment: "",
 };
 
-export default function kifuTree(state: KifuNotebookState = initialState, action: any): Partial<KifuNotebookState> {
+export default function kifuTree(state: KifuNotebookState = initialState, action: any): KifuNotebookState {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
@@ -115,7 +115,7 @@ export default function kifuTree(state: KifuNotebookState = initialState, action
   }
 };
 
-function movePiece(kifuTree: KifuTree, move: MoveMoveFormat): Partial<KifuNotebookState> {
+function movePiece(kifuTree: KifuTree, move: IMoveMoveFormat): Partial<KifuNotebookState> {
   // 1. Check and normalize move
   if (!move.to) {
     return {}; // drop to mochigoma

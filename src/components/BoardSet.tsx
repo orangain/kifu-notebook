@@ -5,7 +5,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import './BoardSet.css';
 
 import { Board, Hand, Piece, PieceHand } from 'kifu-for-js';
-import { StateFormat, MoveMoveFormat } from "../shogiUtils";
+import { IStateFormat, IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
 import { KifuTree, KifuTreeNode } from "../models";
 
 // Use svg images
@@ -14,14 +14,14 @@ Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.
 };
 
 export interface BoardSetStateProps {
-  shogiState: StateFormat;
+  shogiState: IStateFormat;
   kifuTree: KifuTree;
   reversed: boolean;
   currentNode: KifuTreeNode;
 }
 
 export interface BoardSetDispatchProps {
-  onInputMove: (move: MoveMoveFormat) => void;
+  onInputMove: (move: IMoveMoveFormat) => void;
   onChangeReversed: (reversed: boolean) => void;
 }
 
@@ -42,7 +42,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
               color={reversed ? 0 : 1}
               data={shogiState.hands[reversed ? 0 : 1]}
               playerName={players[reversed ? 0 : 1]}
-              onInputMove={(e: MoveMoveFormat) => { this.props.onInputMove(e) }}
+              onInputMove={(e: IMoveMoveFormat) => { this.props.onInputMove(e) }}
               reversed={reversed} />
             <div>
               <label><input type="checkbox" checked={reversed} onChange={e => this.props.onChangeReversed(e.target.checked)} />盤面反転</label>
@@ -52,7 +52,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
             <Board
               board={shogiState.board}
               lastMove={currentNode.move}
-              onInputMove={(e: MoveMoveFormat) => { this.props.onInputMove(e) }}
+              onInputMove={(e: IMoveMoveFormat) => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
           <div className="players right">
@@ -60,7 +60,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
               color={reversed ? 1 : 0}
               data={shogiState.hands[reversed ? 1 : 0]}
               playerName={players[reversed ? 1 : 0]}
-              onInputMove={(e: MoveMoveFormat) => { this.props.onInputMove(e) }}
+              onInputMove={(e: IMoveMoveFormat) => { this.props.onInputMove(e) }}
               reversed={reversed} />
           </div>
         </div>

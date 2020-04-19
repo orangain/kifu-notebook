@@ -1,12 +1,13 @@
 import { Record, Map, List } from 'immutable';
 import * as Immutable from 'immutable';
+import { JKFPlayer } from 'json-kifu-format';
+import { IJSONKifuFormat, IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
 
 import {
   KifuTreeNode, Path, JumpTo, JumpTarget, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath,
   findNodeByPath, getNodesOnPath, getStringPathFromPath, getPathFromStringPath,
   createKifuTreeNode, buildJumpMap, traverseTree
 } from "./treeUtils";
-import { JSONKifuFormat, MoveMoveFormat, JKFPlayer } from "./shogiUtils";
 
 export { KifuTreeNode, Path, JumpTo, JumpTarget }; // for convenience
 
@@ -16,16 +17,16 @@ export class KifuTree extends Record({
   currentPath: List<number>(),
 }) {
   readonly rootNode: KifuTreeNode;
-  readonly baseJKF: JSONKifuFormat;
+  readonly baseJKF: IJSONKifuFormat;
   readonly currentPath: Path;
 
-  static fromJKF(jkf: JSONKifuFormat): KifuTree {
+  static fromJKF(jkf: IJSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
     const baseJKF = Object.assign({}, jkf, { moves: [jkf.moves[0]] });
     return new KifuTree({ rootNode, baseJKF }).maintainJumpTargets();
   }
 
-  toJKF(): JSONKifuFormat {
+  toJKF(): IJSONKifuFormat {
     return kifuTreeToJKF(this.rootNode, this.baseJKF);
   }
 
@@ -116,10 +117,10 @@ export class KifuTree extends Record({
     return newKifuTree.maintainJumpTargets();
   }
 
-  movePiece(move: MoveMoveFormat): KifuTree | false {
+  movePiece(move: IMoveMoveFormat): KifuTree | false {
     // 1. Compare with existing nodes
     const currentNode = this.getCurrentNode();
-    const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => JKFPlayer.sameMoveMinimal(childNode.move, move));
+    const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => (JKFPlayer as any).sameMoveMinimal(childNode.move, move)); // TODO: Calling private method
     if (childIndex >= 0) {
       return this.setCurrentPath(this.currentPath.concat([childIndex])); // Proceed to existing node
     }
