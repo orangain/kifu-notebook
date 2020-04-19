@@ -18,7 +18,7 @@ const initialState: KifuNotebookState = {
   latestComment: "",
 };
 
-export default function kifuTree(state: KifuNotebookState = initialState, action: any): Partial<KifuNotebookState> {
+export default function kifuTree(state: KifuNotebookState = initialState, action: any): KifuNotebookState {
   switch (action.type) {
     case REQUEST_GET_JKF: {
       return Object.assign({}, state, { message: "Fetching..." });
