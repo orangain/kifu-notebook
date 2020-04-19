@@ -41,7 +41,7 @@ Options:
 
 ### Requirements
 
-* Node.js 6.9+
+- Node.js 6.9+
 
 ### Install dependencies
 
@@ -67,8 +67,8 @@ $ npm start
 
 ### Requirements
 
-* Go 1.7+
-* Make
+- Go 1.7+
+- Make
 
 ### Build
 
@@ -82,8 +82,8 @@ You will see an executable `kifu-notebook`.
 
 ### Requirements
 
-* Docker
-* Docker Compose
+- Docker
+- Docker Compose
 
 ### Install dependencies
 

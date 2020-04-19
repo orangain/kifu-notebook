@@ -1,15 +1,38 @@
-import { delay, Effect } from 'redux-saga'
-import { put, call, select, takeLatest, fork, take, cancel, ForkEffect } from 'redux-saga/effects';
+import { delay, Effect } from "redux-saga";
+import {
+  put,
+  call,
+  select,
+  takeLatest,
+  fork,
+  take,
+  cancel,
+  ForkEffect,
+} from "redux-saga/effects";
 import { Action } from "redux";
 
 import {
-  REQUEST_GET_JKF, RECEIVE_GET_JKF, REQUEST_PUT_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF,
-  CHANGE_AUTO_SAVE, MOVE_PIECE,
-  CHANGE_COMMENTS, UPDATE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK,
-  receiveGetJKF, requestPutJKF, receivePutJKF, failPutJKF, clearMessage, updateComments
-} from './actions';
-import { getAutoSaveNeeded, getKifuTree } from './selectors';
-import Api from './api';
+  REQUEST_GET_JKF,
+  RECEIVE_GET_JKF,
+  REQUEST_PUT_JKF,
+  RECEIVE_PUT_JKF,
+  FAIL_PUT_JKF,
+  CHANGE_AUTO_SAVE,
+  MOVE_PIECE,
+  CHANGE_COMMENTS,
+  UPDATE_COMMENTS,
+  MOVE_UP_FORK,
+  MOVE_DOWN_FORK,
+  REMOVE_FORK,
+  receiveGetJKF,
+  requestPutJKF,
+  receivePutJKF,
+  failPutJKF,
+  clearMessage,
+  updateComments,
+} from "./actions";
+import { getAutoSaveNeeded, getKifuTree } from "./selectors";
+import Api from "./api";
 import { KifuTree } from "./models";
 
 export default function* rootSaga(): IterableIterator<Effect[]> {
@@ -18,15 +41,29 @@ export default function* rootSaga(): IterableIterator<Effect[]> {
     takeLatest(REQUEST_PUT_JKF, storeJKF),
     takeLatest(
       [RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF],
-      clearMessageLater),
+      clearMessageLater
+    ),
     takeLatestWithCancel(CHANGE_COMMENTS, UPDATE_COMMENTS, updateCommentsLater),
     takeLatest(
-      [CHANGE_AUTO_SAVE, MOVE_PIECE, UPDATE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
-      autoSaveIfNeeded)
-  ]
+      [
+        CHANGE_AUTO_SAVE,
+        MOVE_PIECE,
+        UPDATE_COMMENTS,
+        MOVE_UP_FORK,
+        MOVE_DOWN_FORK,
+        REMOVE_FORK,
+      ],
+      autoSaveIfNeeded
+    ),
+  ];
 }
 
-export function takeLatestWithCancel(pattern, cancelPattern: string, saga, ...args): ForkEffect {
+export function takeLatestWithCancel(
+  pattern,
+  cancelPattern: string,
+  saga,
+  ...args
+): ForkEffect {
   return fork(function* () {
     let lastTask;
     while (true) {
@@ -52,7 +89,7 @@ export function* fetchJKF() {
 }
 
 export function* storeJKF() {
-  const kifuTree: KifuTree = yield select(getKifuTree)
+  const kifuTree: KifuTree = yield select(getKifuTree);
   const jkf = kifuTree.toJKF();
   try {
     yield call(Api.storeJKF, jkf);

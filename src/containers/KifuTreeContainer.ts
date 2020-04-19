@@ -1,8 +1,16 @@
-import { connect, MapStateToPropsFactory, MapDispatchToProps, MapStateToPropsParam } from 'react-redux';
-import * as Immutable from 'immutable';
+import {
+  connect,
+  MapStateToPropsFactory,
+  MapDispatchToProps,
+  MapStateToPropsParam,
+} from "react-redux";
+import * as Immutable from "immutable";
 
-import { gotoPath, moveUpFork, moveDownFork, removeFork } from '../actions';
-import KifuTreeComponent, { KifuTreeStateProps, KifuTreeDispatchProps } from '../components/tree/KifuTree';
+import { gotoPath, moveUpFork, moveDownFork, removeFork } from "../actions";
+import KifuTreeComponent, {
+  KifuTreeStateProps,
+  KifuTreeDispatchProps,
+} from "../components/tree/KifuTree";
 import { KifuTreeState } from "../models";
 
 const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
@@ -15,7 +23,9 @@ const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
     // console.log('  state:    ', state);
 
     // calculate here for performance optimization of KifuTreeNode.shouldComponentUpdate
-    const currentPathChanged = !prevProps || !Immutable.is(state.kifuTree.currentPath, prevProps.kifuTree.currentPath);
+    const currentPathChanged =
+      !prevProps ||
+      !Immutable.is(state.kifuTree.currentPath, prevProps.kifuTree.currentPath);
     // console.log('currentPathChanged: ', currentPathChanged);
 
     const props: KifuTreeStateProps = {
@@ -28,7 +38,8 @@ const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
   };
 };
 
-const mapDispatchToProps: KifuTreeDispatchProps & MapDispatchToProps<KifuTreeDispatchProps, undefined> = {
+const mapDispatchToProps: KifuTreeDispatchProps &
+  MapDispatchToProps<KifuTreeDispatchProps, undefined> = {
   onClickPath: gotoPath,
   onClickMoveUpFork: moveUpFork,
   onClickMoveDownFork: moveDownFork,

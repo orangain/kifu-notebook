@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { default as KifuTreeNodeComponent } from "./KifuTreeNode";
 import { List } from "immutable";
 
-import './KifuTree.css';
+import "./KifuTree.css";
 import { KifuTree, Path } from "../../models";
 
 export interface KifuTreeStateProps {
@@ -18,24 +18,30 @@ export interface KifuTreeDispatchProps {
   onClickRemoveFork: (path: Path) => void;
 }
 
-export default class KifuTreeComponent extends React.Component<KifuTreeStateProps & KifuTreeDispatchProps, {}> {
+export default class KifuTreeComponent extends React.Component<
+  KifuTreeStateProps & KifuTreeDispatchProps,
+  {}
+> {
   begin: Date;
 
   onClick(e: React.MouseEvent<HTMLUListElement>) {
     const target = e.target as any;
-    const jsonPath = target.dataset.path || target.parentNode.dataset.path || target.parentNode.parentNode.dataset.path;
+    const jsonPath =
+      target.dataset.path ||
+      target.parentNode.dataset.path ||
+      target.parentNode.parentNode.dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }
     const path = List<number>(JSON.parse(jsonPath)) as Path;
 
-    if (target.classList.contains('readable-kifu')) {
+    if (target.classList.contains("readable-kifu")) {
       this.props.onClickPath(path);
-    } else if (target.classList.contains('up')) {
+    } else if (target.classList.contains("up")) {
       this.props.onClickMoveUpFork(path);
-    } else if (target.classList.contains('down')) {
+    } else if (target.classList.contains("down")) {
       this.props.onClickMoveDownFork(path);
-    } else if (target.classList.contains('remove')) {
+    } else if (target.classList.contains("remove")) {
       this.props.onClickRemoveFork(path);
     }
   }
@@ -48,13 +54,21 @@ export default class KifuTreeComponent extends React.Component<KifuTreeStateProp
 
     if (this.props.currentPathChanged) {
       const domNode = ReactDOM.findDOMNode(this);
-      const currentElementDOMNode = domNode.querySelector('span.current') as Element;
+      const currentElementDOMNode = domNode.querySelector(
+        "span.current"
+      ) as Element;
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
-      const needScroll = currentElementBoundingRect.left < 0 || currentElementBoundingRect.right > domNode.clientWidth;
+      const needScroll =
+        currentElementBoundingRect.left < 0 ||
+        currentElementBoundingRect.right > domNode.clientWidth;
       if (needScroll) {
-        const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
-        const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
+        const currentElementLeft =
+          domNode.scrollLeft + currentElementBoundingRect.left;
+        const scrollLeft = Math.max(
+          0,
+          currentElementLeft - domNode.clientWidth / 2
+        );
         domNode.scrollLeft = scrollLeft;
       }
     }
@@ -63,12 +77,13 @@ export default class KifuTreeComponent extends React.Component<KifuTreeStateProp
     const { kifuTree, currentPathChanged } = this.props;
 
     return (
-      <ul className="kifu-tree" onClick={e => this.onClick(e)}>
+      <ul className="kifu-tree" onClick={(e) => this.onClick(e)}>
         <KifuTreeNodeComponent
           kifuTree={kifuTree}
           kifuTreeNode={kifuTree.rootNode}
           path={List<number>()}
-          currentPathChanged={currentPathChanged} />
+          currentPathChanged={currentPathChanged}
+        />
       </ul>
     );
   }

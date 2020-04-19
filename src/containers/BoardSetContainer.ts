@@ -1,9 +1,12 @@
-import { connect, MapDispatchToPropsObject } from 'react-redux';
-import { JKFPlayer } from 'json-kifu-format';
-import { Shogi } from 'shogi.js';
+import { connect, MapDispatchToPropsObject } from "react-redux";
+import { JKFPlayer } from "json-kifu-format";
+import { Shogi } from "shogi.js";
 
-import { inputMove, changeReversed } from '../actions';
-import BoardSet, { BoardSetStateProps, BoardSetDispatchProps } from '../components/BoardSet';
+import { inputMove, changeReversed } from "../actions";
+import BoardSet, {
+  BoardSetStateProps,
+  BoardSetDispatchProps,
+} from "../components/BoardSet";
 import { BoardSetState } from "../models";
 
 const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
@@ -18,7 +21,7 @@ const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
     kifuTree: state.kifuTree,
     reversed: state.reversed,
     currentNode: currentNode,
-  }
+  };
 };
 
 const mapDispatchToProps: BoardSetDispatchProps & MapDispatchToPropsObject = {

@@ -36,13 +36,13 @@
   font-size: 16px;
   appearance: none;
   color: white;
-  background: #2EA7C8;
+  background: #2ea7c8;
   border: none;
   border-radius: 3px;
 }
 
 .App-header .global-controls button:hover {
-  background: #158EAF;
+  background: #158eaf;
 }
 
 .App-body {

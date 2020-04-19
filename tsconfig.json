@@ -6,16 +6,11 @@
     "sourceMap": true,
     "jsx": "react",
     "allowJs": false,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "strictNullChecks": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noImplicitReturns": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

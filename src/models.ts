@@ -1,12 +1,26 @@
-import { Record, Map, List } from 'immutable';
-import * as Immutable from 'immutable';
-import { JKFPlayer } from 'json-kifu-format';
-import { IJSONKifuFormat, IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
+import { Record, Map, List } from "immutable";
+import * as Immutable from "immutable";
+import { JKFPlayer } from "json-kifu-format";
+import {
+  IJSONKifuFormat,
+  IMoveMoveFormat,
+} from "json-kifu-format/dist/src/Formats";
 
 import {
-  KifuTreeNode, Path, JumpTo, JumpTarget, jkfToKifuTree, kifuTreeToJKF, pathToKeyPath,
-  findNodeByPath, getNodesOnPath, getStringPathFromPath, getPathFromStringPath,
-  createKifuTreeNode, buildJumpMap, traverseTree
+  KifuTreeNode,
+  Path,
+  JumpTo,
+  JumpTarget,
+  jkfToKifuTree,
+  kifuTreeToJKF,
+  pathToKeyPath,
+  findNodeByPath,
+  getNodesOnPath,
+  getStringPathFromPath,
+  getPathFromStringPath,
+  createKifuTreeNode,
+  buildJumpMap,
+  traverseTree,
 } from "./treeUtils";
 
 export { KifuTreeNode, Path, JumpTo, JumpTarget }; // for convenience
@@ -31,7 +45,7 @@ export class KifuTree extends Record({
   }
 
   setCurrentPath(path: Path): KifuTree {
-    return this.set('currentPath', path) as KifuTree;
+    return this.set("currentPath", path) as KifuTree;
   }
 
   getCurrentNode(): KifuTreeNode {
@@ -86,28 +100,54 @@ export class KifuTree extends Record({
     }
   }
 
-  updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>): KifuTree {
+  updateNode(
+    path: Path,
+    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>
+  ): KifuTree {
     const keyPath = pathToKeyPath(path);
-    const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) => nodeUpdater(node)) as KifuTreeNode;
-    return (this.set('rootNode', newRootNode) as KifuTree).maintainJumpTargets();
+    const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) =>
+      nodeUpdater(node)
+    ) as KifuTreeNode;
+    return (this.set(
+      "rootNode",
+      newRootNode
+    ) as KifuTree).maintainJumpTargets();
   }
 
-  updateFork(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
-    const currentStringPath = getStringPathFromPath(this.rootNode, this.currentPath);
+  updateFork(
+    path: Path,
+    forkUpdater: (
+      children: List<KifuTreeNode>,
+      lastIndex: number
+    ) => List<KifuTreeNode>
+  ): KifuTree {
+    const currentStringPath = getStringPathFromPath(
+      this.rootNode,
+      this.currentPath
+    );
     let newKifuTree = this.updateForkOfKifuTree(path, forkUpdater);
     if (newKifuTree === this) {
       return this; // no change
     }
 
-    const newPath = getPathFromStringPath(newKifuTree.rootNode, currentStringPath);
+    const newPath = getPathFromStringPath(
+      newKifuTree.rootNode,
+      currentStringPath
+    );
     return newKifuTree.setCurrentPath(newPath);
   }
 
-  private updateForkOfKifuTree(path: Path, forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>): KifuTree {
+  private updateForkOfKifuTree(
+    path: Path,
+    forkUpdater: (
+      children: List<KifuTreeNode>,
+      lastIndex: number
+    ) => List<KifuTreeNode>
+  ): KifuTree {
     const lastIndex = path.get(path.size - 1);
     const parentPath = path.slice(0, -1);
     const newKifuTree = this.updateNode(parentPath, (node: KifuTreeNode) => {
-      return node.update('children', (children: List<KifuTreeNode>) => {
+      return node.update("children", (children: List<KifuTreeNode>) => {
         return forkUpdater(children, lastIndex);
       });
     });
@@ -120,14 +160,21 @@ export class KifuTree extends Record({
   movePiece(move: IMoveMoveFormat): KifuTree | false {
     // 1. Compare with existing nodes
     const currentNode = this.getCurrentNode();
-    const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean => (JKFPlayer as any).sameMoveMinimal(childNode.move, move)); // TODO: Calling private method
+    const childIndex = currentNode.children.findIndex(
+      (childNode: KifuTreeNode): boolean =>
+        (JKFPlayer as any).sameMoveMinimal(childNode.move, move)
+    ); // TODO: Calling private method
     if (childIndex >= 0) {
       return this.setCurrentPath(this.currentPath.concat([childIndex])); // Proceed to existing node
     }
 
     // 2. Make player then input move
-    const minimalMoveFormats = [{}].concat(this.getNodesOnPath(this.currentPath).map(node => ({ move: node.move })));
-    const minimalJKF = Object.assign({}, this.baseJKF, { moves: minimalMoveFormats });
+    const minimalMoveFormats = [{}].concat(
+      this.getNodesOnPath(this.currentPath).map((node) => ({ move: node.move }))
+    );
+    const minimalJKF = Object.assign({}, this.baseJKF, {
+      moves: minimalMoveFormats,
+    });
     const player = new JKFPlayer(minimalJKF);
     player.goto(minimalMoveFormats.length);
 
@@ -137,13 +184,14 @@ export class KifuTree extends Record({
 
     // 3. Create new objects
     const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
-    const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
-    return this
-      .updateNode(this.currentPath, (node: KifuTreeNode) => {
-        return node.update('children', children => {
-          return children.push(newNode);
-        });
-      })
+    const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [
+      newMoveFormat,
+    ]);
+    return this.updateNode(this.currentPath, (node: KifuTreeNode) => {
+      return node.update("children", (children) => {
+        return children.push(newNode);
+      });
+    })
       .maintainJumpTargets()
       .setCurrentPath(this.currentPath.concat([currentNode.children.size]));
   }
@@ -152,26 +200,40 @@ export class KifuTree extends Record({
     const begin = new Date();
 
     const jumpMap = buildJumpMap(this.rootNode);
-    const newKifuTree = this.set('rootNode', this.rootNode.withMutations((rootNode: KifuTreeNode) => {
-      traverseTree(this.rootNode, (node: KifuTreeNode, path: Path) => {
-        const jumpToList = (jumpMap[node.sfen] || []).filter((jumpTo: JumpTo) => jumpTo.node !== node);
-        const jumpTargets = List<JumpTarget>().withMutations(jumpTargets => {
-          jumpToList.forEach((jumpTo: JumpTo) => {
-            jumpTo.node.children.forEach((jumpTargetNode: KifuTreeNode, i: number) => {
-              jumpTargets.push(new JumpTarget({
-                path: jumpTo.path.concat(i),
-                comment: jumpTargetNode.comment,
-                readableKifu: jumpTargetNode.readableKifu,
-              }));
-            });
-          });
-        });
+    const newKifuTree = this.set(
+      "rootNode",
+      this.rootNode.withMutations((rootNode: KifuTreeNode) => {
+        traverseTree(this.rootNode, (node: KifuTreeNode, path: Path) => {
+          const jumpToList = (jumpMap[node.sfen] || []).filter(
+            (jumpTo: JumpTo) => jumpTo.node !== node
+          );
+          const jumpTargets = List<JumpTarget>().withMutations(
+            (jumpTargets) => {
+              jumpToList.forEach((jumpTo: JumpTo) => {
+                jumpTo.node.children.forEach(
+                  (jumpTargetNode: KifuTreeNode, i: number) => {
+                    jumpTargets.push(
+                      new JumpTarget({
+                        path: jumpTo.path.concat(i),
+                        comment: jumpTargetNode.comment,
+                        readableKifu: jumpTargetNode.readableKifu,
+                      })
+                    );
+                  }
+                );
+              });
+            }
+          );
 
-        if (!Immutable.is(node.jumpTargets, jumpTargets)) {
-          rootNode.setIn(pathToKeyPath(path).concat('jumpTargets'), jumpTargets);
-        }
-      });
-    })) as KifuTree;
+          if (!Immutable.is(node.jumpTargets, jumpTargets)) {
+            rootNode.setIn(
+              pathToKeyPath(path).concat("jumpTargets"),
+              jumpTargets
+            );
+          }
+        });
+      })
+    ) as KifuTree;
 
     const end = new Date();
     console.log(`maintainJumpTargets: ${end.getTime() - begin.getTime()}ms`);
@@ -179,7 +241,10 @@ export class KifuTree extends Record({
   }
 }
 
-export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
+export type KifuNotebookState = AppState &
+  BoardSetState &
+  CurrentNodeState &
+  KifuTreeState;
 
 export interface AppState {
   message: string;

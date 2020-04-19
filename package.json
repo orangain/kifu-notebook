@@ -52,6 +52,7 @@
     "json-loader": "0.5.4",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
+    "prettier": "2.0.4",
     "promise": "7.1.1",
     "react-addons-perf": "^15.4.2",
     "react-dev-utils": "^0.5.2",

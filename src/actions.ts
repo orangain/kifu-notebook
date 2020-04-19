@@ -1,23 +1,26 @@
-import { IJSONKifuFormat, IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
+import {
+  IJSONKifuFormat,
+  IMoveMoveFormat,
+} from "json-kifu-format/dist/src/Formats";
 import { Path } from "./treeUtils";
 
-export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
-export const RECEIVE_GET_JKF = 'RECEIVE_GET_JKF';
-export const REQUEST_PUT_JKF = 'REQUEST_PUT_JKF';
-export const RECEIVE_PUT_JKF = 'RECEIVE_PUT_JKF';
-export const FAIL_PUT_JKF = 'FAIL_PUT_JKF';
-export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
-export const CHANGE_AUTO_SAVE = 'CHANGE_AUTO_SAVE';
+export const REQUEST_GET_JKF = "REQUEST_GET_JKF";
+export const RECEIVE_GET_JKF = "RECEIVE_GET_JKF";
+export const REQUEST_PUT_JKF = "REQUEST_PUT_JKF";
+export const RECEIVE_PUT_JKF = "RECEIVE_PUT_JKF";
+export const FAIL_PUT_JKF = "FAIL_PUT_JKF";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+export const CHANGE_AUTO_SAVE = "CHANGE_AUTO_SAVE";
 
-export const MOVE_PIECE = 'MOVE_PIECE';
-export const CHANGE_COMMENTS = 'CHANGE_COMMENTS';
-export const UPDATE_COMMENTS = 'UPDATE_COMMENTS';
-export const CHANGE_REVERSED = 'CHANGE_REVERSED';
+export const MOVE_PIECE = "MOVE_PIECE";
+export const CHANGE_COMMENTS = "CHANGE_COMMENTS";
+export const UPDATE_COMMENTS = "UPDATE_COMMENTS";
+export const CHANGE_REVERSED = "CHANGE_REVERSED";
 
-export const GOTO_PATH = 'GOTO_PATH';
-export const MOVE_UP_FORK = 'MOVE_UP_FORK';
-export const MOVE_DOWN_FORK = 'MOVE_DOWN_FORK';
-export const REMOVE_FORK = 'REMOVE_FORK';
+export const GOTO_PATH = "GOTO_PATH";
+export const MOVE_UP_FORK = "MOVE_UP_FORK";
+export const MOVE_DOWN_FORK = "MOVE_DOWN_FORK";
+export const REMOVE_FORK = "REMOVE_FORK";
 
 export function requestGetJKF() {
   return { type: REQUEST_GET_JKF };

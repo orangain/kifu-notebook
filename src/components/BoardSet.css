@@ -14,7 +14,6 @@ div.mochi div.mochimain span.mochigoma div {
   display: inline-block;
 }
 
-
 /*
 The MIT License (MIT)
 
@@ -52,11 +51,14 @@ table.ban th {
 
 table.ban td {
   border: 1px #000000 solid;
-  background-color: #FDD775;
+  background-color: #fdd775;
   padding: 0px;
 }
 
-table.ban td, table.ban td img, div.mochimain span.mochigoma img, div.mochi div.mochimain span.mochigoma {
+table.ban td,
+table.ban td img,
+div.mochimain span.mochigoma img,
+div.mochi div.mochimain span.mochigoma {
   padding: 0;
   border-spacing: 0;
   width: 32px;
@@ -65,15 +67,15 @@ table.ban td, table.ban td img, div.mochimain span.mochigoma img, div.mochi div.
 }
 
 table.ban td.lastto {
-  background-color: #FF9900;
+  background-color: #ff9900;
 }
 
 table.ban td.lastfrom {
-  background-color: #FFCC00;
+  background-color: #ffcc00;
 }
 
 table.ban td.movable {
-  background-color: #AAAAFF;
+  background-color: #aaaaff;
 }
 
 div.mochi {

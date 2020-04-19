@@ -15,7 +15,8 @@
   background-color: #f0f0f0;
 }
 
-.ForkList li.bad, .ForkList li.bad .comment {
+.ForkList li.bad,
+.ForkList li.bad .comment {
   color: darkgray;
 }
 

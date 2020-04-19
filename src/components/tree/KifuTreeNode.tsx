@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Immutable from 'immutable';
+import * as Immutable from "immutable";
 
-import './KifuTreeNode.css';
+import "./KifuTreeNode.css";
 import { Path, KifuTreeNode, KifuTree, JumpTarget } from "../../models";
 
 function isSubPath(myPath: Path, testPath?: Path): boolean {
@@ -21,7 +21,10 @@ interface KifuTreeNodeProps {
   currentPathChanged?: boolean;
 }
 
-export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeProps, {}> {
+export default class KifuTreeNodeComponent extends React.Component<
+  KifuTreeNodeProps,
+  {}
+> {
   shouldComponentUpdate(nextProps: KifuTreeNodeProps) {
     // if (this.props.path.size <= 1) {
     //   console.log(this.props.path.toArray());
@@ -29,9 +32,12 @@ export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeP
     //   console.log('currentPath', nextProps.currentPathChanged);
     //   console.log('path', JSON.stringify(nextProps.path) !== JSON.stringify(this.props.path));
     // }
-    const shouldUpdate = nextProps.kifuTreeNode !== this.props.kifuTreeNode
-      || (nextProps.currentPathChanged && (isSubPath(this.props.path, this.props.kifuTree.currentPath) || isSubPath(nextProps.path, nextProps.kifuTree.currentPath)))
-      || !Immutable.is(nextProps.path, this.props.path);
+    const shouldUpdate =
+      nextProps.kifuTreeNode !== this.props.kifuTreeNode ||
+      (nextProps.currentPathChanged &&
+        (isSubPath(this.props.path, this.props.kifuTree.currentPath) ||
+          isSubPath(nextProps.path, nextProps.kifuTree.currentPath))) ||
+      !Immutable.is(nextProps.path, this.props.path);
 
     return shouldUpdate;
   }
@@ -46,33 +52,47 @@ export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeP
     return (
       <li className={kifuTreeNode.isBad() ? "bad" : ""}>
         <div className="kifu-tree-node" data-path={jsonPath}>
-          <span className={"readable-kifu" + (isCurrent ? " current" : "")}
-            title={kifuTreeNode.comment}>{kifuTreeNode.readableKifu + (hasComment ? ' *' : '')}</span>
-          {isControllable ? <span className="controls">
-            <span className="up">←</span>
-            <span className="down">→</span>
-            <span className="remove">×</span>
-          </span> : null}
+          <span
+            className={"readable-kifu" + (isCurrent ? " current" : "")}
+            title={kifuTreeNode.comment}
+          >
+            {kifuTreeNode.readableKifu + (hasComment ? " *" : "")}
+          </span>
+          {isControllable ? (
+            <span className="controls">
+              <span className="up">←</span>
+              <span className="down">→</span>
+              <span className="remove">×</span>
+            </span>
+          ) : null}
         </div>
-        <ul>{
-          kifuTreeNode.children.map((childNode: KifuTreeNode, i: number) =>
-            <KifuTreeNodeComponent
-              key={childNode.readableKifu}
-              kifuTree={kifuTree}
-              kifuTreeNode={childNode}
-              path={path.concat([i])}
-              currentPathChanged={currentPathChanged} />
-          ).concat(kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) =>
-            <JumpNode
-              key={"jump-" + jumpTarget.readableKifu}
-              jumpTarget={jumpTarget} />))
-        }</ul>
-      </li>);
+        <ul>
+          {kifuTreeNode.children
+            .map((childNode: KifuTreeNode, i: number) => (
+              <KifuTreeNodeComponent
+                key={childNode.readableKifu}
+                kifuTree={kifuTree}
+                kifuTreeNode={childNode}
+                path={path.concat([i])}
+                currentPathChanged={currentPathChanged}
+              />
+            ))
+            .concat(
+              kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) => (
+                <JumpNode
+                  key={"jump-" + jumpTarget.readableKifu}
+                  jumpTarget={jumpTarget}
+                />
+              ))
+            )}
+        </ul>
+      </li>
+    );
   }
 }
 
 interface JumpNodeProps {
-  jumpTarget: JumpTarget
+  jumpTarget: JumpTarget;
 }
 
 export class JumpNode extends React.Component<JumpNodeProps, {}> {
@@ -85,9 +105,11 @@ export class JumpNode extends React.Component<JumpNodeProps, {}> {
     return (
       <li className={jumpTarget.isBad() ? "bad" : ""}>
         <div className="kifu-tree-node" data-path={jsonPath}>
-          <span className="readable-kifu"
-            title={jumpTarget.comment}>{"↪ " + jumpTarget.readableKifu + (hasComment ? ' *' : '')}</span>
+          <span className="readable-kifu" title={jumpTarget.comment}>
+            {"↪ " + jumpTarget.readableKifu + (hasComment ? " *" : "")}
+          </span>
         </div>
-      </li>);
+      </li>
+    );
   }
 }
