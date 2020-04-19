@@ -102,16 +102,16 @@ export class KifuTree extends Record({
 
   updateNode(
     path: Path,
-    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>
+    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>,
+    skipMaintainJumpTargets = false // TODO: Change method or detect automatically
   ): KifuTree {
     const keyPath = pathToKeyPath(path);
     const newRootNode = this.rootNode.updateIn(keyPath, (node: KifuTreeNode) =>
       nodeUpdater(node)
     ) as KifuTreeNode;
-    return (this.set(
-      "rootNode",
-      newRootNode
-    ) as KifuTree).maintainJumpTargets();
+    const newTree = this.set("rootNode", newRootNode) as KifuTree;
+
+    return skipMaintainJumpTargets ? newTree : newTree.maintainJumpTargets();
   }
 
   updateFork(
@@ -259,7 +259,6 @@ export interface BoardSetState {
 
 export interface CurrentNodeState {
   kifuTree: KifuTree;
-  latestComment: string;
 }
 
 export interface KifuTreeState {

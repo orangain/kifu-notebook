@@ -1,14 +1,9 @@
 import * as React from "react";
 import { Component } from "react";
 import "./CurrentNode.css";
-import * as Immutable from "immutable";
 
 import ForkList from "./ForkList";
 import { Path, KifuTree } from "../models";
-
-interface CurrentNodeLocalState {
-  comment?: string;
-}
 
 export interface CurrentNodeStateProps {
   kifuTree: KifuTree;
@@ -21,43 +16,20 @@ export interface CurrentNodeDispatchProps {
 }
 
 export default class CurrentNode extends Component<
-  CurrentNodeStateProps & CurrentNodeDispatchProps,
-  CurrentNodeLocalState
+  CurrentNodeStateProps & CurrentNodeDispatchProps
 > {
-  componentWillMount() {
-    const { kifuTree } = this.props;
-    const currentNode = kifuTree.getCurrentNode();
-    this.setState({ comment: currentNode.comment });
-  }
-
-  componentWillReceiveProps(
-    nextProps: CurrentNodeStateProps & CurrentNodeDispatchProps
-  ) {
-    if (
-      !Immutable.is(
-        this.props.kifuTree.currentPath,
-        nextProps.kifuTree.currentPath
-      )
-    ) {
-      const { kifuTree } = nextProps;
-      const currentNode = kifuTree.getCurrentNode();
-      this.setState({ comment: currentNode.comment });
-    }
-  }
-
   onChangeComments(comment: string) {
-    this.setState({ comment: comment });
     this.props.onChangeComments(comment);
   }
 
   render() {
     const { kifuTree } = this.props;
-    const { comment } = this.state;
     const currentNode = kifuTree.getCurrentNode();
     const previousPath = kifuTree.getPreviousPath();
     const nextPath = kifuTree.getNextPath();
     const previousForkPath = kifuTree.getPreviousForkPath();
     const nextForkPath = kifuTree.getNextForkPath();
+    const comment = currentNode.comment;
 
     return (
       <div>
