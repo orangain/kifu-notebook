@@ -17,7 +17,7 @@
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.7",
-    "shogi.js": "github:orangain/Shogi.js#sfen"
+    "shogi.js": "^2.0.1"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
