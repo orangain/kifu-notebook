@@ -12,7 +12,7 @@
     "immutable": "^3.8.1",
     "json-kifu-format": "^1.2.1",
     "json-stringify-pretty-compact": "^1.0.3",
-    "kifu-for-js": "github:orangain/Kifu-for-JS#export-components",
+    "kifu-for-js": "github:orangain/Kifu-for-JS#export-components-2020",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.4",
