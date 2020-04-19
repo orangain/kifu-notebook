@@ -1,4 +1,4 @@
-import { JSONKifuFormat, MoveMoveFormat } from "./shogiUtils";
+import { IJSONKifuFormat, IMoveMoveFormat } from 'json-kifu-format/dist/src/Formats';
 import { Path } from "./treeUtils";
 
 export const REQUEST_GET_JKF = 'REQUEST_GET_JKF';
@@ -23,7 +23,7 @@ export function requestGetJKF() {
   return { type: REQUEST_GET_JKF };
 }
 
-export function receiveGetJKF(jkf: JSONKifuFormat) {
+export function receiveGetJKF(jkf: IJSONKifuFormat) {
   return { type: RECEIVE_GET_JKF, jkf: jkf };
 }
 
@@ -48,7 +48,7 @@ export function changeAutoSave(enabled: boolean) {
   return { type: CHANGE_AUTO_SAVE, enabled: enabled };
 }
 
-export function inputMove(move: MoveMoveFormat) {
+export function inputMove(move: IMoveMoveFormat) {
   return { type: MOVE_PIECE, move: move };
 }
 
