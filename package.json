@@ -10,6 +10,7 @@
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.40",
     "immutable": "^3.8.1",
+    "json-kifu-format": "^1.2.1",
     "json-stringify-pretty-compact": "^1.0.3",
     "kifu-for-js": "github:orangain/Kifu-for-JS#export-components",
     "react": "^15.4.2",
