@@ -15,5 +15,6 @@ install:
 script:
   - docker-compose -f docker-compose.ci.yml build
   - docker-compose -f docker-compose.ci.yml run --rm npm_build
-  - docker-compose -f docker-compose.ci.yml run --rm go_build
-  - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then make release; fi
+  - VERSION_NAME=${TRAVIS_TAG:-master} docker-compose -f docker-compose.ci.yml run --rm go_build
+  - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then make pre-release VERSION_NAME=master; fi
+  - if [ -n "$TRAVIS_TAG" ]; then make release VERSION_NAME=$TRAVIS_TAG RELEASE_NAME=$TRAVIS_TAG; fi
