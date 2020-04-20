@@ -19,8 +19,8 @@ cmd/kifu-notebook/bindata.go:
 kifu-notebook: cmd/kifu-notebook/bindata.go $(SRCS)
 	go build -o kifu-notebook ./cmd/kifu-notebook
 
-GOX_OPTS=-osarch "linux/amd64 linux/386 linux/arm darwin/amd64 darwin/386 windows/amd64 windows/386"
-VERSION_NAME=master
+GOX_OPTS := -osarch "linux/amd64 linux/386 linux/arm darwin/amd64 darwin/386 windows/amd64 windows/386"
+VERSION_NAME := master
 
 gox: cmd/kifu-notebook/bindata.go $(SRCS)
 	gox $(GOX_OPTS) -output "build/cli/${VERSION_NAME}/{{.Dir}}_${VERSION_NAME}_{{.OS}}_{{.Arch}}/{{.Dir}}" ./cmd/kifu-notebook
@@ -28,5 +28,8 @@ gox: cmd/kifu-notebook/bindata.go $(SRCS)
 package: gox
 	./scripts/package.sh build/cli/${VERSION_NAME} build/archives/${VERSION_NAME}
 
-release:
+pre-release:
 	ghr -u orangain --prerelease --delete --replace pre-release build/archives/${VERSION_NAME}
+
+release:
+	ghr -u orangain ${RELEASE_NAME} build/archives/${VERSION_NAME}
