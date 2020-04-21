@@ -20,7 +20,6 @@ export interface AppDispatchProps {
 
 class App extends Component<AppStateProps & AppDispatchProps, {}> {
   componentWillMount() {
-    (window as any).Perf = require("react-addons-perf");
     this.props.onLoad();
   }
 
