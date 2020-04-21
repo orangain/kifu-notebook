@@ -6,12 +6,29 @@ import {
   ITimeFormat,
 } from "json-kifu-format/dist/src/Formats";
 import { Shogi } from "shogi.js";
-import { List, Iterable, Record } from "immutable";
+import { List, Record } from "immutable";
 
-export type Path = Iterable<number, number>;
+import { Path } from "./models";
+
 export type SFEN = string;
 export type JumpMap = { [sfen: string]: JumpTo[] };
-export class KifuTreeNode extends Record({
+
+export interface IKifuTreeNode {
+  readonly tesuu: number;
+  readonly comment?: string;
+  readonly move?: IMoveMoveFormat;
+  readonly time?: {
+    now: ITimeFormat;
+    total: ITimeFormat;
+  };
+  readonly special?: string;
+  readonly readableKifu: string;
+  readonly sfen: SFEN;
+  readonly children: List<KifuTreeNode>;
+  readonly jumpTargets: List<JumpTarget>;
+}
+
+export class KifuTreeNode extends Record<IKifuTreeNode>({
   tesuu: 0,
   comment: "",
   move: undefined,
@@ -22,45 +39,36 @@ export class KifuTreeNode extends Record({
   children: List(),
   jumpTargets: List(),
 }) {
-  tesuu: number;
-  comment?: string;
-  move?: IMoveMoveFormat;
-  time?: {
-    now: ITimeFormat;
-    total: ITimeFormat;
-  };
-  special?: string;
-  readableKifu: string;
-  sfen: SFEN;
-  children: List<KifuTreeNode>;
-  jumpTargets: List<JumpTarget>;
-
   isBad(): boolean {
     return !!this.comment && this.comment.startsWith("bad:");
   }
 }
 
-export class JumpTarget extends Record({
+export interface IJumpTarget {
+  readonly path: Path;
+  readonly comment: string;
+  readonly readableKifu: string;
+}
+
+export class JumpTarget extends Record<IJumpTarget>({
   path: null,
   comment: "",
   readableKifu: "",
 }) {
-  path: Path;
-  comment: string;
-  readableKifu: string;
-
   isBad(): boolean {
     return !!this.comment && this.comment.startsWith("bad:");
   }
 }
 
-export class JumpTo extends Record({
+export interface IJumpTo {
+  readonly node: KifuTreeNode;
+  readonly path: Path;
+}
+
+export class JumpTo extends Record<IJumpTo>({
   node: null,
   path: null,
-}) {
-  node: KifuTreeNode;
-  path: Path;
-}
+}) {}
 
 export function jkfToKifuTree(jkf: IJSONKifuFormat): KifuTreeNode {
   const shogi = new JKFPlayer(jkf).shogi;

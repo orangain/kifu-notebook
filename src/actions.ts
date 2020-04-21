@@ -2,7 +2,7 @@ import {
   IJSONKifuFormat,
   IMoveMoveFormat,
 } from "json-kifu-format/dist/src/Formats";
-import { Path } from "./treeUtils";
+import { Path } from "./models";
 
 export const REQUEST_GET_JKF = "REQUEST_GET_JKF";
 export const RECEIVE_GET_JKF = "RECEIVE_GET_JKF";
