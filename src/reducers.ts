@@ -165,7 +165,7 @@ function movePiece(
   try {
     newKifuTree = kifuTree.movePiece(move);
     if (newKifuTree === false) {
-      move.promote = confirm("成りますか？");
+      move.promote = window.confirm("成りますか？");
       newKifuTree = kifuTree.movePiece(move) as KifuTree;
     }
   } catch (e) {
