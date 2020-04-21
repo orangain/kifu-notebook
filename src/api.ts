@@ -1,4 +1,4 @@
-import * as stringify from "json-stringify-pretty-compact";
+import stringify from "json-stringify-pretty-compact";
 import { IJSONKifuFormat } from "json-kifu-format/dist/src/Formats";
 
 export default class Api {

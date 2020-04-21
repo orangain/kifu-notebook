@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Component } from "react";
-const logo = require("./logo.svg");
-import "./App.css";
+
 import BoardSetContainer from "../containers/BoardSetContainer";
 import KifuTreeContainer from "../containers/KifuTreeContainer";
 import CurrentNodeContainer from "../containers/CurrentNodeContainer";
+
+import "./App.css";
+const logo = require("./logo.svg");
 
 export interface AppStateProps {
   message: string;
