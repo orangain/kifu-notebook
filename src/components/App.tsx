@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Component } from "react";
+import React, { Component, Profiler } from "react";
 
 import BoardSetContainer from "../containers/BoardSetContainer";
 import KifuTreeContainer from "../containers/KifuTreeContainer";
@@ -53,7 +52,14 @@ class App extends Component<AppStateProps & AppDispatchProps, {}> {
           <BoardSetContainer />
           <CurrentNodeContainer />
         </div>
-        <KifuTreeContainer />
+        <Profiler
+          id="KifuTreeContainer"
+          onRender={(id, phase, actualTime, baseTime, startTime, commitTime) =>
+            console.log(`${id}[${phase}]: ${Math.ceil(actualTime)}ms`)
+          }
+        >
+          <KifuTreeContainer />
+        </Profiler>
       </div>
     );
   }
