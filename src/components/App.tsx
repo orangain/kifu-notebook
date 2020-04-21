@@ -21,11 +21,8 @@ export interface AppDispatchProps {
 }
 
 class App extends Component<AppStateProps & AppDispatchProps, {}> {
-  componentWillMount() {
-    this.props.onLoad();
-  }
-
   componentDidMount() {
+    this.props.onLoad();
     window.addEventListener("beforeunload", (e: BeforeUnloadEvent) => {
       if (this.props.needSave) {
         e.returnValue = "変更が保存されていません。"; // Custom message will not be shown.
