@@ -1,19 +1,13 @@
-import {
-  connect,
-  MapStateToPropsFactory,
-  MapDispatchToProps,
-  MapStateToPropsParam,
-} from "react-redux";
+import { connect } from "react-redux";
 import * as Immutable from "immutable";
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from "../actions";
 import KifuTreeComponent, {
   KifuTreeStateProps,
-  KifuTreeDispatchProps,
 } from "../components/tree/KifuTree";
 import { KifuTreeState } from "../models";
 
-const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
+const mapStateToProps = () => {
   let prevProps: KifuTreeStateProps | undefined;
 
   return (state: KifuTreeState): KifuTreeStateProps => {
@@ -38,8 +32,7 @@ const mapStateToProps: MapStateToPropsFactory<KifuTreeStateProps, {}> = () => {
   };
 };
 
-const mapDispatchToProps: KifuTreeDispatchProps &
-  MapDispatchToProps<KifuTreeDispatchProps, undefined> = {
+const mapDispatchToProps = {
   onClickPath: gotoPath,
   onClickMoveUpFork: moveUpFork,
   onClickMoveDownFork: moveDownFork,
@@ -47,7 +40,7 @@ const mapDispatchToProps: KifuTreeDispatchProps &
 };
 
 const KifuTreeContainer = connect(
-  mapStateToProps as MapStateToPropsParam<KifuTreeStateProps, {}>,
-  mapDispatchToProps as MapDispatchToProps<KifuTreeDispatchProps, {}>
+  mapStateToProps,
+  mapDispatchToProps
 )(KifuTreeComponent);
 export default KifuTreeContainer;

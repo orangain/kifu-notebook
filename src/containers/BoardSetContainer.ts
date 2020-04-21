@@ -1,15 +1,12 @@
-import { connect, MapDispatchToPropsObject } from "react-redux";
+import { connect } from "react-redux";
 import { JKFPlayer } from "json-kifu-format";
 import { Shogi } from "shogi.js";
 
 import { inputMove, changeReversed } from "../actions";
-import BoardSet, {
-  BoardSetStateProps,
-  BoardSetDispatchProps,
-} from "../components/BoardSet";
+import BoardSet from "../components/BoardSet";
 import { BoardSetState } from "../models";
 
-const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
+const mapStateToProps = (state: BoardSetState) => {
   //console.log(state);
   const currentNode = state.kifuTree.getCurrentNode();
   const shogi = new Shogi();
@@ -24,7 +21,7 @@ const mapStateToProps = (state: BoardSetState): BoardSetStateProps => {
   };
 };
 
-const mapDispatchToProps: BoardSetDispatchProps & MapDispatchToPropsObject = {
+const mapDispatchToProps = {
   onInputMove: inputMove,
   onChangeReversed: changeReversed,
 };
