@@ -1,4 +1,4 @@
-import { delay, Effect } from "redux-saga";
+import { delay, Effect } from "redux-saga/effects";
 import {
   put,
   call,
@@ -9,7 +9,6 @@ import {
   cancel,
   ForkEffect,
 } from "redux-saga/effects";
-import { Action } from "redux";
 
 import {
   REQUEST_GET_JKF,
@@ -59,7 +58,7 @@ export default function* rootSaga(): IterableIterator<Effect[]> {
 }
 
 export function takeLatestWithCancel(
-  pattern,
+  pattern: string,
   cancelPattern: string,
   saga,
   ...args
@@ -67,7 +66,7 @@ export function takeLatestWithCancel(
   return fork(function* () {
     let lastTask;
     while (true) {
-      const action: Action = yield take([pattern, cancelPattern]);
+      const action = yield take([pattern, cancelPattern]);
       if (lastTask) {
         yield cancel(lastTask); // cancel is no-op if the task has already terminated
       }
@@ -100,19 +99,19 @@ export function* storeJKF() {
 }
 
 export function* clearMessageLater() {
-  yield call(delay, 5000);
+  yield delay(5000);
   yield put(clearMessage());
 }
 
 export function* updateCommentsLater() {
-  yield call(delay, 1000);
+  yield delay(1000);
   yield put(updateComments());
 }
 
 export function* autoSaveIfNeeded() {
   const isAutoSaveNeeded = yield select(getAutoSaveNeeded);
   if (isAutoSaveNeeded) {
-    yield call(delay, 500);
+    yield delay(500);
     yield put(requestPutJKF());
   }
 }
