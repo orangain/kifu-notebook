@@ -9,8 +9,7 @@ import rootSaga from "./sagas";
 import "./index.css";
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware];
-const store = createStore(reducer, applyMiddleware(...middlewares));
+const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(

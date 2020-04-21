@@ -1,5 +1,5 @@
-import { delay, Effect } from "redux-saga/effects";
 import {
+  delay,
   put,
   call,
   select,
@@ -7,7 +7,7 @@ import {
   fork,
   take,
   cancel,
-  ForkEffect,
+  all,
 } from "redux-saga/effects";
 
 import {
@@ -34,8 +34,8 @@ import { getAutoSaveNeeded, getKifuTree } from "./selectors";
 import Api from "./api";
 import { KifuTree } from "./models";
 
-export default function* rootSaga(): IterableIterator<Effect[]> {
-  yield [
+export default function* rootSaga() {
+  yield all([
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
     takeLatest(
@@ -54,7 +54,7 @@ export default function* rootSaga(): IterableIterator<Effect[]> {
       ],
       autoSaveIfNeeded
     ),
-  ];
+  ]);
 }
 
 export function takeLatestWithCancel(
@@ -62,7 +62,7 @@ export function takeLatestWithCancel(
   cancelPattern: string,
   saga,
   ...args
-): ForkEffect {
+) {
   return fork(function* () {
     let lastTask;
     while (true) {
