@@ -53,7 +53,7 @@ export default class KifuTreeComponent extends React.Component<
     console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
 
     if (this.props.currentPathChanged) {
-      const domNode = ReactDOM.findDOMNode(this);
+      const domNode = ReactDOM.findDOMNode(this) as Element;
       const currentElementDOMNode = domNode.querySelector(
         "span.current"
       ) as Element;
