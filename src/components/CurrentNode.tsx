@@ -34,8 +34,7 @@ export default class CurrentNode extends Component<
     return (
       <div>
         <div>
-          {currentNode.tesuu === 0 ? null : currentNode.tesuu + "手目"}{" "}
-          {currentNode.readableKifu}
+          {currentNode.tesuu === 0 ? null : currentNode.tesuu + "手目"} {currentNode.readableKifu}
         </div>
         <textarea
           rows={10}
@@ -56,22 +55,13 @@ export default class CurrentNode extends Component<
           >
             &laquo;
           </button>
-          <button
-            onClick={(e) => this.props.onClickPath(previousPath)}
-            title="1手戻る"
-          >
+          <button onClick={(e) => this.props.onClickPath(previousPath)} title="1手戻る">
             &lt;
           </button>
-          <button
-            onClick={(e) => this.props.onClickPath(nextPath)}
-            title="1手進む"
-          >
+          <button onClick={(e) => this.props.onClickPath(nextPath)} title="1手進む">
             &gt;
           </button>
-          <button
-            onClick={(e) => this.props.onClickPath(nextForkPath)}
-            title="1つ先の分岐に進む"
-          >
+          <button onClick={(e) => this.props.onClickPath(nextForkPath)} title="1つ先の分岐に進む">
             &raquo;
           </button>
         </div>

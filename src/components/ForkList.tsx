@@ -22,8 +22,7 @@ export default class ForkList extends Component<ForkListProps, {}> {
             onClick={(e) => onClickPath(currentPath.concat([i]))}
             className={childNode.isBad() ? "bad" : ""}
           >
-            {childNode.readableKifu}{" "}
-            <span className="comment">{childNode.comment}</span>
+            {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
           </li>
         ))
         .concat(
@@ -33,8 +32,7 @@ export default class ForkList extends Component<ForkListProps, {}> {
               onClick={(e) => onClickPath(jumpTarget.path)}
               className={jumpTarget.isBad() ? "bad" : ""}
             >
-              ↪ {jumpTarget.readableKifu}{" "}
-              <span className="comment">{jumpTarget.comment}</span>
+              ↪ {jumpTarget.readableKifu} <span className="comment">{jumpTarget.comment}</span>
             </li>
           ))
         )
