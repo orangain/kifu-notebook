@@ -1,6 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { default as KifuTreeNodeComponent } from "./KifuTreeNode";
+import React, { RefObject } from "react";
+import KifuTreeNodeComponent from "./KifuTreeNode";
 import { List } from "immutable";
 
 import "./KifuTree.css";
@@ -22,6 +21,13 @@ export default class KifuTreeComponent extends React.Component<
   KifuTreeStateProps & KifuTreeDispatchProps,
   {}
 > {
+  rootElementRef: RefObject<HTMLUListElement>;
+
+  constructor(props: any) {
+    super(props);
+    this.rootElementRef = React.createRef();
+  }
+
   onClick(e: React.MouseEvent<HTMLUListElement>) {
     const target = e.target as any;
     const jsonPath =
@@ -46,17 +52,17 @@ export default class KifuTreeComponent extends React.Component<
 
   componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
     if (this.props.currentPathChanged) {
-      const domNode = ReactDOM.findDOMNode(this) as Element;
-      const currentElementDOMNode = domNode.querySelector("span.current") as Element;
+      const rootDOMElement = this.rootElementRef.current;
+      const currentDOMElement = rootDOMElement.querySelector("span.current");
 
-      const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
+      const currentElementBoundingRect = currentDOMElement.getBoundingClientRect();
       const needScroll =
         currentElementBoundingRect.left < 0 ||
-        currentElementBoundingRect.right > domNode.clientWidth;
+        currentElementBoundingRect.right > rootDOMElement.clientWidth;
       if (needScroll) {
-        const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
-        const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
-        domNode.scrollLeft = scrollLeft;
+        const currentElementLeft = rootDOMElement.scrollLeft + currentElementBoundingRect.left;
+        const scrollLeft = Math.max(0, currentElementLeft - rootDOMElement.clientWidth / 2);
+        rootDOMElement.scroll({ left: scrollLeft, behavior: "smooth" });
       }
     }
   }
@@ -64,7 +70,7 @@ export default class KifuTreeComponent extends React.Component<
     const { kifuTree, currentPathChanged } = this.props;
 
     return (
-      <ul className="kifu-tree" onClick={(e) => this.onClick(e)}>
+      <ul ref={this.rootElementRef} className="kifu-tree" onClick={(e) => this.onClick(e)}>
         <KifuTreeNodeComponent
           kifuTree={kifuTree}
           kifuTreeNode={kifuTree.rootNode}
