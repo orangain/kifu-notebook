@@ -147,10 +147,7 @@ export default function kifuTree(
   }
 }
 
-function movePiece(
-  kifuTree: KifuTree,
-  move: IMoveMoveFormat
-): Partial<KifuNotebookState> {
+function movePiece(kifuTree: KifuTree, move: IMoveMoveFormat): Partial<KifuNotebookState> {
   // 1. Check and normalize move
   if (!move.to) {
     return {}; // drop to mochigoma
@@ -175,8 +172,7 @@ function movePiece(
 
   // When save is not needed, needSave must be undefined, not false.
   // needSave is changed to false only when save is done.
-  const needSave =
-    newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
+  const needSave = newKifuTree.rootNode !== kifuTree.rootNode ? true : undefined;
 
   return { kifuTree: newKifuTree, needSave: needSave };
 }
@@ -184,10 +180,7 @@ function movePiece(
 function updateFork(
   kifuTree: KifuTree,
   path: Path,
-  forkUpdater: (
-    children: List<KifuTreeNode>,
-    lastIndex: number
-  ) => List<KifuTreeNode>
+  forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>
 ): Partial<KifuNotebookState> {
   const newKifuTree = kifuTree.updateFork(path, forkUpdater);
   if (newKifuTree === kifuTree) {

@@ -90,17 +90,12 @@ export function createKifuTreeNode(
     move: moveFormat.move,
     time: moveFormat.time,
     special: moveFormat.special,
-    readableKifu:
-      tesuu === 0 ? "開始局面" : JKFPlayer.moveToReadableKifu(moveFormat),
+    readableKifu: tesuu === 0 ? "開始局面" : JKFPlayer.moveToReadableKifu(moveFormat),
     sfen: shogi.toSFENString(tesuu + 1),
     children: List(
       moveFormatsToForks(moveFormats).map((moveFormatsOfFork, i) => {
         JKFPlayer.doMove(shogi, moveFormatsOfFork[0].move!);
-        const childNode = createKifuTreeNode(
-          shogi,
-          tesuu + 1,
-          moveFormatsOfFork
-        );
+        const childNode = createKifuTreeNode(shogi, tesuu + 1, moveFormatsOfFork);
         JKFPlayer.undoMove(shogi, moveFormatsOfFork[0].move!);
         return childNode;
       })
@@ -170,14 +165,9 @@ export function buildJumpMap(rootNode: KifuTreeNode): JumpMap {
   return jumpMap;
 }
 
-export function kifuTreeToJKF(
-  kifuTree: KifuTreeNode,
-  baseJKF: IJSONKifuFormat
-): IJSONKifuFormat {
+export function kifuTreeToJKF(kifuTree: KifuTreeNode, baseJKF: IJSONKifuFormat): IJSONKifuFormat {
   const firstMove = Object.assign({}, baseJKF.moves[0]);
-  firstMove.comments = kifuTree.comment
-    ? kifuTree.comment.split("\n")
-    : undefined;
+  firstMove.comments = kifuTree.comment ? kifuTree.comment.split("\n") : undefined;
 
   // key order is important for readability
   const newJKF = {
@@ -207,9 +197,7 @@ function nodesToMoveFormats(nodes: KifuTreeNode[]): IMoveFormat[] {
         : undefined,
   };
 
-  return [primaryMoveFormat].concat(
-    nodesToMoveFormats(primaryNode.children.toArray())
-  );
+  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
 }
 
 export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
@@ -223,17 +211,11 @@ export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
   return nodes;
 }
 
-export function getStringPathFromPath(
-  tree: KifuTreeNode,
-  path: Path
-): string[] {
+export function getStringPathFromPath(tree: KifuTreeNode, path: Path): string[] {
   return getNodesOnPath(tree, path).map((node) => node.readableKifu);
 }
 
-export function getPathFromStringPath(
-  tree: KifuTreeNode,
-  stringPath: string[]
-): Path {
+export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]): Path {
   const path: number[] = [];
   let currentNode = tree;
   for (let kifu of stringPath) {

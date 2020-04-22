@@ -47,21 +47,15 @@ export default class KifuTreeComponent extends React.Component<
   componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
     if (this.props.currentPathChanged) {
       const domNode = ReactDOM.findDOMNode(this) as Element;
-      const currentElementDOMNode = domNode.querySelector(
-        "span.current"
-      ) as Element;
+      const currentElementDOMNode = domNode.querySelector("span.current") as Element;
 
       const currentElementBoundingRect = currentElementDOMNode.getBoundingClientRect();
       const needScroll =
         currentElementBoundingRect.left < 0 ||
         currentElementBoundingRect.right > domNode.clientWidth;
       if (needScroll) {
-        const currentElementLeft =
-          domNode.scrollLeft + currentElementBoundingRect.left;
-        const scrollLeft = Math.max(
-          0,
-          currentElementLeft - domNode.clientWidth / 2
-        );
+        const currentElementLeft = domNode.scrollLeft + currentElementBoundingRect.left;
+        const scrollLeft = Math.max(0, currentElementLeft - domNode.clientWidth / 2);
         domNode.scrollLeft = scrollLeft;
       }
     }

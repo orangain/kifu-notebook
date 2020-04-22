@@ -21,10 +21,7 @@ interface KifuTreeNodeProps {
   currentPathChanged?: boolean;
 }
 
-export default class KifuTreeNodeComponent extends React.Component<
-  KifuTreeNodeProps,
-  {}
-> {
+export default class KifuTreeNodeComponent extends React.Component<KifuTreeNodeProps, {}> {
   shouldComponentUpdate(nextProps: KifuTreeNodeProps) {
     // if (this.props.path.size <= 1) {
     //   console.log(this.props.path.toArray());
@@ -79,10 +76,7 @@ export default class KifuTreeNodeComponent extends React.Component<
             ))
             .concat(
               kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) => (
-                <JumpNode
-                  key={"jump-" + jumpTarget.readableKifu}
-                  jumpTarget={jumpTarget}
-                />
+                <JumpNode key={"jump-" + jumpTarget.readableKifu} jumpTarget={jumpTarget} />
               ))
             )}
         </ul>

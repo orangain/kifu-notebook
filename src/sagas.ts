@@ -1,14 +1,4 @@
-import {
-  delay,
-  put,
-  call,
-  select,
-  takeLatest,
-  fork,
-  take,
-  cancel,
-  all,
-} from "redux-saga/effects";
+import { delay, put, call, select, takeLatest, fork, take, cancel, all } from "redux-saga/effects";
 
 import {
   REQUEST_GET_JKF,
@@ -38,31 +28,16 @@ export default function* rootSaga() {
   yield all([
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
-    takeLatest(
-      [RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF],
-      clearMessageLater
-    ),
+    takeLatest([RECEIVE_GET_JKF, RECEIVE_PUT_JKF, FAIL_PUT_JKF], clearMessageLater),
     takeLatestWithCancel(CHANGE_COMMENTS, UPDATE_COMMENTS, updateCommentsLater),
     takeLatest(
-      [
-        CHANGE_AUTO_SAVE,
-        MOVE_PIECE,
-        UPDATE_COMMENTS,
-        MOVE_UP_FORK,
-        MOVE_DOWN_FORK,
-        REMOVE_FORK,
-      ],
+      [CHANGE_AUTO_SAVE, MOVE_PIECE, UPDATE_COMMENTS, MOVE_UP_FORK, MOVE_DOWN_FORK, REMOVE_FORK],
       autoSaveIfNeeded
     ),
   ]);
 }
 
-export function takeLatestWithCancel(
-  pattern: string,
-  cancelPattern: string,
-  saga,
-  ...args
-) {
+export function takeLatestWithCancel(pattern: string, cancelPattern: string, saga, ...args) {
   return fork(function* () {
     let lastTask;
     while (true) {

@@ -16,8 +16,5 @@ const mapDispatchToProps = {
   onClickPath: gotoPath,
 };
 
-const CurrentNodeContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CurrentNode);
+const CurrentNodeContainer = connect(mapStateToProps, mapDispatchToProps)(CurrentNode);
 export default CurrentNodeContainer;

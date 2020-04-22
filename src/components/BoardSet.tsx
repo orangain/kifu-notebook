@@ -5,10 +5,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import "./BoardSet.css";
 
 import { Board, Hand, Piece, PieceHand } from "kifu-for-js";
-import {
-  IStateFormat,
-  IMoveMoveFormat,
-} from "json-kifu-format/dist/src/Formats";
+import { IStateFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 import { KifuTree, KifuTreeNode } from "../models";
 
 // Use svg images
@@ -31,20 +28,13 @@ export interface BoardSetDispatchProps {
   onChangeReversed: (reversed: boolean) => void;
 }
 
-class BoardSet extends Component<
-  BoardSetStateProps & BoardSetDispatchProps,
-  {}
-> {
+class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}> {
   render() {
     const { shogiState, kifuTree, reversed } = this.props;
     const currentNode = kifuTree.getCurrentNode();
     const players = [
-      kifuTree.baseJKF.header["先手"] ||
-        kifuTree.baseJKF.header["下手"] ||
-        "先手",
-      kifuTree.baseJKF.header["後手"] ||
-        kifuTree.baseJKF.header["上手"] ||
-        "後手",
+      kifuTree.baseJKF.header["先手"] || kifuTree.baseJKF.header["下手"] || "先手",
+      kifuTree.baseJKF.header["後手"] || kifuTree.baseJKF.header["上手"] || "後手",
     ];
 
     return (
@@ -65,9 +55,7 @@ class BoardSet extends Component<
                 <input
                   type="checkbox"
                   checked={reversed}
-                  onChange={(e) =>
-                    this.props.onChangeReversed(e.target.checked)
-                  }
+                  onChange={(e) => this.props.onChangeReversed(e.target.checked)}
                 />
                 盤面反転
               </label>

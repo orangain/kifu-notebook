@@ -1,10 +1,7 @@
 import { Record, Map, List } from "immutable";
 import * as Immutable from "immutable";
 import { JKFPlayer } from "json-kifu-format";
-import {
-  IJSONKifuFormat,
-  IMoveMoveFormat,
-} from "json-kifu-format/dist/src/Formats";
+import { IJSONKifuFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 
 import {
   KifuTreeNode,
@@ -119,33 +116,21 @@ export class KifuTree extends Record<IKifuTree>({
 
   updateFork(
     path: Path,
-    forkUpdater: (
-      children: List<KifuTreeNode>,
-      lastIndex: number
-    ) => List<KifuTreeNode>
+    forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>
   ): KifuTree {
-    const currentStringPath = getStringPathFromPath(
-      this.rootNode,
-      this.currentPath
-    );
+    const currentStringPath = getStringPathFromPath(this.rootNode, this.currentPath);
     let newKifuTree = this.updateForkOfKifuTree(path, forkUpdater);
     if (newKifuTree === this) {
       return this; // no change
     }
 
-    const newPath = getPathFromStringPath(
-      newKifuTree.rootNode,
-      currentStringPath
-    );
+    const newPath = getPathFromStringPath(newKifuTree.rootNode, currentStringPath);
     return newKifuTree.setCurrentPath(newPath);
   }
 
   private updateForkOfKifuTree(
     path: Path,
-    forkUpdater: (
-      children: List<KifuTreeNode>,
-      lastIndex: number
-    ) => List<KifuTreeNode>
+    forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>
   ): KifuTree {
     const lastIndex = path.get(path.size - 1);
     const parentPath = path.slice(0, -1);
@@ -163,9 +148,8 @@ export class KifuTree extends Record<IKifuTree>({
   movePiece(move: IMoveMoveFormat): KifuTree | false {
     // 1. Compare with existing nodes
     const currentNode = this.getCurrentNode();
-    const childIndex = currentNode.children.findIndex(
-      (childNode: KifuTreeNode): boolean =>
-        (JKFPlayer as any).sameMoveMinimal(childNode.move, move)
+    const childIndex = currentNode.children.findIndex((childNode: KifuTreeNode): boolean =>
+      (JKFPlayer as any).sameMoveMinimal(childNode.move, move)
     ); // TODO: Calling private method
     if (childIndex >= 0) {
       return this.setCurrentPath(this.currentPath.concat([childIndex])); // Proceed to existing node
@@ -187,9 +171,7 @@ export class KifuTree extends Record<IKifuTree>({
 
     // 3. Create new objects
     const newMoveFormat = player.kifu.moves[player.kifu.moves.length - 1]; // newMoveFormat is normalized
-    const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [
-      newMoveFormat,
-    ]);
+    const newNode = createKifuTreeNode(player.shogi, currentNode.tesuu + 1, [newMoveFormat]);
     return this.updateNode(this.currentPath, (node: KifuTreeNode) => {
       return node.update("children", (children) => {
         return children.push(newNode);
@@ -210,29 +192,22 @@ export class KifuTree extends Record<IKifuTree>({
           const jumpToList = (jumpMap[node.sfen] || []).filter(
             (jumpTo: JumpTo) => jumpTo.node !== node
           );
-          const jumpTargets = List<JumpTarget>().withMutations(
-            (jumpTargets) => {
-              jumpToList.forEach((jumpTo: JumpTo) => {
-                jumpTo.node.children.forEach(
-                  (jumpTargetNode: KifuTreeNode, i: number) => {
-                    jumpTargets.push(
-                      new JumpTarget({
-                        path: jumpTo.path.concat(i),
-                        comment: jumpTargetNode.comment,
-                        readableKifu: jumpTargetNode.readableKifu,
-                      })
-                    );
-                  }
+          const jumpTargets = List<JumpTarget>().withMutations((jumpTargets) => {
+            jumpToList.forEach((jumpTo: JumpTo) => {
+              jumpTo.node.children.forEach((jumpTargetNode: KifuTreeNode, i: number) => {
+                jumpTargets.push(
+                  new JumpTarget({
+                    path: jumpTo.path.concat(i),
+                    comment: jumpTargetNode.comment,
+                    readableKifu: jumpTargetNode.readableKifu,
+                  })
                 );
               });
-            }
-          );
+            });
+          });
 
           if (!Immutable.is(node.jumpTargets, jumpTargets)) {
-            rootNode.setIn(
-              pathToKeyPath(path).concat("jumpTargets"),
-              jumpTargets
-            );
+            rootNode.setIn(pathToKeyPath(path).concat("jumpTargets"), jumpTargets);
           }
         });
       })
@@ -244,10 +219,7 @@ export class KifuTree extends Record<IKifuTree>({
   }
 }
 
-export type KifuNotebookState = AppState &
-  BoardSetState &
-  CurrentNodeState &
-  KifuTreeState;
+export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
 
 export interface AppState {
   message: string;
