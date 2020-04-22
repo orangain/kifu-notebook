@@ -62,7 +62,7 @@ export default class KifuTreeComponent extends React.Component<
       if (needScroll) {
         const currentElementLeft = rootDOMElement.scrollLeft + currentElementBoundingRect.left;
         const scrollLeft = Math.max(0, currentElementLeft - rootDOMElement.clientWidth / 2);
-        rootDOMElement.scrollLeft = scrollLeft;
+        rootDOMElement.scroll({ left: scrollLeft, behavior: "smooth" });
       }
     }
   }
