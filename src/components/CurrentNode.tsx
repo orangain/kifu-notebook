@@ -65,7 +65,11 @@ export default class CurrentNode extends Component<
             &raquo;
           </button>
         </div>
-        <ForkList kifuTree={kifuTree} onClickPath={this.props.onClickPath} />
+        <ForkList
+          currentNode={currentNode}
+          currentPath={kifuTree.currentPath}
+          onClickPath={this.props.onClickPath}
+        />
       </div>
     );
   }

@@ -1,19 +1,17 @@
 import React from "react";
 
-import { Path, KifuTree } from "../models";
+import { KifuTreeNode, Path } from "../models";
 import ForkListItem from "./ForkListItem";
 import ForkListJumpItem from "./ForkListJumpItem";
 import "./ForkList.css";
 
 interface ForkListProps {
-  kifuTree: KifuTree;
+  currentNode: KifuTreeNode;
+  currentPath: Path;
   onClickPath: (path: Path) => void;
 }
 
-const ForkList: React.FC<ForkListProps> = ({ kifuTree, onClickPath }) => {
-  const { currentPath } = kifuTree;
-  const currentNode = kifuTree.getCurrentNode();
-
+const ForkList: React.FC<ForkListProps> = ({ currentNode, currentPath, onClickPath }) => {
   return (
     <div className="ForkList">
       <span>次の手</span>
