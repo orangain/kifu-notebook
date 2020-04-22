@@ -1,10 +1,11 @@
-import * as React from "react";
-import { Component } from "react";
-const logo = require("./logo.svg");
-import "./App.css";
+import React, { Component, Profiler } from "react";
+
 import BoardSetContainer from "../containers/BoardSetContainer";
 import KifuTreeContainer from "../containers/KifuTreeContainer";
 import CurrentNodeContainer from "../containers/CurrentNodeContainer";
+
+import "./App.css";
+const logo = require("./logo.svg");
 
 export interface AppStateProps {
   message: string;
@@ -19,12 +20,8 @@ export interface AppDispatchProps {
 }
 
 class App extends Component<AppStateProps & AppDispatchProps, {}> {
-  componentWillMount() {
-    (window as any).Perf = require("react-addons-perf");
-    this.props.onLoad();
-  }
-
   componentDidMount() {
+    this.props.onLoad();
     window.addEventListener("beforeunload", (e: BeforeUnloadEvent) => {
       if (this.props.needSave) {
         e.returnValue = "変更が保存されていません。"; // Custom message will not be shown.
@@ -55,7 +52,14 @@ class App extends Component<AppStateProps & AppDispatchProps, {}> {
           <BoardSetContainer />
           <CurrentNodeContainer />
         </div>
-        <KifuTreeContainer />
+        <Profiler
+          id="KifuTreeContainer"
+          onRender={(id, phase, actualTime, baseTime, startTime, commitTime) =>
+            console.log(`${id}[${phase}]: ${Math.ceil(actualTime)}ms`)
+          }
+        >
+          <KifuTreeContainer />
+        </Profiler>
       </div>
     );
   }

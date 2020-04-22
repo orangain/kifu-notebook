@@ -1,5 +1,5 @@
-import { delay, Effect } from "redux-saga";
 import {
+  delay,
   put,
   call,
   select,
@@ -7,9 +7,8 @@ import {
   fork,
   take,
   cancel,
-  ForkEffect,
+  all,
 } from "redux-saga/effects";
-import { Action } from "redux";
 
 import {
   REQUEST_GET_JKF,
@@ -35,8 +34,8 @@ import { getAutoSaveNeeded, getKifuTree } from "./selectors";
 import Api from "./api";
 import { KifuTree } from "./models";
 
-export default function* rootSaga(): IterableIterator<Effect[]> {
-  yield [
+export default function* rootSaga() {
+  yield all([
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
     takeLatest(
@@ -55,19 +54,19 @@ export default function* rootSaga(): IterableIterator<Effect[]> {
       ],
       autoSaveIfNeeded
     ),
-  ];
+  ]);
 }
 
 export function takeLatestWithCancel(
-  pattern,
+  pattern: string,
   cancelPattern: string,
   saga,
   ...args
-): ForkEffect {
+) {
   return fork(function* () {
     let lastTask;
     while (true) {
-      const action: Action = yield take([pattern, cancelPattern]);
+      const action = yield take([pattern, cancelPattern]);
       if (lastTask) {
         yield cancel(lastTask); // cancel is no-op if the task has already terminated
       }
@@ -100,19 +99,19 @@ export function* storeJKF() {
 }
 
 export function* clearMessageLater() {
-  yield call(delay, 5000);
+  yield delay(5000);
   yield put(clearMessage());
 }
 
 export function* updateCommentsLater() {
-  yield call(delay, 1000);
+  yield delay(1000);
   yield put(updateComments());
 }
 
 export function* autoSaveIfNeeded() {
   const isAutoSaveNeeded = yield select(getAutoSaveNeeded);
   if (isAutoSaveNeeded) {
-    yield call(delay, 500);
+    yield delay(500);
     yield put(requestPutJKF());
   }
 }

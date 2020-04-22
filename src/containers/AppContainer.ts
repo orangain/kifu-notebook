@@ -1,10 +1,10 @@
-import { connect, MapDispatchToPropsObject } from "react-redux";
+import { connect } from "react-redux";
 
 import { requestGetJKF, requestPutJKF, changeAutoSave } from "../actions";
-import App, { AppStateProps, AppDispatchProps } from "../components/App";
+import App from "../components/App";
 import { AppState } from "../models";
 
-const mapStateToProps = (state: AppState): AppStateProps => {
+const mapStateToProps = (state: AppState) => {
   return {
     message: state.message,
     autoSaveEnabled: state.autoSaveEnabled,
@@ -12,7 +12,7 @@ const mapStateToProps = (state: AppState): AppStateProps => {
   };
 };
 
-const mapDispatchToProps: AppDispatchProps & MapDispatchToPropsObject = {
+const mapDispatchToProps = {
   onLoad: requestGetJKF,
   onClickSave: requestPutJKF,
   onChangeAutoSave: changeAutoSave,

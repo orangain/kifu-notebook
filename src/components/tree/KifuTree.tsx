@@ -22,8 +22,6 @@ export default class KifuTreeComponent extends React.Component<
   KifuTreeStateProps & KifuTreeDispatchProps,
   {}
 > {
-  begin: Date;
-
   onClick(e: React.MouseEvent<HTMLUListElement>) {
     const target = e.target as any;
     const jsonPath =
@@ -45,15 +43,10 @@ export default class KifuTreeComponent extends React.Component<
       this.props.onClickRemoveFork(path);
     }
   }
-  componentWillUpdate() {
-    this.begin = new Date();
-  }
-  componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
-    const end = new Date();
-    console.log(`KifuTree ${end.getTime() - this.begin.getTime()}ms`);
 
+  componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
     if (this.props.currentPathChanged) {
-      const domNode = ReactDOM.findDOMNode(this);
+      const domNode = ReactDOM.findDOMNode(this) as Element;
       const currentElementDOMNode = domNode.querySelector(
         "span.current"
       ) as Element;

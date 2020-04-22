@@ -41,7 +41,7 @@ Options:
 
 ### Requirements
 
-- Node.js 6.9+
+- Node.js 8.10+
 
 ### Install dependencies
 
@@ -57,7 +57,7 @@ Launch API server.
 $ kifu-notebook --no-browser JKF_FILE
 ```
 
-Then start webpack dev server.
+Then start dev server.
 
 ```
 $ npm start

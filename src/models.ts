@@ -8,7 +8,6 @@ import {
 
 import {
   KifuTreeNode,
-  Path,
   JumpTo,
   JumpTarget,
   jkfToKifuTree,
@@ -23,17 +22,21 @@ import {
   traverseTree,
 } from "./treeUtils";
 
-export { KifuTreeNode, Path, JumpTo, JumpTarget }; // for convenience
+export type Path = List<number>;
 
-export class KifuTree extends Record({
+export { KifuTreeNode, JumpTo, JumpTarget }; // for convenience
+
+export interface IKifuTree {
+  readonly rootNode: KifuTreeNode;
+  readonly baseJKF: IJSONKifuFormat;
+  readonly currentPath: Path;
+}
+
+export class KifuTree extends Record<IKifuTree>({
   rootNode: null,
   baseJKF: null,
   currentPath: List<number>(),
 }) {
-  readonly rootNode: KifuTreeNode;
-  readonly baseJKF: IJSONKifuFormat;
-  readonly currentPath: Path;
-
   static fromJKF(jkf: IJSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
     const baseJKF = Object.assign({}, jkf, { moves: [jkf.moves[0]] });
@@ -202,7 +205,7 @@ export class KifuTree extends Record({
     const jumpMap = buildJumpMap(this.rootNode);
     const newKifuTree = this.set(
       "rootNode",
-      this.rootNode.withMutations((rootNode: KifuTreeNode) => {
+      this.rootNode.withMutations((rootNode) => {
         traverseTree(this.rootNode, (node: KifuTreeNode, path: Path) => {
           const jumpToList = (jumpMap[node.sfen] || []).filter(
             (jumpTo: JumpTo) => jumpTo.node !== node
