@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as Immutable from "immutable";
+import React from "react";
+import Immutable from "immutable";
 
 import { Path, KifuTreeNode, JumpTarget } from "../../models";
 import { JumpNode } from "./JumpNode";
@@ -21,7 +21,7 @@ interface KifuTreeNodeProps {
   currentPath: Path;
 }
 
-const kifuTreeNodeComponent: React.FC<KifuTreeNodeProps> = ({
+const KifuTreeNodeNotMemoized: React.FC<KifuTreeNodeProps> = ({
   kifuTreeNode,
   path,
   currentPath,
@@ -78,4 +78,4 @@ function propsAreEqual(prevProps: KifuTreeNodeProps, nextProps: KifuTreeNodeProp
   );
 }
 
-export const KifuTreeNodeComponent = React.memo(kifuTreeNodeComponent, propsAreEqual);
+export const KifuTreeNodeComponent = React.memo(KifuTreeNodeNotMemoized, propsAreEqual);
