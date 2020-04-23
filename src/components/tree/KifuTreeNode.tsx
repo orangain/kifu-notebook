@@ -5,16 +5,6 @@ import { Path, KifuTreeNode, JumpTarget } from "../../models";
 import { JumpNode } from "./JumpNode";
 import "./KifuTreeNode.css";
 
-function isSubPath(myPath: Path, testPath?: Path): boolean {
-  if (!testPath) {
-    return false;
-  }
-  if (testPath.size < myPath.size) {
-    return false;
-  }
-  return Immutable.is(testPath.slice(0, myPath.size), myPath);
-}
-
 interface KifuTreeNodeProps {
   kifuTreeNode: KifuTreeNode;
   path: Path;
@@ -76,6 +66,16 @@ function propsAreEqual(prevProps: KifuTreeNodeProps, nextProps: KifuTreeNodeProp
       (!isSubPath(prevProps.path, prevProps.currentPath) &&
         !isSubPath(nextProps.path, nextProps.currentPath)))
   );
+}
+
+function isSubPath(myPath: Path, testPath?: Path): boolean {
+  if (!testPath) {
+    return false;
+  }
+  if (testPath.size < myPath.size) {
+    return false;
+  }
+  return Immutable.is(testPath.slice(0, myPath.size), myPath);
 }
 
 export const KifuTreeNodeComponent = React.memo(KifuTreeNodeNotMemoized, propsAreEqual);
