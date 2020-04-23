@@ -42,11 +42,11 @@ export const KifuTreeComponent: React.FC<KifuTreeStateProps & KifuTreeDispatchPr
   }, [currentPathString]);
 
   function onClick(e: React.MouseEvent<HTMLUListElement>) {
-    const target = e.target as any;
+    const target = e.target as HTMLElement;
     const jsonPath =
       target.dataset.path ||
-      target.parentNode.dataset.path ||
-      target.parentNode.parentNode.dataset.path;
+      (target.parentNode as HTMLElement).dataset.path ||
+      (target.parentNode.parentNode as HTMLElement).dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }
