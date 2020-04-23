@@ -1,13 +1,12 @@
 import React, { RefObject } from "react";
-import KifuTreeNodeComponent from "./KifuTreeNode";
-import { List } from "immutable";
+import Immutable, { List } from "immutable";
 
-import "./KifuTree.css";
 import { KifuTree, Path } from "../../models";
+import { KifuTreeNodeComponent } from "./KifuTreeNode";
+import "./KifuTree.css";
 
 export interface KifuTreeStateProps {
   kifuTree: KifuTree;
-  currentPathChanged: boolean;
 }
 
 export interface KifuTreeDispatchProps {
@@ -51,7 +50,10 @@ export default class KifuTreeComponent extends React.Component<
   }
 
   componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
-    if (this.props.currentPathChanged) {
+    const currentPathChanged =
+      !prevProps || !Immutable.is(this.props.kifuTree.currentPath, prevProps.kifuTree.currentPath);
+
+    if (currentPathChanged) {
       const rootDOMElement = this.rootElementRef.current;
       const currentDOMElement = rootDOMElement.querySelector("span.current");
 
