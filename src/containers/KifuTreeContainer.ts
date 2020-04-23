@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { gotoPath, moveUpFork, moveDownFork, removeFork } from "../actions";
-import KifuTreeComponent from "../components/tree/KifuTree";
+import { KifuTreeComponent } from "../components/tree/KifuTree";
 import { KifuTreeState } from "../models";
 
 const mapStateToProps = (state: KifuTreeState) => {
