@@ -1,5 +1,4 @@
-import { Record, Map, List } from "immutable";
-import * as Immutable from "immutable";
+import Immutable, { Record, List } from "immutable";
 import { JKFPlayer } from "json-kifu-format";
 import { IJSONKifuFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 
@@ -102,7 +101,7 @@ export class KifuTree extends Record<IKifuTree>({
 
   updateNode(
     path: Path,
-    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode | Map<string, any>,
+    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode,
     skipMaintainJumpTargets = false // TODO: Change method or detect automatically
   ): KifuTree {
     const keyPath = pathToKeyPath(path);

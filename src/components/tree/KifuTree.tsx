@@ -1,13 +1,12 @@
-import React, { RefObject } from "react";
-import KifuTreeNodeComponent from "./KifuTreeNode";
+import React, { useRef, useEffect } from "react";
 import { List } from "immutable";
 
-import "./KifuTree.css";
 import { KifuTree, Path } from "../../models";
+import { KifuTreeNodeComponent } from "./KifuTreeNode";
+import "./KifuTree.css";
 
 export interface KifuTreeStateProps {
   kifuTree: KifuTree;
-  currentPathChanged: boolean;
 }
 
 export interface KifuTreeDispatchProps {
@@ -17,67 +16,60 @@ export interface KifuTreeDispatchProps {
   onClickRemoveFork: (path: Path) => void;
 }
 
-export default class KifuTreeComponent extends React.Component<
-  KifuTreeStateProps & KifuTreeDispatchProps,
-  {}
-> {
-  rootElementRef: RefObject<HTMLUListElement>;
+export const KifuTreeComponent: React.FC<KifuTreeStateProps & KifuTreeDispatchProps> = ({
+  kifuTree,
+  onClickPath,
+  onClickMoveUpFork,
+  onClickMoveDownFork,
+  onClickRemoveFork,
+}) => {
+  const rootElementRef = useRef<HTMLUListElement>();
+  const currentPathString = kifuTree.currentPath.toArray().join("-");
 
-  constructor(props: any) {
-    super(props);
-    this.rootElementRef = React.createRef();
-  }
+  useEffect(() => {
+    const rootDOMElement = rootElementRef.current;
+    const currentDOMElement = rootDOMElement.querySelector("span.current");
 
-  onClick(e: React.MouseEvent<HTMLUListElement>) {
-    const target = e.target as any;
+    const currentElementBoundingRect = currentDOMElement.getBoundingClientRect();
+    const needScroll =
+      currentElementBoundingRect.left < 0 ||
+      currentElementBoundingRect.right > rootDOMElement.clientWidth;
+    if (needScroll) {
+      const currentElementLeft = rootDOMElement.scrollLeft + currentElementBoundingRect.left;
+      const scrollLeft = Math.max(0, currentElementLeft - rootDOMElement.clientWidth / 2);
+      rootDOMElement.scroll({ left: scrollLeft, behavior: "smooth" });
+    }
+  }, [currentPathString]);
+
+  function onClick(e: React.MouseEvent<HTMLUListElement>) {
+    const target = e.target as HTMLElement;
     const jsonPath =
       target.dataset.path ||
-      target.parentNode.dataset.path ||
-      target.parentNode.parentNode.dataset.path;
+      (target.parentNode as HTMLElement).dataset.path ||
+      (target.parentNode.parentNode as HTMLElement).dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }
     const path = List<number>(JSON.parse(jsonPath)) as Path;
 
     if (target.classList.contains("readable-kifu")) {
-      this.props.onClickPath(path);
+      onClickPath(path);
     } else if (target.classList.contains("up")) {
-      this.props.onClickMoveUpFork(path);
+      onClickMoveUpFork(path);
     } else if (target.classList.contains("down")) {
-      this.props.onClickMoveDownFork(path);
+      onClickMoveDownFork(path);
     } else if (target.classList.contains("remove")) {
-      this.props.onClickRemoveFork(path);
+      onClickRemoveFork(path);
     }
   }
 
-  componentDidUpdate(prevProps: KifuTreeStateProps & KifuTreeDispatchProps) {
-    if (this.props.currentPathChanged) {
-      const rootDOMElement = this.rootElementRef.current;
-      const currentDOMElement = rootDOMElement.querySelector("span.current");
-
-      const currentElementBoundingRect = currentDOMElement.getBoundingClientRect();
-      const needScroll =
-        currentElementBoundingRect.left < 0 ||
-        currentElementBoundingRect.right > rootDOMElement.clientWidth;
-      if (needScroll) {
-        const currentElementLeft = rootDOMElement.scrollLeft + currentElementBoundingRect.left;
-        const scrollLeft = Math.max(0, currentElementLeft - rootDOMElement.clientWidth / 2);
-        rootDOMElement.scroll({ left: scrollLeft, behavior: "smooth" });
-      }
-    }
-  }
-  render() {
-    const { kifuTree, currentPathChanged } = this.props;
-
-    return (
-      <ul ref={this.rootElementRef} className="kifu-tree" onClick={(e) => this.onClick(e)}>
-        <KifuTreeNodeComponent
-          kifuTree={kifuTree}
-          kifuTreeNode={kifuTree.rootNode}
-          path={List<number>()}
-          currentPathChanged={currentPathChanged}
-        />
-      </ul>
-    );
-  }
-}
+  return (
+    <ul ref={rootElementRef} className="kifu-tree" onClick={onClick}>
+      <KifuTreeNodeComponent
+        kifuTreeNode={kifuTree.rootNode}
+        path={List<number>()}
+        currentPath={kifuTree.currentPath}
+      />
+    </ul>
+  );
+};

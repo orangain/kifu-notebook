@@ -14,9 +14,9 @@ export interface AppStateProps {
 }
 
 export interface AppDispatchProps {
-  onLoad: () => any;
-  onClickSave: () => any;
-  onChangeAutoSave: (enabled: boolean) => any;
+  onLoad: () => void;
+  onClickSave: () => void;
+  onChangeAutoSave: (enabled: boolean) => void;
 }
 
 class App extends Component<AppStateProps & AppDispatchProps, {}> {
