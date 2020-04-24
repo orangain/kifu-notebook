@@ -4,8 +4,9 @@ import { DragDropContext } from "kifu-for-js/node_modules/react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import "./BoardSet.css";
 
-import { Board, Hand, Piece, PieceHand } from "kifu-for-js";
+import { Hand, Piece, PieceHand } from "kifu-for-js";
 import { IStateFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { Board } from "./shogi/Board";
 import { KifuTree, KifuTreeNode } from "../models";
 
 // Use svg images
@@ -62,14 +63,15 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
             </div>
           </div>
           <div className="board">
-            <Board
+            <Board board={shogiState.board} lastMovedPlace={currentNode.move?.to} />
+            {/* <Board
               board={shogiState.board}
               lastMove={currentNode.move}
               onInputMove={(e: IMoveMoveFormat) => {
                 this.props.onInputMove(e);
               }}
               reversed={reversed}
-            />
+            /> */}
           </div>
           <div className="players right">
             <Hand

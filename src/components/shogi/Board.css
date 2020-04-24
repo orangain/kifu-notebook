@@ -1,0 +1,25 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  width: 298px;
+  height: 334px;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  background-color: #fdd775;
+}
+
+.board-square {
+  width: 33px;
+  height: 37px;
+  border-top: 1px solid #333;
+  border-right: 1px solid #333;
+}
+
+.board-square.active {
+  background-color: #f90;
+}
+
+.piece {
+  height: 100%;
+}
