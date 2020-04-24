@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
-import { DragDropContext } from "react-dnd";
+import { DragDropContext } from "kifu-for-js/node_modules/react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import "./BoardSet.css";
 
