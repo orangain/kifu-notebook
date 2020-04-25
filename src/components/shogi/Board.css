@@ -1,0 +1,42 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  width: 318px; /* 33px * 9 + 21px */
+  height: 360px; /* 37px * 9 + 27px */
+}
+
+.header-square {
+  width: 21px;
+  height: 27px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 27px; /* Align text vertically */
+}
+
+.header-square.column {
+  width: 33px;
+  border-bottom: 1px solid #333;
+}
+
+.header-square.row {
+  height: 37px;
+  border-left: 1px solid #333;
+  line-height: 37px; /* Align text vertically */
+}
+
+.board-square {
+  width: 33px; /* 32px + border 1px */
+  height: 37px; /* 36px + border 1px */
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  background-color: #fdd775;
+}
+
+.board-square.active {
+  background-color: #f90;
+}
+
+.piece {
+  height: 100%;
+}
