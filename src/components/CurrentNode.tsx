@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ForkList from "./ForkList";
+import { ForkList } from "./ForkList";
 import { Path, KifuTree } from "../models";
 import "./CurrentNode.css";
 
@@ -14,7 +14,7 @@ export interface CurrentNodeDispatchProps {
   onBlurComments: () => void;
 }
 
-const CurrentNode: React.FC<CurrentNodeStateProps & CurrentNodeDispatchProps> = ({
+export const CurrentNode: React.FC<CurrentNodeStateProps & CurrentNodeDispatchProps> = ({
   kifuTree,
   onClickPath,
   onChangeComments,
@@ -62,5 +62,3 @@ const CurrentNode: React.FC<CurrentNodeStateProps & CurrentNodeDispatchProps> = 
     </div>
   );
 };
-
-export default CurrentNode;

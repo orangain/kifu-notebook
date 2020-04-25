@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { changeComments, gotoPath, updateComments } from "../actions";
-import CurrentNode from "../components/CurrentNode";
+import { CurrentNode } from "../components/CurrentNode";
 import { CurrentNodeState } from "../models";
 
 const mapStateToProps = (state: CurrentNodeState) => {
@@ -16,5 +16,4 @@ const mapDispatchToProps = {
   onClickPath: gotoPath,
 };
 
-const CurrentNodeContainer = connect(mapStateToProps, mapDispatchToProps)(CurrentNode);
-export default CurrentNodeContainer;
+export const CurrentNodeContainer = connect(mapStateToProps, mapDispatchToProps)(CurrentNode);

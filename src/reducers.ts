@@ -28,7 +28,7 @@ const initialState: KifuNotebookState = {
   needSave: false,
 };
 
-export default function kifuTree(
+export default function kifuNotebookReducer(
   state: KifuNotebookState = initialState,
   action: any
 ): KifuNotebookState {

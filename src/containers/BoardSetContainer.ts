@@ -26,5 +26,4 @@ const mapDispatchToProps = {
   onChangeReversed: changeReversed,
 };
 
-const BoardSetContainer = connect(mapStateToProps, mapDispatchToProps)(BoardSet);
-export default BoardSetContainer;
+export const BoardSetContainer = connect(mapStateToProps, mapDispatchToProps)(BoardSet);

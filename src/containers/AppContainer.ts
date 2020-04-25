@@ -18,5 +18,4 @@ const mapDispatchToProps = {
   onChangeAutoSave: changeAutoSave,
 };
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
-export default AppContainer;
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

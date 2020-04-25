@@ -1,8 +1,8 @@
 import React from "react";
 
 import { KifuTreeNode, Path } from "../models";
-import ForkListItem from "./ForkListItem";
-import ForkListJumpItem from "./ForkListJumpItem";
+import { ForkListItem } from "./ForkListItem";
+import { ForkListJumpItem } from "./ForkListJumpItem";
 import "./ForkList.css";
 
 interface ForkListProps {
@@ -11,7 +11,7 @@ interface ForkListProps {
   onClickPath: (path: Path) => void;
 }
 
-const ForkList: React.FC<ForkListProps> = ({ currentNode, currentPath, onClickPath }) => {
+export const ForkList: React.FC<ForkListProps> = ({ currentNode, currentPath, onClickPath }) => {
   return (
     <div className="ForkList">
       <span>次の手</span>
@@ -44,5 +44,3 @@ const ForkList: React.FC<ForkListProps> = ({ currentNode, currentPath, onClickPa
     </div>
   );
 };
-
-export default ForkList;

@@ -17,5 +17,4 @@ const mapDispatchToProps = {
   onClickRemoveFork: removeFork,
 };
 
-const KifuTreeContainer = connect(mapStateToProps, mapDispatchToProps)(KifuTreeComponent);
-export default KifuTreeContainer;
+export const KifuTreeContainer = connect(mapStateToProps, mapDispatchToProps)(KifuTreeComponent);

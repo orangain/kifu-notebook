@@ -1,8 +1,8 @@
 import React, { useEffect, Profiler } from "react";
 
-import BoardSetContainer from "../containers/BoardSetContainer";
-import KifuTreeContainer from "../containers/KifuTreeContainer";
-import CurrentNodeContainer from "../containers/CurrentNodeContainer";
+import { BoardSetContainer } from "../containers/BoardSetContainer";
+import { KifuTreeContainer } from "../containers/KifuTreeContainer";
+import { CurrentNodeContainer } from "../containers/CurrentNodeContainer";
 
 import "./App.css";
 const logo = require("./logo.svg");
