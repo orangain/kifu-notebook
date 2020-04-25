@@ -5,9 +5,10 @@ import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import "./BoardSet.css";
 
-import { Hand, Piece, PieceHand } from "kifu-for-js";
+import { Piece, PieceHand } from "kifu-for-js";
 import { IStateFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 import { Board } from "./shogi/Board";
+import { Hand } from "./shogi/Hand";
 import { KifuTree, KifuTreeNode } from "../models";
 
 // Use svg images
@@ -46,13 +47,19 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
             <div className="players left">
               <Hand
                 color={reversed ? 0 : 1}
+                pieceCounts={shogiState.hands[reversed ? 0 : 1]}
+                playerName={players[reversed ? 0 : 1]}
+                onInputMove={(e) => this.props.onInputMove(e)}
+              />
+              {/* <Hand
+                color={reversed ? 0 : 1}
                 data={shogiState.hands[reversed ? 0 : 1]}
                 playerName={players[reversed ? 0 : 1]}
                 onInputMove={(e: IMoveMoveFormat) => {
                   this.props.onInputMove(e);
                 }}
                 reversed={reversed}
-              />
+              /> */}
               <div>
                 <label>
                   <input
@@ -82,13 +89,19 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
             <div className="players right">
               <Hand
                 color={reversed ? 1 : 0}
+                pieceCounts={shogiState.hands[reversed ? 1 : 0]}
+                playerName={players[reversed ? 1 : 0]}
+                onInputMove={(e) => this.props.onInputMove(e)}
+              />
+              {/* <Hand
+                color={reversed ? 1 : 0}
                 data={shogiState.hands[reversed ? 1 : 0]}
                 playerName={players[reversed ? 1 : 0]}
                 onInputMove={(e: IMoveMoveFormat) => {
                   this.props.onInputMove(e);
                 }}
                 reversed={reversed}
-              />
+              /> */}
             </div>
           </div>
         </div>

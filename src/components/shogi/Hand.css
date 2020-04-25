@@ -1,0 +1,38 @@
+.hand {
+  background-color: #eee;
+}
+
+.player-name {
+  background-color: #c0c0c0;
+  text-align: center;
+}
+
+.piece-slots {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 120px;
+  height: 144px; /* 36px * 4 */
+}
+
+.piece-slot {
+  width: 50%;
+  height: 36px;
+}
+
+.piece-slot.FU {
+  width: 100%;
+}
+
+.piece-slot-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse; /* Use row-reverse to show the left-most piece in the front */
+  justify-content: flex-end;
+}
+
+.piece-wrapper {
+  width: 32px;
+  min-width: 1px;
+}

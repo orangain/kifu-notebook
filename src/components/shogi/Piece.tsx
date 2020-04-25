@@ -4,14 +4,14 @@ import { Color } from "shogi.js";
 import { IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
 export type PieceProps = {
-  place: IPlaceFormat;
+  place: IPlaceFormat | undefined;
   color: Color;
   kind: string;
 };
 
 export type PieceDragObject = {
   type: "piece";
-  from: IPlaceFormat;
+  from: IPlaceFormat | undefined;
   color: Color;
   kind: string;
 };
