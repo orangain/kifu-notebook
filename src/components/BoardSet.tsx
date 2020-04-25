@@ -1,14 +1,16 @@
-import * as React from "react";
+import React from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-
+import { Shogi } from "shogi.js";
 import { IStateFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+
 import { Board } from "./shogi/Board";
 import { Hand } from "./shogi/Hand";
 import { KifuTree, KifuTreeNode } from "../models";
 import "./BoardSet.css";
 
 export interface BoardSetStateProps {
+  shogi: Shogi;
   shogiState: IStateFormat;
   kifuTree: KifuTree;
   reversed: boolean;
@@ -21,6 +23,7 @@ export interface BoardSetDispatchProps {
 }
 
 export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
+  shogi,
   shogiState,
   kifuTree,
   reversed,
@@ -58,6 +61,7 @@ export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
           </div>
           <div className="board">
             <Board
+              shogi={shogi}
               board={shogiState.board}
               lastMovedPlace={currentNode.move?.to}
               onInputMove={onInputMove}

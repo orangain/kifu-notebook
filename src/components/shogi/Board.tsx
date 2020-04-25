@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { IPiece, IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { Shogi, IMove } from "shogi.js";
 
 import { BoardSquare } from "./BoardSquare";
 import "./Board.css";
 
 export type BoardProps = {
+  shogi: Shogi;
   board: IPiece[][];
   lastMovedPlace: IPlaceFormat | undefined;
   reversed: boolean;
@@ -15,7 +17,37 @@ const kansuuji = ["", "一", "二", "三", "四", "五", "六", "七", "八", "�
 
 const range = (n: number): number[] => [...Array(n)].map((_, i) => i);
 
-export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, reversed, onInputMove }) => {
+const placeEquals = (a: IPlaceFormat | undefined, b: IPlaceFormat | undefined): boolean => {
+  return (a === undefined && b === undefined) || (a.x === b.x && a.y === b.y);
+};
+
+export const Board: React.FC<BoardProps> = ({
+  shogi,
+  board,
+  lastMovedPlace,
+  reversed,
+  onInputMove,
+}) => {
+  const isValidMove = useCallback(
+    (move: IMove): boolean => {
+      if (shogi.turn !== move.color) {
+        return false;
+      }
+
+      if (move.from) {
+        const moves = shogi.getMovesFrom(move.from.x, move.from.y);
+        return moves.some((m) => placeEquals(m.from, move.from) && placeEquals(m.to, move.to));
+      } else {
+        const moves = shogi.getDropsBy(move.color);
+        return moves.some(
+          (m) =>
+            m.kind === move.kind && placeEquals(m.from, move.from) && placeEquals(m.to, move.to)
+        );
+      }
+    },
+    [shogi]
+  );
+
   return (
     <div className={`board ${reversed ? "reversed" : ""}`}>
       <div key="origin" className="header-square" />
@@ -49,6 +81,7 @@ export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, reversed, o
                 piece={piece}
                 isActive={isActive}
                 reversed={reversed}
+                isValidMove={isValidMove}
                 onInputMove={onInputMove}
               />
             );

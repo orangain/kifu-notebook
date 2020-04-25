@@ -14,6 +14,7 @@ const mapStateToProps = (state: BoardSetState) => {
   const shogiState = JKFPlayer.getState(shogi);
 
   return {
+    shogi,
     shogiState: shogiState,
     kifuTree: state.kifuTree,
     reversed: state.reversed,
