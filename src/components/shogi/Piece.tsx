@@ -18,11 +18,9 @@ export type PieceDragObject = {
 };
 
 export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) => {
-  const normalizedColor = normalizeColor(color, reversed);
-
   const item: PieceDragObject = {
     type: "piece",
-    color,
+    color, // Don't use orientation here
     kind,
     from: place,
   };
@@ -34,7 +32,9 @@ export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) =>
     }),
   });
 
-  const imageURL = `/images/shogi-pieces/${normalizedColor}${kind}.svg`;
+  const orientation = !reversed ? color : ((1 - color) as Color);
+  const imageURL = `/images/shogi-pieces/${orientation}${kind}.svg`;
+
   return (
     <img
       ref={drag}
@@ -44,11 +44,4 @@ export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) =>
       style={{ opacity: isDragging ? 0.5 : 1 }}
     />
   );
-};
-
-const normalizeColor = (color: Color, reversed: boolean): Color => {
-  if (!reversed) {
-    return color;
-  }
-  return (1 - color) as Color;
 };
