@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { JKFPlayer } from "json-kifu-format";
 import { Shogi } from "shogi.js";
 
 import { inputMove, changeReversed } from "../actions";
@@ -11,11 +10,9 @@ const mapStateToProps = (state: BoardSetState) => {
   const currentNode = state.kifuTree.getCurrentNode();
   const shogi = new Shogi();
   shogi.initializeFromSFENString(currentNode.sfen);
-  const shogiState = JKFPlayer.getState(shogi);
 
   return {
     shogi,
-    shogiState: shogiState,
     kifuTree: state.kifuTree,
     reversed: state.reversed,
     currentNode: currentNode,

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { IPiece, IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 import { Shogi, IMove } from "shogi.js";
 
 import { BoardSquare } from "./BoardSquare";
@@ -7,7 +7,6 @@ import "./Board.css";
 
 export type BoardProps = {
   shogi: Shogi;
-  board: IPiece[][];
   lastMovedPlace: IPlaceFormat | undefined;
   reversed: boolean;
   onInputMove: (move: IMoveMoveFormat) => void;
@@ -21,13 +20,7 @@ const placeEquals = (a: IPlaceFormat | undefined, b: IPlaceFormat | undefined): 
   return (a === undefined && b === undefined) || (a.x === b.x && a.y === b.y);
 };
 
-export const Board: React.FC<BoardProps> = ({
-  shogi,
-  board,
-  lastMovedPlace,
-  reversed,
-  onInputMove,
-}) => {
+export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, onInputMove }) => {
   const isValidMove = useCallback(
     (move: IMove): boolean => {
       if (shogi.turn !== move.color) {
@@ -47,6 +40,8 @@ export const Board: React.FC<BoardProps> = ({
     },
     [shogi]
   );
+
+  const board = shogi.board;
 
   return (
     <div className={`board ${reversed ? "reversed" : ""}`}>

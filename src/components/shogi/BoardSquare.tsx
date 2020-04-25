@@ -1,13 +1,13 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { IMove } from "shogi.js";
-import { IPlaceFormat, IPiece, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { IMove, Piece } from "shogi.js";
+import { IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 
-import { Piece, PieceDragObject } from "./Piece";
+import { Piece as PieceComponent, PieceDragObject } from "./Piece";
 
 export type BoardSquareProps = {
   place: IPlaceFormat;
-  piece: IPiece;
+  piece: Piece;
   isActive: boolean;
   reversed: boolean;
   isValidMove: (move: IMove) => boolean;
@@ -41,8 +41,9 @@ export const BoardSquare: React.FC<BoardSquareProps> = ({
   });
   return (
     <div ref={drop} className={`board-square ${isActive ? "active" : ""}`}>
-      {piece.kind && piece.color != null && (
-        <Piece place={place} kind={piece.kind} color={piece.color} reversed={reversed} />
+      {/* Unlike JKF, piece is null when there is no piece in square */}
+      {piece && (
+        <PieceComponent place={place} kind={piece.kind} color={piece.color} reversed={reversed} />
       )}
     </div>
   );
