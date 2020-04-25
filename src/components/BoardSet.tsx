@@ -1,23 +1,13 @@
 import * as React from "react";
 import { Component } from "react";
-import { DragDropContext } from "kifu-for-js/node_modules/react-dnd";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import "./BoardSet.css";
 
-import { Piece, PieceHand } from "kifu-for-js";
 import { IStateFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 import { Board } from "./shogi/Board";
 import { Hand } from "./shogi/Hand";
 import { KifuTree, KifuTreeNode } from "../models";
-
-// Use svg images
-Piece.DecoratedComponent.prototype.getPieceImage = PieceHand.DecoratedComponent.prototype.getPieceImage = (
-  kind: string | null,
-  color: number
-) => {
-  return `/images/shogi-pieces/${!kind ? "blank.gif" : color + kind + ".svg"}`;
-};
 
 export interface BoardSetStateProps {
   shogiState: IStateFormat;
@@ -110,4 +100,4 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
   }
 }
 
-export default DragDropContext(HTML5Backend)(BoardSet);
+export default BoardSet;
