@@ -28,13 +28,13 @@ export const Hand: React.FC<HandProps> = ({ color, pieceCounts, playerName, reve
             return null;
           }
           return (
-            <div className={`piece-slot ${kind}`}>
+            <div key={kind} className={`piece-slot ${kind}`}>
               <div
                 className="piece-slot-inner"
                 style={{ paddingRight: `calc(32px - 100% / ${pieceCount})` }}
               >
-                {range(pieceCount).map(() => (
-                  <div className="piece-wrapper">
+                {range(pieceCount).map((i) => (
+                  <div key={i} className="piece-wrapper">
                     <Piece place={undefined} color={color} kind={kind} reversed={reversed} />
                   </div>
                 ))}
