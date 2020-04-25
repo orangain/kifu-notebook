@@ -7,12 +7,10 @@ export type ForkListJumpItemProps = {
   onClick: React.MouseEventHandler;
 };
 
-const ForkListJumpItem: React.FC<ForkListJumpItemProps> = ({ jumpTarget, onClick }) => {
+export const ForkListJumpItem: React.FC<ForkListJumpItemProps> = ({ jumpTarget, onClick }) => {
   return (
     <li onClick={onClick} className={jumpTarget.isBad() ? "bad" : ""}>
       ↪ {jumpTarget.readableKifu} <span className="comment">{jumpTarget.comment}</span>
     </li>
   );
 };
-
-export default ForkListJumpItem;

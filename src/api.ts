@@ -1,7 +1,7 @@
 import stringify from "json-stringify-pretty-compact";
 import { IJSONKifuFormat } from "json-kifu-format/dist/src/Formats";
 
-export default class Api {
+export class Api {
   static fetchJKF() {
     const begin = new Date();
     return fetch("/jkf")

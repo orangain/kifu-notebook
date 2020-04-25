@@ -3,7 +3,7 @@ import { JKFPlayer } from "json-kifu-format";
 import { Shogi } from "shogi.js";
 
 import { inputMove, changeReversed } from "../actions";
-import BoardSet from "../components/BoardSet";
+import { BoardSet } from "../components/BoardSet";
 import { BoardSetState } from "../models";
 
 const mapStateToProps = (state: BoardSetState) => {
@@ -26,5 +26,4 @@ const mapDispatchToProps = {
   onChangeReversed: changeReversed,
 };
 
-const BoardSetContainer = connect(mapStateToProps, mapDispatchToProps)(BoardSet);
-export default BoardSetContainer;
+export const BoardSetContainer = connect(mapStateToProps, mapDispatchToProps)(BoardSet);

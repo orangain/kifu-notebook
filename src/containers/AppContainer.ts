@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { requestGetJKF, requestPutJKF, changeAutoSave } from "../actions";
-import App from "../components/App";
+import { App } from "../components/App";
 import { AppState } from "../models";
 
 const mapStateToProps = (state: AppState) => {
@@ -18,5 +18,4 @@ const mapDispatchToProps = {
   onChangeAutoSave: changeAutoSave,
 };
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
-export default AppContainer;
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

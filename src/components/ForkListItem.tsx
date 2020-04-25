@@ -7,12 +7,10 @@ export type ForkListItemProps = {
   onClick: React.MouseEventHandler;
 };
 
-const ForkListItem: React.FC<ForkListItemProps> = ({ childNode, onClick }) => {
+export const ForkListItem: React.FC<ForkListItemProps> = ({ childNode, onClick }) => {
   return (
     <li onClick={onClick} className={childNode.isBad() ? "bad" : ""}>
       {childNode.readableKifu} <span className="comment">{childNode.comment}</span>
     </li>
   );
 };
-
-export default ForkListItem;

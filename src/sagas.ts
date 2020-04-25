@@ -21,10 +21,10 @@ import {
   updateComments,
 } from "./actions";
 import { getAutoSaveNeeded, getKifuTree } from "./selectors";
-import Api from "./api";
+import { Api } from "./api";
 import { KifuTree } from "./models";
 
-export default function* rootSaga() {
+export function* rootSaga() {
   yield all([
     takeLatest(REQUEST_GET_JKF, fetchJKF),
     takeLatest(REQUEST_PUT_JKF, storeJKF),
