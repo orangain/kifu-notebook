@@ -7,12 +7,13 @@ import "./Board.css";
 export type BoardProps = {
   board: IPiece[][];
   lastMovedPlace: IPlaceFormat | undefined;
+  reversed: boolean;
   onInputMove: (move: IMoveMoveFormat) => void;
 };
 
-export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, onInputMove }) => {
+export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, reversed, onInputMove }) => {
   return (
-    <div className="board">
+    <div className={`board ${reversed ? "reversed" : ""}`}>
       {board.map((row, i) =>
         row.map((piece, j) => {
           const x = i + 1;
@@ -25,6 +26,7 @@ export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, onInputMove
               place={{ x, y }}
               piece={piece}
               isActive={isActive}
+              reversed={reversed}
               onInputMove={onInputMove}
             />
           );

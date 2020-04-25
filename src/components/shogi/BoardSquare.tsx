@@ -8,6 +8,7 @@ export type BoardSquareProps = {
   place: IPlaceFormat;
   piece: IPiece;
   isActive: boolean;
+  reversed: boolean;
   onInputMove: (move: IMoveMoveFormat) => void;
 };
 
@@ -15,6 +16,7 @@ export const BoardSquare: React.FC<BoardSquareProps> = ({
   place,
   piece,
   isActive,
+  reversed,
   onInputMove,
 }) => {
   const [, drop] = useDrop({
@@ -31,7 +33,7 @@ export const BoardSquare: React.FC<BoardSquareProps> = ({
   return (
     <div ref={drop} className={`board-square ${isActive ? "active" : ""}`}>
       {piece.kind && piece.color != null && (
-        <Piece place={place} kind={piece.kind} color={piece.color} />
+        <Piece place={place} kind={piece.kind} color={piece.color} reversed={reversed} />
       )}
     </div>
   );

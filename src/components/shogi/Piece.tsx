@@ -3,10 +3,13 @@ import { useDrag } from "react-dnd";
 import { Color } from "shogi.js";
 import { IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
+import { normalizeColor } from "./util";
+
 export type PieceProps = {
   place: IPlaceFormat | undefined;
   color: Color;
   kind: string;
+  reversed: boolean;
 };
 
 export type PieceDragObject = {
@@ -16,7 +19,9 @@ export type PieceDragObject = {
   kind: string;
 };
 
-export const Piece: React.FC<PieceProps> = ({ place, color, kind }) => {
+export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) => {
+  const normalizedColor = normalizeColor(color, reversed);
+
   const item: PieceDragObject = {
     type: "piece",
     color,
@@ -31,7 +36,7 @@ export const Piece: React.FC<PieceProps> = ({ place, color, kind }) => {
     }),
   });
 
-  const imageURL = `/images/shogi-pieces/${color + kind}.svg`;
+  const imageURL = `/images/shogi-pieces/${normalizedColor}${kind}.svg`;
   return (
     <img
       ref={drag}

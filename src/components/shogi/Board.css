@@ -9,6 +9,11 @@
   background-color: #fdd775;
 }
 
+.board.reversed {
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+}
+
 .board-square {
   width: 33px;
   height: 37px;

@@ -40,6 +40,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
                 pieceCounts={shogiState.hands[reversed ? 0 : 1]}
                 playerName={players[reversed ? 0 : 1]}
                 onInputMove={(e) => this.props.onInputMove(e)}
+                reversed={reversed}
               />
               {/* <Hand
                 color={reversed ? 0 : 1}
@@ -66,6 +67,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
                 board={shogiState.board}
                 lastMovedPlace={currentNode.move?.to}
                 onInputMove={(e) => this.props.onInputMove(e)}
+                reversed={reversed}
               />
               {/* <Board
               board={shogiState.board}
@@ -82,6 +84,7 @@ class BoardSet extends Component<BoardSetStateProps & BoardSetDispatchProps, {}>
                 pieceCounts={shogiState.hands[reversed ? 1 : 0]}
                 playerName={players[reversed ? 1 : 0]}
                 onInputMove={(e) => this.props.onInputMove(e)}
+                reversed={reversed}
               />
               {/* <Hand
                 color={reversed ? 1 : 0}
