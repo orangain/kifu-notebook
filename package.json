@@ -14,7 +14,6 @@
     "immutable": "^4.0.0-rc.12",
     "json-kifu-format": "^1.2.1",
     "json-stringify-pretty-compact": "^1.0.3",
-    "kifu-for-js": "github:orangain/Kifu-for-JS#export-components-2020",
     "prettier": "2.0.4",
     "react": "^16.13.1",
     "react-dnd": "^10.0.2",
