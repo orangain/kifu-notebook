@@ -6,11 +6,6 @@
   height: 360px; /* 37px * 9 + 27px */
 }
 
-.board.reversed {
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-}
-
 .header-square {
   width: 21px;
   height: 27px;
