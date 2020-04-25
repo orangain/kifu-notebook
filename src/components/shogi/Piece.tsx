@@ -3,8 +3,6 @@ import { useDrag } from "react-dnd";
 import { Color } from "shogi.js";
 import { IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
-import { normalizeColor } from "./util";
-
 export type PieceProps = {
   place: IPlaceFormat | undefined;
   color: Color;
@@ -46,4 +44,11 @@ export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) =>
       style={{ opacity: isDragging ? 0.5 : 1 }}
     />
   );
+};
+
+const normalizeColor = (color: Color, reversed: boolean): Color => {
+  if (!reversed) {
+    return color;
+  }
+  return (1 - color) as Color;
 };
