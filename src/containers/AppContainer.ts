@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { requestGetJKF, requestPutJKF, changeAutoSave } from "../actions";
-import App from "../components/App";
+import { App } from "../components/App";
 import { AppState } from "../models";
 
 const mapStateToProps = (state: AppState) => {
