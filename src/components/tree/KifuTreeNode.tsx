@@ -1,7 +1,7 @@
 import React from "react";
 import Immutable from "immutable";
 
-import { Path, KifuTreeNode, JumpTarget } from "../../models";
+import { Path, KifuTreeNode } from "../../models";
 import { JumpNode } from "./JumpNode";
 import "./KifuTreeNode.css";
 
@@ -39,7 +39,7 @@ const KifuTreeNodeNotMemoized: React.FC<KifuTreeNodeProps> = ({
         ) : null}
       </div>
       <ul>
-        {kifuTreeNode.children.map((childNode: KifuTreeNode, i: number) => (
+        {kifuTreeNode.children.map((childNode, i) => (
           <KifuTreeNodeComponent
             key={childNode.readableKifu}
             kifuTreeNode={childNode}
@@ -47,7 +47,7 @@ const KifuTreeNodeNotMemoized: React.FC<KifuTreeNodeProps> = ({
             currentPath={currentPath}
           />
         ))}
-        {kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) => (
+        {kifuTreeNode.jumpTargets.map((jumpTarget) => (
           <JumpNode key={"jump-" + jumpTarget.readableKifu} jumpTarget={jumpTarget} />
         ))}
       </ul>

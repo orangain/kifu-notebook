@@ -236,7 +236,7 @@ export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]):
   let currentNode = tree;
   for (let kifu of stringPath) {
     const nextNodeIndex = currentNode.children.findIndex(
-      (childNode: KifuTreeNode): boolean => childNode.readableKifu === kifu
+      (childNode) => childNode.readableKifu === kifu
     );
     if (nextNodeIndex < 0) {
       break; // stop if node is missing (e.g. node is removed)
@@ -252,7 +252,7 @@ export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]):
 
 export function pathToKeyPath(path: Path): (string | number)[] {
   const keyPath: (string | number)[] = [];
-  path.forEach((num: number) => {
+  path.forEach((num) => {
     keyPath.push("children");
     keyPath.push(num);
   });
