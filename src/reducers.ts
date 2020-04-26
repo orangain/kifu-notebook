@@ -103,7 +103,7 @@ export default function kifuNotebookReducer(
           if (lastIndex === 0) {
             return children;
           }
-          const prevNode = children.get(lastIndex - 1);
+          const prevNode = children.get(lastIndex - 1)!;
           return children.delete(lastIndex - 1).insert(lastIndex, prevNode);
         })
       );
@@ -119,7 +119,7 @@ export default function kifuNotebookReducer(
           if (lastIndex === children.size - 1) {
             return children;
           }
-          const targetNode = children.get(lastIndex);
+          const targetNode = children.get(lastIndex)!;
           return children.delete(lastIndex).insert(lastIndex + 1, targetNode);
         })
       );

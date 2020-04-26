@@ -29,10 +29,16 @@ export interface IKifuTree {
 }
 
 export class KifuTree extends Record<IKifuTree>({
-  rootNode: null,
-  baseJKF: null,
+  rootNode: null!,
+  baseJKF: null!,
   currentPath: List<number>(),
 }) {
+  constructor(props: Partial<IKifuTree>) {
+    if (!props.rootNode) throw new Error("KifuTree.rootNode is mandatory");
+    if (!props.baseJKF) throw new Error("KifuTree.baseJKF is mandatory");
+    super(props);
+  }
+
   static fromJKF(jkf: IJSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
     const baseJKF = Object.assign({}, jkf, { moves: [jkf.moves[0]] });
@@ -91,7 +97,7 @@ export class KifuTree extends Record<IKifuTree>({
 
     let newPath = path;
     while (true) {
-      currentNode = currentNode.children.get(0);
+      currentNode = currentNode.children.get(0)!;
       newPath = newPath.concat([0]);
       if (currentNode.children.size !== 1) {
         return newPath;
@@ -131,7 +137,7 @@ export class KifuTree extends Record<IKifuTree>({
     path: Path,
     forkUpdater: (children: List<KifuTreeNode>, lastIndex: number) => List<KifuTreeNode>
   ): KifuTree {
-    const lastIndex = path.get(path.size - 1);
+    const lastIndex = path.get(path.size - 1)!;
     const parentPath = path.slice(0, -1);
     const newKifuTree = this.updateNode(parentPath, (node: KifuTreeNode) => {
       return node.update("children", (children: List<KifuTreeNode>) => {
