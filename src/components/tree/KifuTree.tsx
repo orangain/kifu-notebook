@@ -23,12 +23,14 @@ export const KifuTreeComponent: React.FC<KifuTreeStateProps & KifuTreeDispatchPr
   onClickMoveDownFork,
   onClickRemoveFork,
 }) => {
-  const rootElementRef = useRef<HTMLUListElement>();
+  const rootElementRef = useRef<HTMLUListElement>(null);
   const currentPathString = kifuTree.currentPath.toArray().join("-");
 
   useEffect(() => {
     const rootDOMElement = rootElementRef.current;
+    if (!rootDOMElement) return;
     const currentDOMElement = rootDOMElement.querySelector("span.current");
+    if (!currentDOMElement) return;
 
     const currentElementBoundingRect = currentDOMElement.getBoundingClientRect();
     const needScroll =
@@ -46,7 +48,7 @@ export const KifuTreeComponent: React.FC<KifuTreeStateProps & KifuTreeDispatchPr
     const jsonPath =
       target.dataset.path ||
       (target.parentNode as HTMLElement).dataset.path ||
-      (target.parentNode.parentNode as HTMLElement).dataset.path;
+      ((target.parentNode as HTMLElement).parentNode as HTMLElement).dataset.path;
     if (!jsonPath) {
       return; // do nothing
     }

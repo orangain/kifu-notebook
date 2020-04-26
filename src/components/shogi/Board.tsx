@@ -18,7 +18,11 @@ const kansuuji = ["", "一", "二", "三", "四", "五", "六", "七", "八", "�
 const range = (n: number): number[] => [...Array(n)].map((_, i) => i);
 
 const placeEquals = (a: Place | undefined, b: Place | undefined): boolean => {
-  return (a === undefined && b === undefined) || (a.x === b.x && a.y === b.y);
+  if (!a || !b) {
+    return !a && !b;
+  }
+
+  return a.x === b.x && a.y === b.y;
 };
 
 export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, onInputMove }) => {

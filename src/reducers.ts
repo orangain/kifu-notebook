@@ -32,49 +32,38 @@ export default function kifuNotebookReducer(
 ): KifuNotebookState {
   switch (action.type) {
     case REQUEST_GET_JKF: {
-      return Object.assign({}, state, { message: "Fetching..." });
+      return { ...state, message: "Fetching..." };
     }
     case RECEIVE_GET_JKF: {
       const jkf = action.jkf;
       const kifuTree = KifuTree.fromJKF(jkf);
-
-      return Object.assign({}, state, initialState, {
-        kifuTree: kifuTree,
-        message: "Fetched",
-      });
+      return { ...state, ...initialState, kifuTree, message: "Fetched" };
     }
     case REQUEST_PUT_JKF: {
-      return Object.assign({}, state, {
-        message: "Saving...",
-        needSave: false,
-      });
+      return { ...state, message: "Saving...", needSave: false };
     }
     case RECEIVE_PUT_JKF: {
-      return Object.assign({}, state, { message: "Saved" });
+      return { ...state, message: "Saved" };
     }
     case FAIL_PUT_JKF: {
-      return Object.assign({}, state, { message: "Failed" });
+      return { ...state, message: "Failed" };
     }
     case CLEAR_MESSAGE: {
-      return Object.assign({}, state, { message: "" });
+      return { ...state, message: "" };
     }
     case CHANGE_AUTO_SAVE: {
       const enabled = action.enabled;
-      return Object.assign({}, state, { autoSaveEnabled: enabled });
+      return { ...state, autoSaveEnabled: enabled };
     }
     case MOVE_PIECE: {
       const { kifuTree } = state;
       const move = action.move;
-
-      return Object.assign({}, state, movePiece(kifuTree, move));
+      return { ...state, ...movePiece(kifuTree, move) };
     }
     case GOTO_PATH: {
       const { kifuTree } = state;
       const path = action.path;
-
-      return Object.assign({}, state, {
-        kifuTree: kifuTree.setCurrentPath(path),
-      });
+      return { ...state, kifuTree: kifuTree.setCurrentPath(path) };
     }
     case CHANGE_COMMENTS: {
       const { kifuTree } = state;
@@ -96,45 +85,42 @@ export default function kifuNotebookReducer(
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign(
-        {},
-        state,
-        updateFork(kifuTree, path, (children, lastIndex) => {
+      return {
+        ...state,
+        ...updateFork(kifuTree, path, (children, lastIndex) => {
           if (lastIndex === 0) {
             return children;
           }
-          const prevNode = children.get(lastIndex - 1);
+          const prevNode = children.get(lastIndex - 1)!;
           return children.delete(lastIndex - 1).insert(lastIndex, prevNode);
-        })
-      );
+        }),
+      };
     }
     case MOVE_DOWN_FORK: {
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign(
-        {},
-        state,
-        updateFork(kifuTree, path, (children, lastIndex) => {
+      return {
+        ...state,
+        ...updateFork(kifuTree, path, (children, lastIndex) => {
           if (lastIndex === children.size - 1) {
             return children;
           }
-          const targetNode = children.get(lastIndex);
+          const targetNode = children.get(lastIndex)!;
           return children.delete(lastIndex).insert(lastIndex + 1, targetNode);
-        })
-      );
+        }),
+      };
     }
     case REMOVE_FORK: {
       const { kifuTree } = state;
       const path = action.path;
 
-      return Object.assign(
-        {},
-        state,
-        updateFork(kifuTree, path, (children, lastIndex) => {
+      return {
+        ...state,
+        ...updateFork(kifuTree, path, (children, lastIndex) => {
           return children.delete(lastIndex);
-        })
-      );
+        }),
+      };
     }
     default:
       return state;

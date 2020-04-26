@@ -15,7 +15,7 @@ export type JumpMap = { [sfen: string]: JumpTo[] };
 
 export interface IKifuTreeNode {
   readonly tesuu: number;
-  readonly comment?: string;
+  readonly comment: string;
   readonly move?: IMoveMoveFormat;
   readonly time?: {
     now: ITimeFormat;
@@ -35,10 +35,15 @@ export class KifuTreeNode extends Record<IKifuTreeNode>({
   time: undefined,
   special: undefined,
   readableKifu: "",
-  sfen: undefined,
+  sfen: undefined!,
   children: List(),
   jumpTargets: List(),
 }) {
+  constructor(props: Partial<IKifuTreeNode>) {
+    if (!props.sfen) throw new Error("KifuTreeNode.sfen is mandatory");
+    super(props);
+  }
+
   isBad(): boolean {
     return !!this.comment && this.comment.startsWith("bad:");
   }
@@ -51,10 +56,15 @@ export interface IJumpTarget {
 }
 
 export class JumpTarget extends Record<IJumpTarget>({
-  path: null,
+  path: null!,
   comment: "",
   readableKifu: "",
 }) {
+  constructor(props: Partial<IJumpTarget>) {
+    if (!props.path) throw new Error("JumpTarget.path is mandatory");
+    super(props);
+  }
+
   isBad(): boolean {
     return !!this.comment && this.comment.startsWith("bad:");
   }
@@ -66,9 +76,15 @@ export interface IJumpTo {
 }
 
 export class JumpTo extends Record<IJumpTo>({
-  node: null,
-  path: null,
-}) {}
+  node: null!,
+  path: null!,
+}) {
+  constructor(props: Partial<IJumpTo>) {
+    if (!props.node) throw new Error("IJumpTo.node is mandatory");
+    if (!props.path) throw new Error("IJumpTo.path is mandatory");
+    super(props);
+  }
+}
 
 export function jkfToKifuTree(jkf: IJSONKifuFormat): KifuTreeNode {
   const shogi = new JKFPlayer(jkf).shogi;
@@ -110,7 +126,7 @@ function moveFormatsToForks(moveFormats: IMoveFormat[]): IMoveFormat[][] {
   }
 
   if (moveFormats[1] && moveFormats[1].forks) {
-    forks = forks.concat(moveFormats[1].forks as IMoveFormat[][]);
+    forks = [...forks, ...moveFormats[1].forks];
   }
   return forks;
 }
@@ -130,7 +146,7 @@ export function traverseTree(
     callback(currentNode.node, currentNode.path);
 
     for (let i = currentNode.node.children.size - 1; i >= 0; i--) {
-      const node = currentNode.node.children.get(i);
+      const node = currentNode.node.children.get(i)!;
       const path = currentNode.path.concat(i);
       stack.push({ node, path });
     }
@@ -166,14 +182,14 @@ export function buildJumpMap(rootNode: KifuTreeNode): JumpMap {
 }
 
 export function kifuTreeToJKF(kifuTree: KifuTreeNode, baseJKF: IJSONKifuFormat): IJSONKifuFormat {
-  const firstMove = Object.assign({}, baseJKF.moves[0]);
+  const firstMove = { ...baseJKF.moves[0] };
   firstMove.comments = kifuTree.comment ? kifuTree.comment.split("\n") : undefined;
 
   // key order is important for readability
   const newJKF = {
     header: baseJKF.header,
     initial: baseJKF.initial,
-    moves: [firstMove].concat(nodesToMoveFormats(kifuTree.children.toArray())),
+    moves: [firstMove, ...nodesToMoveFormats(kifuTree.children.toArray())],
   };
   return newJKF;
 }
@@ -197,14 +213,14 @@ function nodesToMoveFormats(nodes: KifuTreeNode[]): IMoveFormat[] {
         : undefined,
   };
 
-  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
+  return [primaryMoveFormat, ...nodesToMoveFormats(primaryNode.children.toArray())];
 }
 
 export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {
   const nodes: KifuTreeNode[] = [];
   let currentNode = tree;
-  path.forEach((num: number) => {
-    currentNode = currentNode.children.get(num);
+  path.forEach((num) => {
+    currentNode = currentNode.children.get(num)!;
     nodes.push(currentNode);
   });
 
@@ -220,12 +236,12 @@ export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]):
   let currentNode = tree;
   for (let kifu of stringPath) {
     const nextNodeIndex = currentNode.children.findIndex(
-      (childNode: KifuTreeNode): boolean => childNode.readableKifu === kifu
+      (childNode) => childNode.readableKifu === kifu
     );
     if (nextNodeIndex < 0) {
       break; // stop if node is missing (e.g. node is removed)
     }
-    const nextNode = currentNode.children.get(nextNodeIndex);
+    const nextNode = currentNode.children.get(nextNodeIndex)!;
 
     path.push(nextNodeIndex);
     currentNode = nextNode;
@@ -236,7 +252,7 @@ export function getPathFromStringPath(tree: KifuTreeNode, stringPath: string[]):
 
 export function pathToKeyPath(path: Path): (string | number)[] {
   const keyPath: (string | number)[] = [];
-  path.forEach((num: number) => {
+  path.forEach((num) => {
     keyPath.push("children");
     keyPath.push(num);
   });
