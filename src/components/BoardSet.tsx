@@ -8,6 +8,7 @@ import { Board } from "./shogi/Board";
 import { Hand } from "./shogi/Hand";
 import { KifuTree, KifuTreeNode } from "../models";
 import "./BoardSet.css";
+import { useShogiBoardSet } from "./shogi/hook";
 
 export interface BoardSetStateProps {
   shogi: Shogi;
@@ -29,22 +30,26 @@ export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
   onInputMove,
   onChangeReversed,
 }) => {
-  const players = [
-    "☗" + (kifuTree.baseJKF.header["先手"] || kifuTree.baseJKF.header["下手"] || "先手"),
-    "☖" + (kifuTree.baseJKF.header["後手"] || kifuTree.baseJKF.header["上手"] || "後手"),
-  ];
+  const {
+    boardProps,
+    handPropsPair: [rightHandProps, leftHandProps],
+  } = useShogiBoardSet({
+    shogi,
+    lastMovedPlace: currentNode.move?.to,
+    playerNames: [
+      "☗" + (kifuTree.baseJKF.header["先手"] || kifuTree.baseJKF.header["下手"] || "先手"),
+      "☖" + (kifuTree.baseJKF.header["後手"] || kifuTree.baseJKF.header["上手"] || "後手"),
+    ],
+    reversed,
+    onInputMove,
+  });
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
         <div className="boardSet">
           <div className="players left">
-            <Hand
-              color={reversed ? 0 : 1}
-              pieceCounts={shogi.getHandsSummary(reversed ? 0 : 1)}
-              playerName={players[reversed ? 0 : 1]}
-              reversed={reversed}
-            />
+            <Hand {...leftHandProps} />
             <div>
               <label>
                 <input
@@ -57,20 +62,10 @@ export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
             </div>
           </div>
           <div className="board">
-            <Board
-              shogi={shogi}
-              lastMovedPlace={currentNode.move?.to}
-              onInputMove={onInputMove}
-              reversed={reversed}
-            />
+            <Board {...boardProps} />
           </div>
           <div className="players right">
-            <Hand
-              color={reversed ? 1 : 0}
-              pieceCounts={shogi.getHandsSummary(reversed ? 1 : 0)}
-              playerName={players[reversed ? 1 : 0]}
-              reversed={reversed}
-            />
+            <Hand {...rightHandProps} />
           </div>
         </div>
       </div>
