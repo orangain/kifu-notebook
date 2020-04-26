@@ -8,7 +8,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "strictNullChecks": false, // TODO: remove
-    "noImplicitAny": false, // TODO: remove
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
