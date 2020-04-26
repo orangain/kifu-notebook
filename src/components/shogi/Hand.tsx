@@ -1,6 +1,6 @@
 import React from "react";
-import { Color } from "shogi.js";
 
+import { Color } from "./types";
 import { Piece } from "./Piece";
 import "./Hand.css";
 

@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
-import { IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
-import { Shogi, IMove } from "shogi.js";
+import { IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { Shogi } from "shogi.js";
 
+import { Place, Move } from "./types";
 import { BoardSquare } from "./BoardSquare";
 import "./Board.css";
 
 export type BoardProps = {
   shogi: Shogi;
-  lastMovedPlace: IPlaceFormat | undefined;
+  lastMovedPlace: Place | undefined;
   reversed: boolean;
   onInputMove: (move: IMoveMoveFormat) => void;
 };
@@ -16,13 +17,13 @@ const kansuuji = ["", "一", "二", "三", "四", "五", "六", "七", "八", "�
 
 const range = (n: number): number[] => [...Array(n)].map((_, i) => i);
 
-const placeEquals = (a: IPlaceFormat | undefined, b: IPlaceFormat | undefined): boolean => {
+const placeEquals = (a: Place | undefined, b: Place | undefined): boolean => {
   return (a === undefined && b === undefined) || (a.x === b.x && a.y === b.y);
 };
 
 export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, onInputMove }) => {
   const isValidMove = useCallback(
-    (move: IMove): boolean => {
+    (move: Move): boolean => {
       if (shogi.turn !== move.color) {
         return false;
       }
@@ -39,6 +40,18 @@ export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, o
       }
     },
     [shogi]
+  );
+
+  const onMovePiece = useCallback(
+    (move: Move) => {
+      onInputMove({
+        color: move.color,
+        piece: move.kind,
+        from: move.from,
+        to: move.to,
+      });
+    },
+    [onInputMove]
   );
 
   const board = shogi.board;
@@ -77,7 +90,7 @@ export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, o
                 isActive={isActive}
                 reversed={reversed}
                 isValidMove={isValidMove}
-                onInputMove={onInputMove}
+                onMovePiece={onMovePiece}
               />
             );
           }),
