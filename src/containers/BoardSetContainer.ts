@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Shogi } from "shogi.js";
 
-import { inputMove, changeReversed } from "../actions";
+import { inputMove } from "../actions";
 import { BoardSet } from "../components/BoardSet";
 import { BoardSetState } from "../models";
 
@@ -14,14 +14,12 @@ const mapStateToProps = (state: BoardSetState) => {
   return {
     shogi,
     kifuTree: state.kifuTree,
-    reversed: state.reversed,
     currentNode: currentNode,
   };
 };
 
 const mapDispatchToProps = {
   onInputMove: inputMove,
-  onChangeReversed: changeReversed,
 };
 
 export const BoardSetContainer = connect(mapStateToProps, mapDispatchToProps)(BoardSet);

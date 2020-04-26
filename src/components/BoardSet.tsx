@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { Shogi } from "shogi.js";
@@ -13,23 +13,20 @@ import { useShogiBoardSet } from "./shogi/hook";
 export interface BoardSetStateProps {
   shogi: Shogi;
   kifuTree: KifuTree;
-  reversed: boolean;
   currentNode: KifuTreeNode;
 }
 
 export interface BoardSetDispatchProps {
   onInputMove: (move: IMoveMoveFormat) => void;
-  onChangeReversed: (reversed: boolean) => void;
 }
 
 export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
   shogi,
   kifuTree,
-  reversed,
   currentNode,
   onInputMove,
-  onChangeReversed,
 }) => {
+  const [reversed, setReversed] = useState(false);
   const {
     boardProps,
     handPropsPair: [rightHandProps, leftHandProps],
@@ -55,7 +52,7 @@ export const BoardSet: React.FC<BoardSetStateProps & BoardSetDispatchProps> = ({
                 <input
                   type="checkbox"
                   checked={reversed}
-                  onChange={(e) => onChangeReversed(e.target.checked)}
+                  onChange={(e) => setReversed(e.target.checked)}
                 />
                 盤面反転
               </label>
