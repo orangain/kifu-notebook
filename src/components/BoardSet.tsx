@@ -4,11 +4,9 @@ import HTML5Backend from "react-dnd-html5-backend";
 import { Shogi } from "shogi.js";
 import { IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
 
-import { Board } from "./shogi/Board";
-import { Hand } from "./shogi/Hand";
+import { useShogiBoardSet, Board, Hand } from "./shogi";
 import { KifuTree, KifuTreeNode } from "../models";
 import "./BoardSet.css";
-import { useShogiBoardSet } from "./shogi/hook";
 
 export interface BoardSetStateProps {
   shogi: Shogi;
