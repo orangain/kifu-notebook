@@ -161,9 +161,10 @@ export class KifuTree extends Record<IKifuTree>({
     }
 
     // 2. Make player then input move
-    const minimalMoveFormats = [{}].concat(
-      this.getNodesOnPath(this.currentPath).map((node) => ({ move: node.move }))
-    );
+    const minimalMoveFormats = [
+      {},
+      ...this.getNodesOnPath(this.currentPath).map((node) => ({ move: node.move })),
+    ];
     const minimalJKF = { ...this.baseJKF, moves: minimalMoveFormats };
     const player = new JKFPlayer(minimalJKF);
     player.goto(minimalMoveFormats.length);
@@ -210,7 +211,7 @@ export class KifuTree extends Record<IKifuTree>({
           });
 
           if (!Immutable.is(node.jumpTargets, jumpTargets)) {
-            rootNode.setIn(pathToKeyPath(path).concat("jumpTargets"), jumpTargets);
+            rootNode.setIn([...pathToKeyPath(path), "jumpTargets"], jumpTargets);
           }
         });
       })

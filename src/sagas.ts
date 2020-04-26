@@ -56,7 +56,7 @@ export function takeLatestWithCancel(
         continue;
       }
 
-      lastTask = yield fork(saga, ...args.concat(action));
+      lastTask = yield fork(saga, ...args, action);
     }
   });
 }

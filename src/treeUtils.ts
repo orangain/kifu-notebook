@@ -126,7 +126,7 @@ function moveFormatsToForks(moveFormats: IMoveFormat[]): IMoveFormat[][] {
   }
 
   if (moveFormats[1] && moveFormats[1].forks) {
-    forks = forks.concat(moveFormats[1].forks as IMoveFormat[][]);
+    forks = [...forks, ...moveFormats[1].forks];
   }
   return forks;
 }
@@ -189,7 +189,7 @@ export function kifuTreeToJKF(kifuTree: KifuTreeNode, baseJKF: IJSONKifuFormat):
   const newJKF = {
     header: baseJKF.header,
     initial: baseJKF.initial,
-    moves: [firstMove].concat(nodesToMoveFormats(kifuTree.children.toArray())),
+    moves: [firstMove, ...nodesToMoveFormats(kifuTree.children.toArray())],
   };
   return newJKF;
 }
@@ -213,7 +213,7 @@ function nodesToMoveFormats(nodes: KifuTreeNode[]): IMoveFormat[] {
         : undefined,
   };
 
-  return [primaryMoveFormat].concat(nodesToMoveFormats(primaryNode.children.toArray()));
+  return [primaryMoveFormat, ...nodesToMoveFormats(primaryNode.children.toArray())];
 }
 
 export function getNodesOnPath(tree: KifuTreeNode, path: Path): KifuTreeNode[] {

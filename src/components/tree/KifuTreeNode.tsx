@@ -39,20 +39,17 @@ const KifuTreeNodeNotMemoized: React.FC<KifuTreeNodeProps> = ({
         ) : null}
       </div>
       <ul>
-        {kifuTreeNode.children
-          .map((childNode: KifuTreeNode, i: number) => (
-            <KifuTreeNodeComponent
-              key={childNode.readableKifu}
-              kifuTreeNode={childNode}
-              path={path.concat([i])}
-              currentPath={currentPath}
-            />
-          ))
-          .concat(
-            kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) => (
-              <JumpNode key={"jump-" + jumpTarget.readableKifu} jumpTarget={jumpTarget} />
-            ))
-          )}
+        {kifuTreeNode.children.map((childNode: KifuTreeNode, i: number) => (
+          <KifuTreeNodeComponent
+            key={childNode.readableKifu}
+            kifuTreeNode={childNode}
+            path={path.concat([i])}
+            currentPath={currentPath}
+          />
+        ))}
+        {kifuTreeNode.jumpTargets.map((jumpTarget: JumpTarget) => (
+          <JumpNode key={"jump-" + jumpTarget.readableKifu} jumpTarget={jumpTarget} />
+        ))}
       </ul>
     </li>
   );
