@@ -1,12 +1,14 @@
-import React from "react";
-import { IPiece, IPlaceFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import React, { useCallback } from "react";
+import { IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { Shogi } from "shogi.js";
 
+import { Place, Move } from "./types";
 import { BoardSquare } from "./BoardSquare";
 import "./Board.css";
 
 export type BoardProps = {
-  board: IPiece[][];
-  lastMovedPlace: IPlaceFormat | undefined;
+  shogi: Shogi;
+  lastMovedPlace: Place | undefined;
   reversed: boolean;
   onInputMove: (move: IMoveMoveFormat) => void;
 };
@@ -15,7 +17,45 @@ const kansuuji = ["", "一", "二", "三", "四", "五", "六", "七", "八", "�
 
 const range = (n: number): number[] => [...Array(n)].map((_, i) => i);
 
-export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, reversed, onInputMove }) => {
+const placeEquals = (a: Place | undefined, b: Place | undefined): boolean => {
+  return (a === undefined && b === undefined) || (a.x === b.x && a.y === b.y);
+};
+
+export const Board: React.FC<BoardProps> = ({ shogi, lastMovedPlace, reversed, onInputMove }) => {
+  const isValidMove = useCallback(
+    (move: Move): boolean => {
+      if (shogi.turn !== move.color) {
+        return false;
+      }
+
+      if (move.from) {
+        const moves = shogi.getMovesFrom(move.from.x, move.from.y);
+        return moves.some((m) => placeEquals(m.from, move.from) && placeEquals(m.to, move.to));
+      } else {
+        const moves = shogi.getDropsBy(move.color);
+        return moves.some(
+          (m) =>
+            m.kind === move.kind && placeEquals(m.from, move.from) && placeEquals(m.to, move.to)
+        );
+      }
+    },
+    [shogi]
+  );
+
+  const onMovePiece = useCallback(
+    (move: Move) => {
+      onInputMove({
+        color: move.color,
+        piece: move.kind,
+        from: move.from,
+        to: move.to,
+      });
+    },
+    [onInputMove]
+  );
+
+  const board = shogi.board;
+
   return (
     <div className={`board ${reversed ? "reversed" : ""}`}>
       <div key="origin" className="header-square" />
@@ -49,7 +89,8 @@ export const Board: React.FC<BoardProps> = ({ board, lastMovedPlace, reversed, o
                 piece={piece}
                 isActive={isActive}
                 reversed={reversed}
-                onInputMove={onInputMove}
+                isValidMove={isValidMove}
+                onMovePiece={onMovePiece}
               />
             );
           }),

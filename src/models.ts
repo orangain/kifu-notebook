@@ -228,7 +228,6 @@ export interface AppState {
 
 export interface BoardSetState {
   kifuTree: KifuTree;
-  reversed: boolean;
 }
 
 export interface CurrentNodeState {

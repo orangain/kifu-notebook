@@ -1,15 +1,17 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { IPlaceFormat, IPiece, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { Piece } from "shogi.js";
 
-import { Piece, PieceDragObject } from "./Piece";
+import { Place, Move } from "./types";
+import { Piece as PieceComponent, PieceDragObject } from "./Piece";
 
 export type BoardSquareProps = {
-  place: IPlaceFormat;
-  piece: IPiece;
+  place: Place;
+  piece: Piece | null;
   isActive: boolean;
   reversed: boolean;
-  onInputMove: (move: IMoveMoveFormat) => void;
+  isValidMove: (move: Move) => boolean;
+  onMovePiece: (move: Move) => void;
 };
 
 export const BoardSquare: React.FC<BoardSquareProps> = ({
@@ -17,23 +19,31 @@ export const BoardSquare: React.FC<BoardSquareProps> = ({
   piece,
   isActive,
   reversed,
-  onInputMove,
+  isValidMove,
+  onMovePiece,
 }) => {
   const [, drop] = useDrop({
     accept: "piece",
-    canDrop: () => true,
-    drop: (item: PieceDragObject) =>
-      onInputMove({
+    canDrop: (item: PieceDragObject) =>
+      isValidMove({
         color: item.color,
         from: item.from,
         to: place,
-        piece: item.kind,
+        kind: item.kind,
+      }),
+    drop: (item: PieceDragObject) =>
+      onMovePiece({
+        color: item.color,
+        from: item.from,
+        to: place,
+        kind: item.kind,
       }),
   });
   return (
     <div ref={drop} className={`board-square ${isActive ? "active" : ""}`}>
-      {piece.kind && piece.color != null && (
-        <Piece place={place} kind={piece.kind} color={piece.color} reversed={reversed} />
+      {/* Unlike JKF, piece is null when there is no piece in square */}
+      {piece && (
+        <PieceComponent color={piece.color} kind={piece.kind} place={place} reversed={reversed} />
       )}
     </div>
   );

@@ -37,7 +37,12 @@ export function* rootSaga() {
   ]);
 }
 
-export function takeLatestWithCancel(pattern: string, cancelPattern: string, saga, ...args) {
+export function takeLatestWithCancel(
+  pattern: string,
+  cancelPattern: string,
+  saga: (...args: any[]) => any,
+  ...args: any[]
+) {
   return fork(function* () {
     let lastTask;
     while (true) {

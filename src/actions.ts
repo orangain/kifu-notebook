@@ -12,7 +12,6 @@ export const CHANGE_AUTO_SAVE = "CHANGE_AUTO_SAVE";
 export const MOVE_PIECE = "MOVE_PIECE";
 export const CHANGE_COMMENTS = "CHANGE_COMMENTS";
 export const UPDATE_COMMENTS = "UPDATE_COMMENTS";
-export const CHANGE_REVERSED = "CHANGE_REVERSED";
 
 export const GOTO_PATH = "GOTO_PATH";
 export const MOVE_UP_FORK = "MOVE_UP_FORK";
@@ -58,10 +57,6 @@ export function changeComments(value: string) {
 
 export function updateComments() {
   return { type: UPDATE_COMMENTS };
-}
-
-export function changeReversed(value: boolean) {
-  return { type: CHANGE_REVERSED, value: value };
 }
 
 export function gotoPath(path: Path) {

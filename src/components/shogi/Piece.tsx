@@ -1,20 +1,20 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import { Color } from "shogi.js";
-import { IPlaceFormat } from "json-kifu-format/dist/src/Formats";
+
+import { Color, Place } from "./types";
 
 export type PieceProps = {
-  place: IPlaceFormat | undefined;
   color: Color;
   kind: string;
+  place: Place | undefined;
   reversed: boolean;
 };
 
 export type PieceDragObject = {
   type: "piece";
-  from: IPlaceFormat | undefined;
   color: Color;
   kind: string;
+  from: Place | undefined;
 };
 
 export const Piece: React.FC<PieceProps> = ({ place, color, kind, reversed }) => {

@@ -12,7 +12,6 @@ import {
   MOVE_PIECE,
   CHANGE_COMMENTS,
   UPDATE_COMMENTS,
-  CHANGE_REVERSED,
   GOTO_PATH,
   MOVE_UP_FORK,
   MOVE_DOWN_FORK,
@@ -22,7 +21,6 @@ import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
 
 const initialState: KifuNotebookState = {
   kifuTree: KifuTree.fromJKF({ header: {}, moves: [{}] }),
-  reversed: false,
   message: "",
   autoSaveEnabled: false,
   needSave: false,
@@ -93,10 +91,6 @@ export default function kifuNotebookReducer(
     }
     case UPDATE_COMMENTS: {
       return { ...state, needSave: true };
-    }
-    case CHANGE_REVERSED: {
-      const value = action.value;
-      return Object.assign({}, state, { reversed: value });
     }
     case MOVE_UP_FORK: {
       const { kifuTree } = state;

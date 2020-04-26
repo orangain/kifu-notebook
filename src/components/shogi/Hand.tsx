@@ -1,7 +1,6 @@
 import React from "react";
-import { IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
-import { Color } from "shogi.js";
 
+import { Color } from "./types";
 import { Piece } from "./Piece";
 import "./Hand.css";
 
@@ -10,7 +9,6 @@ export type HandProps = {
   pieceCounts: { [index: string]: number };
   playerName: string;
   reversed: boolean;
-  onInputMove: (move: IMoveMoveFormat) => void;
 };
 
 const pieceKinds = ["HI", "KA", "KI", "GI", "KE", "KY", "FU"];
