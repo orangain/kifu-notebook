@@ -41,7 +41,7 @@ export class KifuTree extends Record<IKifuTree>({
 
   static fromJKF(jkf: IJSONKifuFormat): KifuTree {
     const rootNode = jkfToKifuTree(jkf);
-    const baseJKF = Object.assign({}, jkf, { moves: [jkf.moves[0]] });
+    const baseJKF = { ...jkf, moves: [jkf.moves[0]] };
     return new KifuTree({ rootNode, baseJKF }).maintainJumpTargets();
   }
 
@@ -164,9 +164,7 @@ export class KifuTree extends Record<IKifuTree>({
     const minimalMoveFormats = [{}].concat(
       this.getNodesOnPath(this.currentPath).map((node) => ({ move: node.move }))
     );
-    const minimalJKF = Object.assign({}, this.baseJKF, {
-      moves: minimalMoveFormats,
-    });
+    const minimalJKF = { ...this.baseJKF, moves: minimalMoveFormats };
     const player = new JKFPlayer(minimalJKF);
     player.goto(minimalMoveFormats.length);
 

@@ -182,7 +182,7 @@ export function buildJumpMap(rootNode: KifuTreeNode): JumpMap {
 }
 
 export function kifuTreeToJKF(kifuTree: KifuTreeNode, baseJKF: IJSONKifuFormat): IJSONKifuFormat {
-  const firstMove = Object.assign({}, baseJKF.moves[0]);
+  const firstMove = { ...baseJKF.moves[0] };
   firstMove.comments = kifuTree.comment ? kifuTree.comment.split("\n") : undefined;
 
   // key order is important for readability
