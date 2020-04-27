@@ -1,6 +1,6 @@
 import Immutable, { Record, List } from "immutable";
 import { JKFPlayer } from "json-kifu-format";
-import { IJSONKifuFormat, IMoveMoveFormat } from "json-kifu-format/dist/src/Formats";
+import { IJSONKifuFormat, IMoveMoveFormat, IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
 import {
   KifuTreeNode,
@@ -150,8 +150,8 @@ export class KifuTree extends Record<IKifuTree>({
     // 1. Compare with existing nodes
     const currentNode = this.getCurrentNode();
     const childIndex = currentNode.children.findIndex((childNode) =>
-      (JKFPlayer as any).sameMoveMinimal(childNode.move, move)
-    ); // TODO: Calling private method
+      isSameMove(childNode.move!, move)
+    );
     if (childIndex >= 0) {
       return this.setCurrentPath(this.currentPath.concat([childIndex])); // Proceed to existing node
     }
@@ -215,6 +215,22 @@ export class KifuTree extends Record<IKifuTree>({
     console.log(`maintainJumpTargets: ${end.getTime() - begin.getTime()}ms`);
     return newKifuTree;
   }
+}
+
+function isSameMove(a: IMoveMoveFormat, b: IMoveMoveFormat): boolean {
+  if (a.from && b.from) {
+    // Compare moves
+    return isSamePlace(a.to!, b.to!) && isSamePlace(a.from, b.from) && a.promote === b.promote;
+  } else if (!a.from && !b.from) {
+    // Compare drops
+    return isSamePlace(a.to!, b.to!) && a.piece === b.piece;
+  } else {
+    return false;
+  }
+}
+
+function isSamePlace(a: IPlaceFormat, b: IPlaceFormat): boolean {
+  return a.x === b.x && a.y === b.y;
 }
 
 export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
