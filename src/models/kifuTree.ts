@@ -100,16 +100,17 @@ export class KifuTree extends Record<IKifuTree>({
     }
   }
 
-  updateNode(
-    path: Path,
-    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode,
-    skipMaintainJumpTargets = false // TODO: Change method or detect automatically
-  ): KifuTree {
+  updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode): KifuTree {
     const keyPath = pathToKeyPath(path);
-    const newRootNode = this.rootNode.updateIn(keyPath, (node) => nodeUpdater(node));
+    let childrenUpdated = false;
+    const newRootNode = this.rootNode.updateIn(keyPath, (node) => {
+      const updatedNode = nodeUpdater(node);
+      childrenUpdated = node.children !== updatedNode.children;
+      return updatedNode;
+    });
     const newTree = this.set("rootNode", newRootNode);
 
-    return skipMaintainJumpTargets ? newTree : newTree.maintainJumpTargets();
+    return childrenUpdated ? newTree.maintainJumpTargets() : newTree;
   }
 
   updateFork(
@@ -132,13 +133,9 @@ export class KifuTree extends Record<IKifuTree>({
   ): KifuTree {
     const lastIndex = path.get(path.size - 1)!;
     const parentPath = path.slice(0, -1);
-    const newKifuTree = this.updateNode(parentPath, (node) =>
+    return this.updateNode(parentPath, (node) =>
       node.update("children", (children) => forkUpdater(children, lastIndex))
     );
-    if (newKifuTree === this) {
-      return this; // no change
-    }
-    return newKifuTree.maintainJumpTargets();
   }
 
   movePiece(move: IMoveMoveFormat): KifuTree | false {
@@ -171,9 +168,7 @@ export class KifuTree extends Record<IKifuTree>({
       return node.update("children", (children) => {
         return children.push(newNode);
       });
-    })
-      .maintainJumpTargets()
-      .setCurrentPath(this.currentPath.concat([currentNode.children.size]));
+    }).setCurrentPath(this.currentPath.concat([currentNode.children.size]));
   }
 
   private maintainJumpTargets(): KifuTree {

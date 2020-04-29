@@ -70,13 +70,9 @@ export default function kifuNotebookReducer(
       const { kifuTree } = state;
       const value = action.value;
 
-      const newKifuTree = kifuTree.updateNode(
-        kifuTree.currentPath,
-        (node: KifuTreeNode) => {
-          return node.set("comment", value);
-        },
-        true
-      );
+      const newKifuTree = kifuTree.updateNode(kifuTree.currentPath, (node) => {
+        return node.set("comment", value);
+      });
       return { ...state, kifuTree: newKifuTree };
     }
     case UPDATE_COMMENTS: {
