@@ -3,7 +3,7 @@ import { Shogi } from "shogi.js";
 
 import { inputMove } from "../actions";
 import { BoardSet } from "../components/BoardSet";
-import { BoardSetState } from "../models";
+import { BoardSetState } from "../store";
 
 const mapStateToProps = (state: BoardSetState) => {
   //console.log(state);

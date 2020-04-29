@@ -17,7 +17,8 @@ import {
   MOVE_DOWN_FORK,
   REMOVE_FORK,
 } from "./actions";
-import { KifuNotebookState, KifuTree, KifuTreeNode, Path } from "./models";
+import { KifuNotebookState } from "./store";
+import { KifuTree, KifuTreeNode, Path } from "./models";
 
 const initialState: KifuNotebookState = {
   kifuTree: KifuTree.fromJKF({ header: {}, moves: [{}] }),

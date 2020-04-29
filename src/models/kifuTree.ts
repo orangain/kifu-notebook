@@ -2,25 +2,20 @@ import Immutable, { Record, List } from "immutable";
 import { JKFPlayer } from "json-kifu-format";
 import { IJSONKifuFormat, IMoveMoveFormat, IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
+import { KifuTreeNode } from "./kifuTreeNode";
+import { JumpTarget } from "./jumpTarget";
+import { Path } from "./path";
 import {
-  KifuTreeNode,
-  JumpTo,
-  JumpTarget,
-  jkfToKifuTree,
-  kifuTreeToJKF,
-  pathToKeyPath,
   findNodeByPath,
   getNodesOnPath,
+  pathToKeyPath,
   getStringPathFromPath,
   getPathFromStringPath,
-  createKifuTreeNode,
   buildJumpMap,
   traverseTree,
-} from "./treeUtils";
-
-export type Path = List<number>;
-
-export { KifuTreeNode, JumpTo, JumpTarget }; // for convenience
+} from "./utils/treeUtils";
+import { jkfToKifuTree, createKifuTreeNode } from "./utils/treeBuilder";
+import { kifuTreeToJKF } from "./utils/treeSerializer";
 
 export interface IKifuTree {
   readonly rootNode: KifuTreeNode;
@@ -231,24 +226,4 @@ function isSameMove(a: IMoveMoveFormat, b: IMoveMoveFormat): boolean {
 
 function isSamePlace(a: IPlaceFormat, b: IPlaceFormat): boolean {
   return a.x === b.x && a.y === b.y;
-}
-
-export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
-
-export interface AppState {
-  message: string;
-  autoSaveEnabled: boolean;
-  needSave: boolean;
-}
-
-export interface BoardSetState {
-  kifuTree: KifuTree;
-}
-
-export interface CurrentNodeState {
-  kifuTree: KifuTree;
-}
-
-export interface KifuTreeState {
-  kifuTree: KifuTree;
 }
