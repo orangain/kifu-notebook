@@ -4,7 +4,7 @@ import { IJSONKifuFormat, IMoveMoveFormat, IPlaceFormat } from "json-kifu-format
 
 import { KifuTreeNode } from "./kifuTreeNode";
 import { JumpTarget } from "./jumpTarget";
-import { Path } from "./path";
+import { Path } from "./types";
 import {
   findNodeByPath,
   getNodesOnPath,

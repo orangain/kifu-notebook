@@ -1,6 +1,6 @@
 import { Record } from "immutable";
 
-import { Path } from "./path";
+import { Path } from "./types";
 
 export interface IJumpTarget {
   readonly path: Path;

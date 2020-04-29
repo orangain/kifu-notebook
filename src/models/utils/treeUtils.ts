@@ -1,6 +1,6 @@
 import { List } from "immutable";
 
-import { Path } from "../path";
+import { Path } from "../types";
 import { KifuTreeNode } from "../kifuTreeNode";
 import { JumpTo, JumpMap } from "../jumpTo";
 

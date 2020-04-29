@@ -1,8 +1,8 @@
 import { Record } from "immutable";
 
-import { Path } from "./path";
+import { Path } from "./types";
 import { KifuTreeNode } from "./kifuTreeNode";
-import { SFEN } from "./sfen";
+import { SFEN } from "./types";
 
 export type JumpMap = { [sfen in SFEN]: JumpTo[] };
 

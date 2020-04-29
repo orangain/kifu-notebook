@@ -2,7 +2,7 @@ import { List, Record } from "immutable";
 import { IMoveMoveFormat, ITimeFormat } from "json-kifu-format/dist/src/Formats";
 
 import { JumpTarget } from "./jumpTarget";
-import { SFEN } from "./sfen";
+import { SFEN } from "./types";
 
 export interface IKifuTreeNode {
   readonly tesuu: number;
