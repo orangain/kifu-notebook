@@ -1,4 +1,5 @@
-import { KifuNotebookState, KifuTree } from "./models";
+import { KifuNotebookState } from "./store";
+import { KifuTree } from "./models";
 
 export const getAutoSaveNeeded = (state: KifuNotebookState): boolean =>
   state.autoSaveEnabled && state.needSave;

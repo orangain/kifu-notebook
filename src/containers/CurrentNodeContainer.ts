@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { changeComments, gotoPath, updateComments } from "../actions";
 import { CurrentNode } from "../components/CurrentNode";
-import { CurrentNodeState } from "../models";
+import { CurrentNodeState } from "../store";
 
 const mapStateToProps = (state: CurrentNodeState) => {
   return {

@@ -2,25 +2,20 @@ import Immutable, { Record, List } from "immutable";
 import { JKFPlayer } from "json-kifu-format";
 import { IJSONKifuFormat, IMoveMoveFormat, IPlaceFormat } from "json-kifu-format/dist/src/Formats";
 
+import { KifuTreeNode } from "./kifuTreeNode";
+import { JumpTarget } from "./jumpTarget";
+import { Path } from "./types";
 import {
-  KifuTreeNode,
-  JumpTo,
-  JumpTarget,
-  jkfToKifuTree,
-  kifuTreeToJKF,
-  pathToKeyPath,
   findNodeByPath,
   getNodesOnPath,
+  pathToKeyPath,
   getStringPathFromPath,
   getPathFromStringPath,
-  createKifuTreeNode,
   buildJumpMap,
   traverseTree,
-} from "./treeUtils";
-
-export type Path = List<number>;
-
-export { KifuTreeNode, JumpTo, JumpTarget }; // for convenience
+} from "./utils/treeUtils";
+import { jkfToKifuTree, createKifuTreeNode } from "./utils/treeBuilder";
+import { kifuTreeToJKF } from "./utils/treeSerializer";
 
 export interface IKifuTree {
   readonly rootNode: KifuTreeNode;
@@ -105,16 +100,17 @@ export class KifuTree extends Record<IKifuTree>({
     }
   }
 
-  updateNode(
-    path: Path,
-    nodeUpdater: (node: KifuTreeNode) => KifuTreeNode,
-    skipMaintainJumpTargets = false // TODO: Change method or detect automatically
-  ): KifuTree {
+  updateNode(path: Path, nodeUpdater: (node: KifuTreeNode) => KifuTreeNode): KifuTree {
     const keyPath = pathToKeyPath(path);
-    const newRootNode = this.rootNode.updateIn(keyPath, (node) => nodeUpdater(node));
+    let childrenUpdated = false;
+    const newRootNode = this.rootNode.updateIn(keyPath, (node) => {
+      const updatedNode = nodeUpdater(node);
+      childrenUpdated = node.children !== updatedNode.children;
+      return updatedNode;
+    });
     const newTree = this.set("rootNode", newRootNode);
 
-    return skipMaintainJumpTargets ? newTree : newTree.maintainJumpTargets();
+    return childrenUpdated ? newTree.maintainJumpTargets() : newTree;
   }
 
   updateFork(
@@ -137,13 +133,9 @@ export class KifuTree extends Record<IKifuTree>({
   ): KifuTree {
     const lastIndex = path.get(path.size - 1)!;
     const parentPath = path.slice(0, -1);
-    const newKifuTree = this.updateNode(parentPath, (node) =>
+    return this.updateNode(parentPath, (node) =>
       node.update("children", (children) => forkUpdater(children, lastIndex))
     );
-    if (newKifuTree === this) {
-      return this; // no change
-    }
-    return newKifuTree.maintainJumpTargets();
   }
 
   movePiece(move: IMoveMoveFormat): KifuTree | false {
@@ -176,9 +168,7 @@ export class KifuTree extends Record<IKifuTree>({
       return node.update("children", (children) => {
         return children.push(newNode);
       });
-    })
-      .maintainJumpTargets()
-      .setCurrentPath(this.currentPath.concat([currentNode.children.size]));
+    }).setCurrentPath(this.currentPath.concat([currentNode.children.size]));
   }
 
   private maintainJumpTargets(): KifuTree {
@@ -231,24 +221,4 @@ function isSameMove(a: IMoveMoveFormat, b: IMoveMoveFormat): boolean {
 
 function isSamePlace(a: IPlaceFormat, b: IPlaceFormat): boolean {
   return a.x === b.x && a.y === b.y;
-}
-
-export type KifuNotebookState = AppState & BoardSetState & CurrentNodeState & KifuTreeState;
-
-export interface AppState {
-  message: string;
-  autoSaveEnabled: boolean;
-  needSave: boolean;
-}
-
-export interface BoardSetState {
-  kifuTree: KifuTree;
-}
-
-export interface CurrentNodeState {
-  kifuTree: KifuTree;
-}
-
-export interface KifuTreeState {
-  kifuTree: KifuTree;
 }
